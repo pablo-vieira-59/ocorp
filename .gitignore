@@ -1,0 +1,4 @@
+app-marketplace/marketplace-backend/App.Backend/bin
+app-marketplace/marketplace-backend/App.Backend/obj
+
+app-marketplace/marketplace-frontend/node_modules
