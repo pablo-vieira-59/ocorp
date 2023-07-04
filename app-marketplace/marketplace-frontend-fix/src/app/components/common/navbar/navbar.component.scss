@@ -1,0 +1,46 @@
+.nav {
+    min-width: 300px;
+}
+
+.nav ul {
+    padding: 0px;
+    margin: 0px;
+    flex-direction: column;
+}
+
+.nav-button {
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.nav-button:hover {
+    background-color: #3a618d;
+}
+
+.nav-button-sub {
+    background-color: #172738;
+    color: white;
+    padding: 10px;
+}
+
+.nav-button-sub:hover {
+    background-color: #3a618d;
+}
+
+.input-icon-ip {
+    border-radius: 10px 0px 0px 10px;
+    border-width: 1px 0px 1px 1px;
+    border-style: solid;
+    height: 37px;
+}
+
+.input-icon-i {
+    height: 37px;
+    padding: 0px;
+    margin-right: 10px;
+    border-width: 1px 1px 1px 0px;
+    border-style: solid;
+    border-radius: 0px 8px 8px 0px;
+    color: white;
+}

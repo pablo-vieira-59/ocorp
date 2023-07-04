@@ -1,0 +1,152 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Cadastrar Usuario</h4>
+    <button type="button" class="btn-close" aria-describedby="modal-title" (click)="Close()"></button>
+</div>
+
+
+<div class="modal-body" *ngIf="!loading">
+    <div class="row">
+        <app-progress-bar [steps]="steps" [currentIdx]="currentStep" [enableStepChange]="false"
+            (OnStepChange)="ChangeStep($event)"></app-progress-bar>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col">
+            <div *ngIf="currentStep == 0">
+                <div class="row mt-2">
+                    <div class="col">
+                        <label for="name" class="required">Nome</label>
+                        <input id="name" [(ngModel)]="data.name" type="text" class="form-control"
+                            placeholder="Digite seu nome ..." (change)="ValidateField($event)">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col">
+                        <label for="documentNumber" class="required">CPF</label>
+                        <input id="documentNumber" [(ngModel)]="data.documentNumber" [mask]="'000.000.000-00'"
+                            type="text" class="form-control" placeholder="Digite seu cpf ..."
+                            (change)="ValidateField($event)">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col">
+                        <label for="phoneNumber" class="required">Numero de Celular</label>
+                        <input id="phoneNumber" [(ngModel)]="data.phoneNumber" [mask]="'(00) 00000-0000'" type="text"
+                            class="form-control" placeholder="Digite seu numero..." (change)="ValidateField($event)">
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="currentStep == 1">
+                <div class="row mt-2">
+                    <div class="col">
+                        <label for="email" class="required">E-Mail</label>
+                        <input id="email" [(ngModel)]="data.email" type="text" class="form-control"
+                            placeholder="Digite seu e-mail ..." (change)="ValidateField($event)">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col">
+                        <label for="reg-password" class="required">Senha</label>
+                        <input id="reg-password" [(ngModel)]="data.password" type="password"
+                            class="form-control" placeholder="Digite sua senha ..." (change)="ValidateField($event)">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col">
+                        <label for="confirmPassword" class="required">Confirmar Senha</label>
+                        <input id="confirmPassword" [(ngModel)]="confirmPassword" type="password"
+                            class="form-control" placeholder="Digite sua senha ..." (change)="ValidateField($event)">
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="currentStep == 2">
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <label for="zipCode" class="required">CEP</label>
+                        <input id="zipCode" [(ngModel)]="data.zipCode" [mask]="'00000-000'"
+                            (change)="GetAddress(data.zipCode)" type="text" class="form-control"
+                            placeholder="Digite seu cep..." (change)="ValidateField($event)">
+                    </div>
+
+                    <div class="col-6">
+                        <label for="number" class="required">Numero</label>
+                        <input id="number" [(ngModel)]="data.number" type="number" class="form-control"
+                            placeholder="Digite o numero do endereço..." (change)="ValidateField($event)">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col">
+                        <label for="addressName" class="required">Endereço</label>
+                        <input id="addressName" [(ngModel)]="data.addressName" type="text" class="form-control"
+                            placeholder="Digite o endereço..." (change)="ValidateField($event)">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col">
+                        <label for="city" class="required">Cidade</label>
+                        <input id="city" [(ngModel)]="data.city" type="text" class="form-control"
+                            placeholder="Digite a cidade..." (change)="ValidateField($event)">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <label for="state" class="required">Estado</label>
+                        <input id="state" [(ngModel)]="data.state" type="text" class="form-control"
+                            placeholder="Digite o estado..." (change)="ValidateField($event)">
+                    </div>
+
+                    <div class="col-6">
+                        <label for="neighborhood" class="required">Bairro</label>
+                        <input id="neighborhood" [(ngModel)]="data.neighborhood" type="text" class="form-control"
+                            placeholder="Digite o bairro..." (change)="ValidateField($event)">
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+            <!-- <div *ngIf="currentStep ==2">
+                <div class="row mt-2">
+                    <div class="col">
+                        <div class="form-check">
+                            <input [(ngModel)]="data.hasAddress"  type="checkbox" class="form-check-input" id="saveLater">
+                            <label class="form-check-label" for="saveLater">Cadastrar depois</label>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+
+        </div>
+    </div>
+
+
+</div>
+
+<div class="modal-body" *ngIf="loading">
+    <div class="row">
+        <app-spinner-black></app-spinner-black>
+    </div>
+</div>
+
+
+<div class="modal-footer">
+    <button type="button" (click)="Close()" class="btn btn-outline-danger">Cancelar</button>
+    <button *ngIf="currentStep > 0" type="button" (click)="PreviousStep()"
+        class="btn btn-outline-primary">Voltar</button>
+    <button *ngIf="currentStep == 0" type="button" [disabled]="!IsStepValid(0)" (click)="NextStep()" class="btn btn-primary">Continuar</button>
+    <button *ngIf="currentStep == 1" type="button" [disabled]="!IsStepValid(1)" (click)="NextStep()" class="btn btn-primary">Continuar</button>
+    <button *ngIf="currentStep == 2" type="button" [disabled]="!IsStepValid(2)" class="btn btn-success text-light" (click)="Submit()">Cadastrar</button>
+</div>

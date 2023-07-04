@@ -1,0 +1,131 @@
+<div class="flex-column">
+
+    <div class="row" style="font-size: 2em;">
+        <div class="col">
+            <i class="bi bi-person-fill"></i>
+            Usuários
+        </div>
+        <div class="col p-0 text-end">
+            <!-- <button type="button" class="btn btn-outline-primary" (click)="Modal_Register()">
+                Adicionar <i class="bi bi-plus-lg"></i>
+            </button> -->
+        </div>
+    </div>
+
+    <!-- SearchFields -->
+    <app-searchfield (OnFilter)="LoadTableData()">
+        <div class="col-4 mt-2">
+            <app-basefield [fieldType]="0" [items]="ddl_profile_options" label="Perfil"
+                placeholder="Selecione um Perfil ..." notFoundText="Nenhum Item Encontrado"
+                [(selected_item)]="searchField_profile_id.value">
+            </app-basefield>
+        </div>
+        <div class="col-4 mt-2">
+            <app-basefield [fieldType]="2" label="Nome"
+                placeholder="Digite um nome ..."
+                [(text_value)]="searchField_name.value">
+            </app-basefield>
+        </div>
+        <div class="col-4 mt-2">
+            <app-basefield [fieldType]="2" label="Numero de documento"
+                placeholder="Digite um numero ..."
+                [(text_value)]="searchField_document.value"
+                [mask]="'000.000.000-00'">
+            </app-basefield>
+        </div>
+        <div class="col-4 mt-2">
+            <app-basefield [fieldType]="2" label="Email"
+                placeholder="Digite um e-mail ..."
+                [(text_value)]="searchField_email.value">
+            </app-basefield>
+        </div>
+        <div class="col-4 mt-2">
+            <app-basefield [fieldType]="2" label="Telefone"
+                placeholder="Digite um telefone ..."
+                [(text_value)]="searchField_phoneNumber.value"
+                mask="(00) 00000-0000">
+            </app-basefield>
+        </div>
+    </app-searchfield>
+
+    <!-- Spinner -->
+    <div class="row" *ngIf="isLoading">
+        <app-spinner-black></app-spinner-black>
+    </div>
+
+    <!-- Mensagem de não encontrado -->
+    <div class="row text-center bg-white-d py-4 mt-3" *ngIf="users.length == 0 && !isLoading">
+        <h5>Nenhum resultado encontrado.</h5>
+    </div>
+
+    <!-- Tabela -->
+    <div class="row mt-3" *ngIf="users.length > 0 && !isLoading">
+        <table class="table table-striped table-bordered m-0 bg-white tb-custom">
+
+            <thead class="bg-white-dd text-primary">
+                <tr>
+                    <th class="text-center" style="width: 5%;">#</th>
+                    <th class="text-center" style="width: 15%;">Nome</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center" style="width: 15%;">Telefone</th>
+                    <th class="text-center" style="width: 15%;">Documento</th>
+                    <th class="text-center" style="width: 10%;">Perfil</th>
+                    <th class="text-center" style="width: 10%;">Status</th>
+                    <th class="text-center" style="width: 2%;">Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let user of users">
+
+                    <td class="text-center">
+                        <b>{{user.id}}</b>
+                    </td>
+
+                    <td class="text-left tb-overflow-text">
+                        {{user.name}}
+                    </td>
+
+                    <td class="text-left tb-overflow-text">
+                        {{user.email}}
+                    </td>
+
+                    <td class="text-center tb-overflow-text">
+                        {{user.phoneNumber | mask : '(00) 00000-0000'}}
+                    </td>
+
+                    <td class="text-center tb-overflow-text">
+                        {{user.documentNumber | mask : '000.000.000-00'}}
+                    </td>
+
+                    <td class="text-center tb-overflow-text">
+                        <span [ngClass]="{'bg-danger':user.profileId == 1, 'bg-warning':user.profileId == 2, 'bg-secondary':user.profileId == 3, 'bg-success':user.profileId == 4}"  
+                        class="badge"><small>{{user.profile.name}}</small></span>
+                    </td>
+
+                    <td class="text-center tb-overflow-text">
+                        <span class="badge bg-success"><small>Ativo</small></span>
+                    </td>
+
+                    <td class="text-center">
+                        <div ngbDropdown placement="bottom-right">
+                            <button class="btn-transparent" id="action" ngbDropdownToggle>
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+
+                            <div ngbDropdownMenu="action">
+                                <button ngbDropdownItem type="button" (click)="Modal_Edit(user.id)">
+                                    <i class="bi bi-pencil-square me-2"></i>Editar
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Paginação -->
+    <app-pagination [totalItems]="totalItems" (OnPageChange)="ChangePage($event)" (OnMaxItensChange)="ChangePageSize($event)"></app-pagination>
+</div>

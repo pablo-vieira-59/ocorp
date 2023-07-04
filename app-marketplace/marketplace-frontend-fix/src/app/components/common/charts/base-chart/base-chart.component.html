@@ -1,0 +1,31 @@
+<style>
+    .chart{
+        max-height: 300px;
+        height: 100%;
+    }
+
+
+</style>
+
+<div class="card shadow rounded p-3 bg-white-d chart">
+    <div class="row">
+        <div class="col-12">
+            <label class="ms-2 text-muted fs-5 text-truncate" style="max-width: 100%;">
+                {{title}}
+            </label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <canvas class="m-auto w-100"  style="max-height: 240px;"
+                baseChart
+                [legend]="legend"
+                [type]="chart_type" 
+                [data]="chart_data" 
+                [options]="chart_options" 
+                >
+            </canvas>
+        </div>
+    </div>
+</div>

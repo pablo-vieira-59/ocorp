@@ -1,0 +1,74 @@
+<div *ngIf="HasPermission(5)" class="nav" style="min-height:100%;">
+    <ul class="row bg-primary-d rounded-5 m-2 sdw">
+        <div class="col">
+            <li class="row" style="width: 270px;">
+                <div class="col-12 mt-4">
+                    <div class="row">
+                        <div class="col-2">
+                            &nbsp;
+                        </div>
+                        <div class="col-8 rounded-circle text-center bg-secondary" style="min-height: 170px;">
+                            <i class="text-light bi bi-person-fill" style="line-height: 170px; font-size: 5em;"></i>
+                        </div>
+                        <div class="col-2">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-12 text-muted text-center">
+                    Usuario@email.com
+                </div> -->
+            </li>
+
+            <!-- <li class="row mt-4 form-inline">
+                <div class="col-9" style="padding: 0px; margin-left: 10px;">
+                    <input type="text" class="form-control text-light input-icon-ip bg-primary-dd border-primary"
+                        placeholder="Pesquisar ..." id="search">
+                </div>
+                <button for="search" class="col text-light bg-primary input-icon-i border-primary">
+                    <i class="bi bi-search" style="line-height: 38px;"></i>
+                </button>
+            </li> -->
+
+            <li *ngIf="HasPermission(1)" class="row nav-button" (click)="GotoRoute('/users')">
+                <div class="col-2" style="text-align:right;"><i class="bi bi-person-fill"></i></div>
+                <div class="col-10">Usuarios</div>
+            </li>
+
+            <li *ngIf="HasPermission(2)" class="row nav-button" (click)="GotoRoute('/permissions')">
+                <div class="col-2" style="text-align:right;"><i class="bi bi-lock-fill"></i></div>
+                <div class="col-10">Permissões</div>
+            </li>
+
+            <li *ngIf="HasPermission(3)" class="row nav-button" (click)="GotoRoute('/profiles')">
+                <div class="col-2" style="text-align:right;"><i class="bi bi-person-vcard-fill"></i></div>
+                <div class="col-10">Perfis</div>
+            </li>
+
+            <li *ngIf="HasPermission(6)" class="row nav-button" (click)="GotoRoute('/establishments')">
+                <div class="col-2" style="text-align:right;"><i class="bi bi-building-fill"></i></div>
+                <div class="col-10">Estabelecimentos</div>
+            </li>
+
+            <!-- <li *ngIf="HasPermission(1)" class="row nav-button" (click)="GotoRoute('/products')">
+                <div class="col-2" style="text-align:right;"><i class="bi bi-basket-fill"></i></div>
+                <div class="col-10">Produtos</div>
+            </li> -->
+
+            <li *ngIf="HasPermission(7)" class="row nav-button" (click)="GotoRoute('/dashboard')">
+                <div class="col-2" style="text-align:right;"><i class="bi bi-bar-chart-line"></i></div>
+                <div class="col-10">Dashboard</div>
+            </li>
+
+            <li class="row nav-button" (click)="Button_Logout()">
+                <div class="col-2" style="text-align:right;"><i class="bi bi-box-arrow-left"></i></div>
+                <div class="col-10">Logout</div>
+            </li>
+
+        </div>
+
+        <div class="text-muted text-center bg-primary-dd p-0 mb-5">
+            <h6 class="my-auto p-2">Ambiente : {{ambient}}</h6>
+        </div>
+    </ul>
+</div>
