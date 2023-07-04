@@ -4,6 +4,7 @@ using Backend.Application.Services.Interfaces;
 using Backend.Infrastructure.Repository.Interfaces;
 using Backend.Domain.DTO;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace Backend.Application.Services
 {
@@ -47,6 +48,34 @@ namespace Backend.Application.Services
             };
 
             return new OkServiceResult<PaginatedResult<Establishment>>(result);
+        }
+    
+        public async Task<ServiceResult<bool>> AddEstablishment(CreateEstablishmentDTO establishmentDTO)
+        {
+            var query = await _establishmentRepository.GetByCNPJ(establishmentDTO.DocumentNumber);
+
+            var establishment = await query.Select(x => new Establishment { Id = x.Id }).FirstOrDefaultAsync();
+
+            if(establishment != null)
+            {
+                return new FailServiceResultStruct<bool>("CNPJ já cadastrado.");
+            }
+
+            var newEstablishment = new Establishment
+            {
+                CorporateName = establishmentDTO.CorporateName,
+                FantasyName = establishmentDTO.FantasyName,
+                CreatedAt = DateTime.Now,
+                DocumentNumber = establishmentDTO.DocumentNumber,
+                Email = establishmentDTO.Email,
+                EstablishmentStatusId = (int)EstablishmentStatusEnum.Active,
+                PhoneNumber = establishmentDTO.PhoneNumber,
+                Url = establishmentDTO.Url
+            };
+
+            await this._establishmentRepository.AddAsync(newEstablishment);
+
+            return new OkServiceResultStruct<bool>(true);
         }
     }
 }

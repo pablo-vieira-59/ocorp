@@ -9,5 +9,6 @@ namespace Backend.Infrastructure.Repository.Interfaces
 {
     public interface IEstablishmentRepository : IBaseRepository<Establishment>
     {
+        public Task<IQueryable<Establishment>> GetByCNPJ(string cnpj);
     }
 }

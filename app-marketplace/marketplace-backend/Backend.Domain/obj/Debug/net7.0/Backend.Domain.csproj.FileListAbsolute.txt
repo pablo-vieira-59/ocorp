@@ -34,3 +34,15 @@ C:\Users\HomeServer\Documents\ProjetosComputacao\CSharp\Projeto\Backend.Domain\o
 C:\Users\HomeServer\Documents\ProjetosComputacao\CSharp\Projeto\Backend.Domain\obj\Debug\net7.0\refint\Backend.Domain.dll
 C:\Users\HomeServer\Documents\ProjetosComputacao\CSharp\Projeto\Backend.Domain\obj\Debug\net7.0\Backend.Domain.pdb
 C:\Users\HomeServer\Documents\ProjetosComputacao\CSharp\Projeto\Backend.Domain\obj\Debug\net7.0\ref\Backend.Domain.dll
+C:\Users\HomeServer\Documents\ProjetosComputacao\ocorp\app-marketplace\marketplace-backend\Backend.Domain\bin\Debug\net7.0\Backend.Domain.deps.json
+C:\Users\HomeServer\Documents\ProjetosComputacao\ocorp\app-marketplace\marketplace-backend\Backend.Domain\bin\Debug\net7.0\Backend.Domain.dll
+C:\Users\HomeServer\Documents\ProjetosComputacao\ocorp\app-marketplace\marketplace-backend\Backend.Domain\bin\Debug\net7.0\Backend.Domain.pdb
+C:\Users\HomeServer\Documents\ProjetosComputacao\ocorp\app-marketplace\marketplace-backend\Backend.Domain\obj\Debug\net7.0\Backend.Domain.csproj.AssemblyReference.cache
+C:\Users\HomeServer\Documents\ProjetosComputacao\ocorp\app-marketplace\marketplace-backend\Backend.Domain\obj\Debug\net7.0\Backend.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HomeServer\Documents\ProjetosComputacao\ocorp\app-marketplace\marketplace-backend\Backend.Domain\obj\Debug\net7.0\Backend.Domain.AssemblyInfoInputs.cache
+C:\Users\HomeServer\Documents\ProjetosComputacao\ocorp\app-marketplace\marketplace-backend\Backend.Domain\obj\Debug\net7.0\Backend.Domain.AssemblyInfo.cs
+C:\Users\HomeServer\Documents\ProjetosComputacao\ocorp\app-marketplace\marketplace-backend\Backend.Domain\obj\Debug\net7.0\Backend.Domain.csproj.CoreCompileInputs.cache
+C:\Users\HomeServer\Documents\ProjetosComputacao\ocorp\app-marketplace\marketplace-backend\Backend.Domain\obj\Debug\net7.0\Backend.Domain.dll
+C:\Users\HomeServer\Documents\ProjetosComputacao\ocorp\app-marketplace\marketplace-backend\Backend.Domain\obj\Debug\net7.0\refint\Backend.Domain.dll
+C:\Users\HomeServer\Documents\ProjetosComputacao\ocorp\app-marketplace\marketplace-backend\Backend.Domain\obj\Debug\net7.0\Backend.Domain.pdb
+C:\Users\HomeServer\Documents\ProjetosComputacao\ocorp\app-marketplace\marketplace-backend\Backend.Domain\obj\Debug\net7.0\ref\Backend.Domain.dll

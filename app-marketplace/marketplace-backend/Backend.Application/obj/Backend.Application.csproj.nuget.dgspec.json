@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Application\\Backend.Application.csproj": {}
+    "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Application\\Backend.Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Application\\Backend.Application.csproj": {
+    "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Application\\Backend.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Application\\Backend.Application.csproj",
+        "projectUniqueName": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Application\\Backend.Application.csproj",
         "projectName": "Backend.Application",
-        "projectPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Application\\Backend.Application.csproj",
+        "projectPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Application\\Backend.Application.csproj",
         "packagesPath": "C:\\Users\\HomeServer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Application\\obj\\",
+        "outputPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HomeServer\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,11 +28,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Domain\\Backend.Domain.csproj": {
-                "projectPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Domain\\Backend.Domain.csproj"
+              "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Domain\\Backend.Domain.csproj": {
+                "projectPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Domain\\Backend.Domain.csproj"
               },
-              "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Infrastructure\\Backend.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Infrastructure\\Backend.Infrastructure.csproj"
+              "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Infrastructure\\Backend.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Infrastructure\\Backend.Infrastructure.csproj"
               }
             }
           }
@@ -66,14 +66,14 @@
         }
       }
     },
-    "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Domain\\Backend.Domain.csproj": {
+    "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Domain\\Backend.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Domain\\Backend.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Domain\\Backend.Domain.csproj",
         "projectName": "Backend.Domain",
-        "projectPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Domain\\Backend.Domain.csproj",
+        "projectPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Domain\\Backend.Domain.csproj",
         "packagesPath": "C:\\Users\\HomeServer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Domain\\obj\\",
+        "outputPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HomeServer\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -127,14 +127,14 @@
         }
       }
     },
-    "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Infrastructure\\Backend.Infrastructure.csproj": {
+    "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Infrastructure\\Backend.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Infrastructure\\Backend.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Infrastructure\\Backend.Infrastructure.csproj",
         "projectName": "Backend.Infrastructure",
-        "projectPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Infrastructure\\Backend.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Infrastructure\\Backend.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\HomeServer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HomeServer\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -151,8 +151,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Domain\\Backend.Domain.csproj": {
-                "projectPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Domain\\Backend.Domain.csproj"
+              "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Domain\\Backend.Domain.csproj": {
+                "projectPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Domain\\Backend.Domain.csproj"
               }
             }
           }

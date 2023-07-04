@@ -38,5 +38,24 @@ namespace App.Backend.Livraria.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("add")]
+        public async Task<IActionResult> AddEstablishment([FromBody] CreateEstablishmentDTO establishment)
+        {
+            try
+            {
+                var result = await _establishmentService.AddEstablishment(establishment);
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+                return Ok(result.Value);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"UserController - AllDetails - {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

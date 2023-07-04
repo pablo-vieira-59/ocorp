@@ -12,7 +12,7 @@ namespace Backend.Domain.Models
         public string DocumentNumber { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public string Url { get; set; }
+        public string? Url { get; set; }
         public DateTime CreatedAt { get; set; }
 
         public virtual EstablishmentStatus EstablishmentStatus { get; set; }

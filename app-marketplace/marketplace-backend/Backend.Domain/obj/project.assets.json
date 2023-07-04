@@ -523,11 +523,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Domain\\Backend.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Domain\\Backend.Domain.csproj",
       "projectName": "Backend.Domain",
-      "projectPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Domain\\Backend.Domain.csproj",
+      "projectPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Domain\\Backend.Domain.csproj",
       "packagesPath": "C:\\Users\\HomeServer\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Domain\\obj\\",
+      "outputPath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HomeServer\\AppData\\Roaming\\NuGet\\NuGet.Config",

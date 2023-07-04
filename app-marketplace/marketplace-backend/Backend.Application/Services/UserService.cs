@@ -220,7 +220,7 @@ namespace Backend.Application.Services
                 {
                     AddressName = request.AddressName,
                     City = request.City,
-                    Country = request.Country,
+                    Country = "Brasil",
                     Neighborhood = request.Neighborhood,
                     Number = request.Number.ToString(),
                     State = request.State,

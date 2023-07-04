@@ -7,5 +7,7 @@ namespace Backend.Application.Services.Interfaces
     public interface IEstablishmentService
     {
         Task<ServiceResult<PaginatedResult<Establishment>>> AllDetails(FilterDTO filter);
+
+        Task<ServiceResult<bool>> AddEstablishment(CreateEstablishmentDTO establishmentDTO);
     }
 }

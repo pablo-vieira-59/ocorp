@@ -17,8 +17,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<Backend.Infrastructure.Context.AppContext>(options =>
 {
     var configBuilder = new ConfigurationBuilder()
-        .SetBasePath(System.AppContext.BaseDirectory)
-        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+    .AddJsonFile("appsettings.json", optional: true)
+    .AddEnvironmentVariables();
 
     IConfigurationRoot configuration = configBuilder.Build();
     options.UseNpgsql(configuration.GetConnectionString("DB"));

@@ -19,7 +19,6 @@ namespace Backend.Domain.DTO
         public string Neighborhood { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public string Country { get; set; }
         public long ZipCode { get; set; }
         public bool HasAddress { get; set; }
     }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bYwar8VXivtj1Keb6jP0+nxrFvCyYTbYaU0S4OFoDQtN6DPqrQKQpYsMUfWGiSW7W7nXJGNXfwC2t59+2wWQVQ==",
+  "dgSpecHash": "nahpeehVcoeqrmjOkuUTCkFjtOeVrQ9NCVBc7LZEyfAeZG+gIB/3XmTnIlpxPuJtsJQNJrUQMOT6oqlP9o0paw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\Backend.Domain\\Backend.Domain.csproj",
+  "projectFilePath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\Backend.Domain\\Backend.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HomeServer\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.4\\microsoft.entityframeworkcore.7.0.4.nupkg.sha512",
     "C:\\Users\\HomeServer\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.4\\microsoft.entityframeworkcore.abstractions.7.0.4.nupkg.sha512",

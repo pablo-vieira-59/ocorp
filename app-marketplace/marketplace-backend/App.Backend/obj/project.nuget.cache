@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Gxyr04vK6zF/nlYCNX74+Cfr0VXjtf+Py6MBx5oBclItHh1sFhaQfyFuTIg2w/IqsOxR1jnS5XFG22Yxxh2gNg==",
+  "dgSpecHash": "jexj1S7J4B7TC2TiZcPqlvFHPAFipRVJ9jZC7qN16IPmRHN+OOBzEJNBSPYQmpZOOBE+Z53Ll55NprzhpnyyvQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\CSharp\\Projeto\\App.Backend\\App.Backend.csproj",
+  "projectFilePath": "C:\\Users\\HomeServer\\Documents\\ProjetosComputacao\\ocorp\\app-marketplace\\marketplace-backend\\App.Backend\\App.Backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HomeServer\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\HomeServer\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
