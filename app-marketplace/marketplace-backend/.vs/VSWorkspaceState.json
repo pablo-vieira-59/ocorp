@@ -1,9 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+    "\\App.Backend",
+    "\\App.Backend\\Controllers",
     "\\Backend.Application",
     "\\Backend.Application\\Services"
   ],
-  "SelectedNode": "\\Backend.Application\\Services\\EstablishmentService.cs",
+  "SelectedNode": "\\App.Backend\\Controllers\\EstablishmentController.cs",
   "PreviewInSolutionExplorer": false
 }
