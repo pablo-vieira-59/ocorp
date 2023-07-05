@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
+
 export class NavbarComponent {
   public ambient = "Teste";
 

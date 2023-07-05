@@ -14,5 +14,6 @@ namespace Backend.Infrastructure.Repository.Interfaces
         Task<T> DeleteAsync(T entity);
         IQueryable<T> Get(FilterDTO filter);
         Task<ICollection<T>> AddManyAsync(ICollection<T> entities);
+        IQueryable<T> GetById(long id);
     }
 }

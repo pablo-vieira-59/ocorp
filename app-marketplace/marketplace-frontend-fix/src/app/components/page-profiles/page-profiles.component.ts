@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { lastValueFrom } from 'rxjs';
 import { FilterDto, Paging } from 'src/app/models/DTO/FilterDto';
 import { Profile } from 'src/app/models/Entities/Profile';
 import { ProfileService } from 'src/app/services/profile.service';
+import { ProfileEditModalComponent } from './modals/profile-edit-modal/profile-edit-modal.component';
 
 @Component({
   selector: 'app-page-profiles',
@@ -14,6 +16,8 @@ export class PageProfilesComponent {
   isLoading = false;
   data :Profile[] = [];
   totalItems = 0;
+
+  modalRef?: BsModalRef;
   
   pagination :Paging = {
     page: 1, 
@@ -30,6 +34,7 @@ export class PageProfilesComponent {
   constructor(
     private serviceNotification :ToastrService,
     private serviceProfile :ProfileService,
+    private serviceModal :BsModalService
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -54,7 +59,12 @@ export class PageProfilesComponent {
   }
 
   Modal_Edit(id: number){
-    console.log("Modal_Edit");
+    this.modalRef = this.serviceModal.show(ProfileEditModalComponent,{
+      initialState: {
+        profileId : id
+      },
+      class: "modal-lg modal-dialog-centered"
+    });
   }
 
   async ChangePage(page: number){

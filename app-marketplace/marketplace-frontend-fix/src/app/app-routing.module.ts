@@ -11,14 +11,14 @@ import { PageHomeComponent } from './components/page-home/page-home.component';
 import { PageDashboardComponent } from './components/page-dashboard/page-dashboard.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch:'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: PageLoginComponent },
-  { path: 'users', component: PageUsersComponent , canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Usuarios] } },
+  { path: 'users', component: PageUsersComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Usuarios] } },
   { path: 'profiles', component: PageProfilesComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Perfis] } },
   { path: 'permissions', component: PagePermissionsComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Permissoes] } },
-  { path: 'establishments', component: PageEstablishmentsComponent },
-  { path: 'dashboard', component: PageDashboardComponent },
-  { path: '**', redirectTo: ''}
+  { path: 'establishments', component: PageEstablishmentsComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Estabelecimentos] } },
+  { path: 'dashboard', component: PageDashboardComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Dashboard] } },
+  { path: '**', redirectTo: '/login' }
 ];
 
 @NgModule({

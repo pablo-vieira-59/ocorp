@@ -48,5 +48,23 @@ namespace Backend.Application.Services
 
             return result;
         }
+
+        public async Task<ServiceResult<Profile>> GetById(int profileId)
+        {
+            var profile = await _profileRepository.GetById(profileId).Select(e => new Profile
+            {
+                Id = e.Id,
+                Name = e.Name,
+            }).FirstOrDefaultAsync();
+
+            if(profile == null)
+            {
+                return new FailServiceResult<Profile>("Perfil não encontrado");
+            }
+
+            var result = new OkServiceResult<Profile>(profile);
+
+            return result;
+        }
     }
 }

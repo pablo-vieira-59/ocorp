@@ -45,7 +45,7 @@
                 <div class="col-10">Perfis</div>
             </li>
 
-            <li *ngIf="HasPermission(6)" class="row nav-button" (click)="GotoRoute('/establishments')">
+            <li *ngIf="HasPermission(5)" class="row nav-button" (click)="GotoRoute('/establishments')">
                 <div class="col-2" style="text-align:right;"><i class="bi bi-building-fill"></i></div>
                 <div class="col-10">Estabelecimentos</div>
             </li>
@@ -55,7 +55,7 @@
                 <div class="col-10">Produtos</div>
             </li> -->
 
-            <li *ngIf="HasPermission(7)" class="row nav-button" (click)="GotoRoute('/dashboard')">
+            <li *ngIf="HasPermission(6)" class="row nav-button" (click)="GotoRoute('/dashboard')">
                 <div class="col-2" style="text-align:right;"><i class="bi bi-bar-chart-line"></i></div>
                 <div class="col-10">Dashboard</div>
             </li>

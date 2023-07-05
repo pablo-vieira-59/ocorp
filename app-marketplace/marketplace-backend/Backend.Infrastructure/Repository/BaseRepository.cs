@@ -1,5 +1,6 @@
 ﻿using Backend.Domain.DTO;
 using Backend.Domain.Helpers;
+using Backend.Domain.Models;
 using Backend.Infrastructure.Repository.Interfaces;
 using System.Linq.Dynamic.Core;
 using System.Reflection;
@@ -151,6 +152,18 @@ namespace Backend.Infrastructure.Repository
             }
 
             return query;
+        }
+    
+        public IQueryable<T> GetById(long id)
+        {
+            var filter = new FilterDTO();
+            filter.Paging = null;
+            filter.SearchFields = new List<SearchField>
+            {
+                new SearchField { Property = "Id", Value = id.ToString() }
+            };
+
+            return Get(filter);
         }
     }
     

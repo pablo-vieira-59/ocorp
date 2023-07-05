@@ -7,7 +7,7 @@ export enum PermissionEnum{
     Tela_Usuarios = 1,
     Tela_Permissoes = 2,
     Tela_Perfis = 3,
-    Tela_Status_Usuario = 4,
-    Componente_MenuLateral = 5,
-    Tela_Estabelecimentos = 6,
+    Componente_MenuLateral = 4,
+    Tela_Estabelecimentos = 5,
+    Tela_Dashboard = 6
 }

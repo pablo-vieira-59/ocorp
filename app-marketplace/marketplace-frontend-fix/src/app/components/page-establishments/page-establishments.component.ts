@@ -88,14 +88,6 @@ export class PageEstablishmentsComponent {
   }
 
   Modal_Edit(id: number) {
-    // this.modalRef = this.serviceModal.show(LivroEditarModalComponent,{
-    //   initialState: {
-    //     ddl_editora_options : this.ddl_editora_options,
-    //     ddl_genero_options : this.ddl_genero_options,
-    //     ddl_autores_options : this.ddl_autores_options,
-    //     livro:livro
-    //   },
-    //   class: "modal-lg modal-dialog-centered"
-    // });
+    
   }
 }

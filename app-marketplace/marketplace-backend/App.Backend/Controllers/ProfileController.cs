@@ -78,5 +78,24 @@ namespace App.Backend.Livraria.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("get-by-id/{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            try
+            {
+                var result = await _profileService.GetById(id);
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+                return Ok(result.Value);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"ProfileController - GetById - {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

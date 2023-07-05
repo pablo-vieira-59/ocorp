@@ -82,5 +82,48 @@ namespace App.Backend.Livraria.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("profile/{profileId}")]
+        public async Task<IActionResult> GetByProfile(int profileId)
+        {
+            try
+            {
+                var result = await _permissionService.GetByProfile(profileId);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result.Value);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"PermissionController - GetByProfile - {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [FreeAccess]
+        [HttpPost("profile/edit-permissions")]
+        public async Task<IActionResult> GetByProfile(EditProfilePermissionsRequestDTO request)
+        {
+            try
+            {
+                var result = await _permissionService.EditPermissions(request.ProfileId, request.Permissions);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result.Message);
+                }
+
+                return Ok(result.Value);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"PermissionController - GetByProfile - {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

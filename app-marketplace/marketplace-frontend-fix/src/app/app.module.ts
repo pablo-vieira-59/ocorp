@@ -40,6 +40,7 @@ import { ModalEstablishmentRegisterComponent } from './components/page-establish
 import { PageDashboardComponent } from './components/page-dashboard/page-dashboard.component';
 import { NgChartsModule } from 'ng2-charts';
 import { BaseChartComponent } from './components/common/charts/base-chart/base-chart.component';
+import { ProfileEditModalComponent } from './components/page-profiles/modals/profile-edit-modal/profile-edit-modal.component';
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
@@ -69,6 +70,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     ModalEstablishmentRegisterComponent,
     PageDashboardComponent,
     BaseChartComponent,
+    ProfileEditModalComponent,
   ],
   imports: [
     HttpClientModule,

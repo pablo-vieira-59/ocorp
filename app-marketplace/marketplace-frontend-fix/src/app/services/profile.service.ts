@@ -64,4 +64,20 @@ export class ProfileService {
 
     return data;
   }
+
+  async GetById(profileId :number) : Promise<Profile>{
+    var data :Profile = {} as Profile;
+
+    var request = this.http.get<Profile>(this.base_url + "get-by-id/" + profileId);
+
+    await lastValueFrom(await request)
+    .then((payload) => {
+      data = payload;
+    })
+    .catch((error) => {
+      this.serviceNotification.error("Erro ao carregar dados.");
+    });
+
+    return data;
+  }
 }

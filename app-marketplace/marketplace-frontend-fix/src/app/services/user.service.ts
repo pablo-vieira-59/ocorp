@@ -135,6 +135,7 @@ export class RoleGuard implements CanActivate {
     }
 
     this.notificationService.error("Você não tem permissão para acessar esta página.");
+    this.router.navigate(['/login']);
 
     return false;
   }

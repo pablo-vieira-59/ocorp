@@ -17,8 +17,12 @@ export class PermissionService {
     private serviceNotification :ToastrService,
   ) { }
 
-  async AllDetails(filters :FilterDto){
+  async AllDetails(filters? :FilterDto){
     var data :Permission[] = [];
+
+    if(filters == null || filters == undefined){
+      filters = {} as FilterDto;
+    }
 
     var request = this.http.post<Permission[]>(this.base_url + "all-details", filters);
 
@@ -65,6 +69,22 @@ export class PermissionService {
     return data;
   }
 
+  async GetByProfile(profileId :number){
+    var data :Permission[] = [];
+
+    var request = this.http.get<Permission[]>(this.base_url + "profile/" + profileId);
+
+    await lastValueFrom(await request)
+    .then((payload :Permission[]) => {
+      data = payload;
+    })
+    .catch((error) => {
+      this.serviceNotification.error("Erro ao carregar permissões.");
+    });
+
+    return data;
+  }
+
   async CurrentUserHasPermission(permissions :number[]) :Promise<boolean>{
     var user = localStorage.getItem('guid');
     if (user == null) 
@@ -83,5 +103,26 @@ export class PermissionService {
     }
 
     return false;
+  }
+
+  async EditProfilePermission(profileId :number, permissions :Permission[]){
+    var data = {
+      profileId : profileId,
+      permissions : permissions
+    }
+
+    var result = false;
+
+    var request = this.http.post<boolean>(this.base_url + "profile/edit-permissions", data);
+
+    await lastValueFrom(await request)
+    .then((payload :boolean) => {
+      result = payload;
+    })
+    .catch((error) => {
+      this.serviceNotification.error("Erro ao editar permissões.");
+    });
+
+    return result;
   }
 }

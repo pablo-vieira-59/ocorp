@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Runtime.Serialization;
 
 namespace Backend.Domain.Models
 {
     public class Permission
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public virtual List<Permission_Profile> Permission_Profiles { get; set; }
+        public string? Name { get; set; }
+        public virtual List<Permission_Profile>? Permission_Profiles { get; set; }
 
 
         public class Map : IEntityTypeConfiguration<Permission>
