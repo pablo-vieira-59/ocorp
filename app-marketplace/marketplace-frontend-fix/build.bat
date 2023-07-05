@@ -1,2 +1,4 @@
-docker build -t frontend
-docker run -d -p 4200:4210 --name angular-app Frontend_Project
+docker build -t frontend .
+docker stop Frontend_Project
+docker rm Frontend_Project
+docker run -d -p 4210:4200 --name Frontend_Project frontend
