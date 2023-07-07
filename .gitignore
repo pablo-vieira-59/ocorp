@@ -7,17 +7,3 @@
 /app-marketplace/marketplace-backend/.vs
 /app-marketplace/marketplace-frontend-fix/node_modules
 /app-marketplace/marketplace-frontend-fix/.angular
-
-/app-marketplace/marketplace-backend/App.Backend/obj/Debug/net7.0/App.Backend.csproj.AssemblyReference.cache
-/app-marketplace/marketplace-backend/.vs/Projeto/DesignTimeBuild/.dtbcache.v2
-/app-marketplace/marketplace-backend/.vs/Projeto/v17/.futdcache.v2
-/app-marketplace/marketplace-backend/.vs/Projeto/v17/.suo
-/app-marketplace/marketplace-backend/.vs/ProjectEvaluation/projeto.metadata.v7.bin
-/app-marketplace/marketplace-backend/.vs/ProjectEvaluation/projeto.projects.v7.bin
-/app-marketplace/marketplace-backend/.vs/Projeto/FileContentIndex/53259291-0138-4a84-a19d-0d88c15397d3.vsidx
-/app-marketplace/marketplace-backend/.vs/Projeto/FileContentIndex/c3034e1e-8e43-4f8e-9ebd-81ed0e814c18.vsidx
-/app-marketplace/marketplace-backend/.vs/Projeto/FileContentIndex/f0ae3e8e-03f6-4032-b626-5010af21c53e.vsidx
-/app-marketplace/marketplace-backend/App.Backend/obj/Debug/net7.0/App.Backend.csproj.AssemblyReference.cache
-/app-marketplace/marketplace-backend/App.Backend/obj/Debug/net7.0/App.Backend.csproj.GenerateResource.cache
-/app-marketplace/marketplace-backend/Backend.Application/obj/Debug/net7.0/Backend.Application.csproj.AssemblyReference.cache
-/app-marketplace/marketplace-backend/Backend.Infrastructure/obj/Debug/net7.0/Backend.Infrastructure.csproj.AssemblyReference.cache
