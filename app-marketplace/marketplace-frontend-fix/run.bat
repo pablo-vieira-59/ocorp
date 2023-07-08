@@ -1,1 +1,0 @@
-docker run -d -p 4210:4200 --name Frontend_Project frontend

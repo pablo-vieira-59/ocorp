@@ -1,9 +1,0 @@
-/app-marketplace/marketplace-backend/App.Backend/bin
-/app-marketplace/marketplace-backend/App.Backend/obj
-/app-marketplace/marketplace-backend/Backend.Application/obj
-/app-marketplace/marketplace-backend/Backend.Application/bin
-/app-marketplace/marketplace-backend/Backend.Infrastructure/bin
-/app-marketplace/marketplace-backend/Backend.Infrastructure/obj
-/app-marketplace/marketplace-backend/.vs
-/app-marketplace/marketplace-frontend-fix/node_modules
-/app-marketplace/marketplace-frontend-fix/.angular
