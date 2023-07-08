@@ -1,0 +1,113 @@
+<style>
+    .card:hover{
+        border-color: greenyellow;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-2">
+        &nbsp;
+    </div>
+
+    <div class="col-8">
+        <div class="row">
+            <div class="col-12" >
+                <app-slide-button 
+                span_text="Opening Sales Discount 50%"
+                title_text="Supermarket for fresh grocery"
+                description_text="Introduced a new model for online grocery shopping and convenient home delivery."
+                button_text="Shop now"
+                background_image="../../../../assets/images/slides/slide-1.jpg">
+                </app-slide-button>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-12">
+                <h2>Featured Categories</h2>
+            </div>
+
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-2 mt-3" *ngFor="let product of products">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <img src="./../../../assets/images/products/category-chicken-meat-fish.jpg" class="rounded img-fluid">
+                                <div class="text-truncated text-muted"><b>Produto</b></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-6">
+                <app-slide-button 
+                span_text=""
+                title_text="Fruits & Vegetables"
+                description_text="Get Upto 30% Off"
+                button_text="Shop now"
+                background_image="../../../../assets/images/banners/grocery-banner.png">
+                </app-slide-button>
+            </div>
+
+            <div class="col-6">
+                <app-slide-button 
+                span_text="20% Discount"
+                title_text="Bakery"
+                description_text="20% Off on all items"
+                button_text="Shop now"
+                background_image="../../../../assets/images/banners/grocery-banner-2.jpg">
+                </app-slide-button>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-12">
+                <h2>Popular Products</h2>
+            </div>
+
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-3 mt-3">
+                        <div class="card p-3">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="badge bg-danger">New</span>
+                                </div>
+                            </div>
+            
+                            <div class="row mt-1">
+                                <img src="./../../../assets/images/products/product-img-4.jpg" class="rounded img-fluid">
+                            </div>
+            
+                            <div class="row mt-1">
+                                <label class="col-12 fw-light text-muted">Lays</label>
+                                <label class="col-12 fw-bolder">Onion Flavor Potato</label>
+                            </div>
+            
+                            <div class="row mt-1">
+                                <div class="col-6">
+                                    <label class="">$19.90</label>
+                                    <label class="ms-2 fw-light text-muted text-decoration-line-through">$24.90</label>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <button class="btn btn-primary"><i class="bi bi-plus-circle me-2"></i>Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-2">
+        &nbsp;
+    </div>
+</div>
+
+

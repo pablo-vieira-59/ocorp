@@ -1,0 +1,62 @@
+<style>
+    .btn-pgn{
+        width: 40px;
+        height: 40px;
+        font-size: 12px;
+        font-weight: bolder;
+    }
+</style>
+
+<div class="row align-items-end bg-white-d p-2">
+
+    <div class="col-3 my-auto fs-6">
+        <div class="row">
+            <div class="col-6 my-auto p-0 text-end">
+                <label>Items : &nbsp;</label>
+            </div>
+            <div class="col-6 p-0">
+                <select class="my-auto form-select form-select-sm text-center" style="max-width: 80px;" [(ngModel)]="itemsPerPage_ddl" (change)="DDL_ChangeMaxItens()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+    </div> 
+
+    <div class="col-6 text-center" *ngIf="itemsPerPage!=0">
+        <div>
+            <ng-container *ngIf="page > 1">
+                <button class="btn btn-outline-secondary me-1 btn-pgn" (click)="Button_First()" type="button">
+                    <i class="bi bi-chevron-bar-left"></i>
+                </button>
+                <button class="btn btn-outline-secondary me-1 btn-pgn" (click)="Button_Previous()" type="button">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+            </ng-container>
+            
+
+            <button *ngFor="let pageItem of pageList" 
+                class="btn btn-outline-primary me-1 btn-pgn" 
+                [ngClass]="{'active': pageItem == this.page}" 
+                (click)="Button_Page(pageItem)">
+                    {{pageItem}}
+            </button>
+            
+            <ng-container *ngIf="page != totalPages">
+                <button class="btn btn-outline-secondary me-1 btn-pgn" (click)="Button_Next()" type="button">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+                <button class="btn btn-outline-secondary me-1 btn-pgn" (click)="Button_Last()">
+                    <i class="bi bi-chevron-bar-right"></i>
+                </button>
+            </ng-container>
+        </div>  
+    </div>
+
+    <div class="col-3 text-end my-auto" *ngIf="itemsPerPage!=0">
+        <label><b>Página {{page}} de {{totalPages}}</b></label>
+    </div> 
+
+       
+</div>

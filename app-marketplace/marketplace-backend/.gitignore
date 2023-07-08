@@ -1,0 +1,11 @@
+Backend.Application/bin/
+Backend.Application/obj/
+
+Backend.Infrastructure/bin/
+Backend.Infrastructure/obj/
+
+Backend.Domain/obj/
+Backend.Domain/bin/
+
+App.Backend/bin
+App.Backend/obj

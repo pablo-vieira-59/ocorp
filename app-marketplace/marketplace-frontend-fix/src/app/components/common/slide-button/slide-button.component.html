@@ -1,0 +1,29 @@
+<div class="rounded p-4" [style.background-image]="'url('+background_image+')'"
+    [style.background-size]="'cover'" [style.background-repeat]="'no-repeat'"
+    [style.min-height]="'100%'">
+
+    <div class="row mt-1">
+        <div class="col-2">
+            <span class="badge bg-warning">{{span_text}}</span>
+        </div>
+
+    </div>
+
+    <div class="row mt-1">
+        <div class="col-6" style="font-size: 2em;line-height: 1em;font-weight: bold;">
+            <label>{{title_text}}</label>
+        </div>
+    </div>
+
+    <div class="row mt-1">
+        <div class="col-4 text-secondary" style="font-size: 1em;">
+            <label>{{description_text}}</label>
+        </div>
+    </div>
+
+    <div class="row mt-1">
+        <div class="col-12">
+            <button type="button" class="btn btn-primary">{{button_text}}<i class="ms-2 bi bi-arrow-right-circle"></i></button>
+        </div>
+    </div>
+</div>

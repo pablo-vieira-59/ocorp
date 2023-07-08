@@ -1,0 +1,221 @@
+﻿using Backend.Domain.Helpers;
+using Backend.Domain.Models;
+using Backend.Application.Services.Interfaces;
+using Backend.Infrastructure.Repository.Interfaces;
+using Backend.Domain.DTO;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using Microsoft.EntityFrameworkCore.DynamicLinq;
+using Backend.Domain.Helpers.ServiceResultPattern;
+
+namespace Backend.Application.Services
+{
+    public class UserService : IUserService
+    {
+        IUserRepository _userRepository;
+        IUserAccessRepository _userAccessRepository;
+
+        public UserService(IUserRepository userRepository, IUserAccessRepository userAccessRepository)
+        {
+            _userRepository = userRepository;
+            _userAccessRepository = userAccessRepository;
+        }
+
+        public async Task<ServiceResult<PaginatedResult<User>>> AllDetails(FilterDTO filter)
+        {
+            var users = await _userRepository.Get(filter).Select(e => new User
+            {
+                Id = e.Id,
+                Username = e.Username,
+                Name = e.Name,
+                Email = e.Email,
+                DocumentNumber = e.DocumentNumber,
+                PhoneNumber = e.PhoneNumber,
+                CreatedAt = e.CreatedAt,
+                ProfileId = e.ProfileId,
+                Profile = new Profile { Name = e.Profile.Name },
+            }).ToListAsync();
+
+            var total = users.Count();
+
+            if(filter.Paging != null)
+            {
+                filter.Paging.Page = 0;
+
+                total = await _userRepository.Get(filter).CountAsync();
+            }
+            
+            var result = new PaginatedResult<User>
+            {
+                TotalCount = total,
+                Items = users,
+            };
+
+            return new OkServiceResult<PaginatedResult<User>>(result);
+        }
+
+        public async Task<ServiceResult<LoginReponseDTO>> Login(LoginDTO loginData)
+        {
+            var dbUser = await _userRepository.GetByProperty("Username", loginData.Username)
+                .Include(x => x.UserAccess)
+                .FirstOrDefaultAsync();
+
+            if (dbUser == null)
+            {
+                return new FailServiceResult<LoginReponseDTO>("Usuario não encontrado.");
+            }
+
+            if (dbUser.Password != loginData.Password)
+            {
+                return new FailServiceResult<LoginReponseDTO>("Senha incorreta.");
+            }
+
+            if (dbUser.UserAccess == null)
+            {
+                dbUser.UserAccess = new UserAccess { 
+                    Token = Guid.NewGuid(),
+                    TokenValidUntil = DateTime.UtcNow.AddHours(8),
+                    UserId = dbUser.Id,
+                };
+            }
+            else
+            {
+                dbUser.UserAccess.Token = Guid.NewGuid();
+                dbUser.UserAccess.TokenValidUntil = DateTime.UtcNow.AddHours(8);
+            }
+
+            dbUser.LastLogin = DateTime.UtcNow;
+
+            await _userRepository.UpdateAsync(dbUser);
+
+            dbUser.UserAccess.User = null;
+
+            var tokenJson = JsonSerializer.Serialize(dbUser.UserAccess);
+
+            var tokenCrypt = EncryptionHelper.Encrypt(tokenJson);
+
+            var result = new LoginReponseDTO
+            {
+                Token = tokenCrypt,
+                Guid = dbUser.Guid.ToString(),
+            };
+
+            return new OkServiceResult<LoginReponseDTO>(result);
+        }
+        
+        public async Task<ServiceResult<bool>> IsAuthenticated(long userId, Guid userToken)
+        {
+            var userAccess = await _userAccessRepository.GetByProperty("UserId", userId.ToString()).FirstOrDefaultAsync();
+
+            if (userAccess == null) 
+            {
+                return new FailServiceResultStruct<bool>("Usuário não encontrado.");
+            }
+
+            if (userAccess.Token != userToken)
+            {
+                return new FailServiceResultStruct<bool>("Token inválido.");
+            }
+
+            if(userAccess.TokenValidUntil < DateTime.UtcNow)
+            {
+                return new FailServiceResultStruct<bool>("Token expirado.");
+            }
+
+            return new OkServiceResultStruct<bool>(true);
+        }
+
+        public async Task<ServiceResult<bool>> CreateUserAsync(CreateUserDTO request, User? currentUser)
+        {
+            var hasUser = (await _userRepository.GetByProperty("Username", request.Email).FirstOrDefaultAsync()) != null;
+
+            if (hasUser)
+            {
+                return new FailServiceResultStruct<bool>("Usuario Existente.");
+            }
+
+            hasUser = (await _userRepository.GetByProperty("DocumentNumber", request.DocumentNumber).FirstOrDefaultAsync()) != null;
+
+            if (hasUser)
+            {
+                return new FailServiceResultStruct<bool>("CPF já cadastrado.");
+            }
+
+            var newUser = new User
+            {
+                Username = request.Email,
+                Password = request.Password,
+                Name = request.Name,
+                Email = request.Email,
+                PhoneNumber = request.PhoneNumber,
+                DocumentNumber = request.DocumentNumber,
+                CreatedAt = DateTime.Now,
+                ProfileId = (int)request.Profile,
+                UserStatusId = (int)UserStatusEnum.Active,
+                LastLogin = DateTime.Now,
+                Guid = Guid.NewGuid(),
+            };
+
+            var userAccess = new UserAccess
+            {
+                Token = Guid.NewGuid(),
+                TokenValidUntil = DateTime.Now.AddHours(8),
+            };
+
+            var address = new Address
+            {
+                AddressName = request.AddressName,
+                City = request.City,
+                Country = "Brasil",
+                Neighborhood = request.Neighborhood,
+                Number = request.Number.ToString(),
+                State = request.State,
+                ZipCode = request.ZipCode.ToString(),
+            };
+
+            var addressUser = new Address_User
+            {
+                Address = address,
+                User = newUser
+            };
+
+            newUser.UserAccess = userAccess;
+            newUser.Address_Users = new List<Address_User> { addressUser };
+
+            await _userRepository.AddAsync(newUser);
+
+            return new OkServiceResultStruct<bool>(true);
+        }
+
+        public async Task<ServiceResult<User>> GetDetails(long id)
+        {
+            await Task.CompletedTask;
+            return new FailServiceResult<User>("Não implementado.");
+        }
+
+        public async Task<ServiceResult<User>> GetById(long id)
+        {
+            var query = _userRepository.GetByProperty("Id", id.ToString());
+
+            var result = await query.Select(e => new User
+            {
+                Email = e.Email,
+                CreatedAt = e.CreatedAt,
+                DocumentNumber = e.DocumentNumber,
+                Guid = e.Guid,
+                Id = e.Id,
+                Name = e.Name,
+                LastLogin = e.LastLogin,
+                Password = e.Password,
+                PhoneNumber = e.PhoneNumber,
+                ProfileId = e.ProfileId,
+                Username = e.Username,
+                UserStatusId = e.UserStatusId,
+            }).FirstOrDefaultAsync();
+
+            if (result == null) return new FailServiceResult<User>("Usuario não encontrado.");
+
+            return new OkServiceResult<User>(result);
+        }
+    }
+}
