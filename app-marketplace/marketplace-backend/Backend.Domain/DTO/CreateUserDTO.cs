@@ -21,6 +21,6 @@ namespace Backend.Domain.DTO
         public string State { get; set; }
         public long ZipCode { get; set; }
         public bool HasAddress { get; set; }
-        public ProfileEnum Profile { get; set; }
+        public int ProfileId { get; set; }
     }
 }

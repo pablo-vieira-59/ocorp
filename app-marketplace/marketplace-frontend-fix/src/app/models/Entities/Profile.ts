@@ -6,10 +6,3 @@ export interface Profile{
 
     users :User[];
 }
-
-export enum ProfileEnum{
-    Admin = 1,
-    Manager = 2,
-    Employee = 3,
-    Costumer = 4
-}

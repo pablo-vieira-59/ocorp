@@ -3,7 +3,6 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { ValidatorField } from 'src/app/helpers/formValidations';
-import { ProfileEnum } from 'src/app/models/Entities/Profile';
 import { AddressService } from 'src/app/services/address.services';
 import { UserService } from 'src/app/services/user.service';
 
@@ -33,7 +32,7 @@ export class ModalUserRegisterComponent {
 		city: '',
 		state: '',
 		hasAddress: false,
-		profile: ProfileEnum.Costumer 
+		profile: 4
 	}
 
 	val_required = ["name", "documentNumber", "phoneNumber", "email", "reg-password", "zipCode", "number", "addressName", "neighborhood", "state", "city"];

@@ -150,7 +150,7 @@ namespace Backend.Application.Services
                 PhoneNumber = request.PhoneNumber,
                 DocumentNumber = request.DocumentNumber,
                 CreatedAt = DateTime.Now,
-                ProfileId = (int)request.Profile,
+                ProfileId = request.ProfileId,
                 UserStatusId = (int)UserStatusEnum.Active,
                 LastLogin = DateTime.Now,
                 Guid = Guid.NewGuid(),
