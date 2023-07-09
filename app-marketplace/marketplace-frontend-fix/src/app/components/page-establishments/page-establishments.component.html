@@ -13,32 +13,27 @@
     </div>
 
     <!-- SearchFields -->
-    <app-searchfield (OnFilter)="LoadTableData()">
+    <app-searchfield (OnFilter)="LoadTableData()" (OnClear)="ClearSearch()">
         <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Razão Social"
-                placeholder="Digite um nome ..."
+            <app-basefield [fieldType]="2" label="Razão Social" placeholder="Digite um nome ..."
                 [(text_value)]="searchField_name.value">
             </app-basefield>
         </div>
 
         <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Nome Fantasia"
-                placeholder="Digite um nome ..."
+            <app-basefield [fieldType]="2" label="Nome Fantasia" placeholder="Digite um nome ..."
                 [(text_value)]="searchField_fantasyName.value">
             </app-basefield>
         </div>
 
         <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Numero de documento"
-                placeholder="Digite o cnpj ..."
-                [(text_value)]="searchField_document.value"
-                [mask]="'00.000.000/0000-00'">
+            <app-basefield [fieldType]="2" label="Numero de documento" placeholder="Digite o cnpj ..."
+                [(text_value)]="searchField_document.value" [mask]="'00.000.000/0000-00'">
             </app-basefield>
         </div>
 
         <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Email"
-                placeholder="Digite um e-mail ..."
+            <app-basefield [fieldType]="2" label="Email" placeholder="Digite um e-mail ..."
                 [(text_value)]="searchField_email.value">
             </app-basefield>
         </div>
@@ -49,73 +44,69 @@
         <app-spinner-black></app-spinner-black>
     </div>
 
-    <!-- Mensagem de não encontrado -->
-    <div class="row text-center bg-white-d py-4 mt-3" *ngIf="establishments.length == 0 && !isLoading">
-        <h5>Nenhum resultado encontrado.</h5>
-    </div>
 
-    <!-- Tabela -->
-    <div class="row mt-3" *ngIf="establishments.length > 0 && !isLoading">
-        <table class="table table-striped table-bordered m-0 bg-white tb-custom">
 
-            <thead class="bg-white-dd text-primary">
-                <tr>
-                    <th class="text-center" style="width: 5%;">#</th>
-                    <th class="text-center" style="">Razão Social</th>
-                    <th class="text-center" style="">Nome Fantasia</th>
-                    <th class="text-center" style="width: 15%;">Email</th>
-                    <th class="text-center" style="width: 15%;">CNPJ</th>
-                    <th class="text-center" style="width: 10%;">Status</th>
-                    <th class="text-center" style="width: 2%;">Ações</th>
-                </tr>
-            </thead>
+    <div class="row card mt-2 p-2 ">
+        <div class="col-12">
+            <!-- Mensagem de não encontrado -->
+            <div class="row text-center py-4 mt-3" *ngIf="establishments.length == 0 && !isLoading">
+                <h5>Nenhum resultado encontrado.</h5>
+            </div>
 
-            <tbody>
-                <tr *ngFor="let item of establishments">
+            <!-- Tabela -->
+            <div class="row" *ngIf="establishments.length > 0 && !isLoading">
+                <div class="col-12 p-2 my-1">
+                    <div class="row fs-7 fw-bold text-muted">
+                        <div class="border-end col text-center" style="max-width: 80px;">#</div>
+                        <div class="border-end col text-center text-truncate">Razão Social</div>
+                        <div class="border-end col text-center text-truncate">Nome Fantasia</div>
+                        <div class="border-end col text-center text-truncate">Email</div>
+                        <div class="border-end col text-center text-truncate">CNPJ</div>
+                        <div class="border-end col text-center" style="max-width: 80px;">Status</div>
+                        <div class="col text-center" style="max-width: 80px;">Ações</div>
+                    </div>
+                </div>
 
-                    <td class="text-center">
-                        <b>{{item.id}}</b>
-                    </td>
+                <div *ngFor="let item of establishments" class="col-12 p-2 my-1 bg-primary-www rounded-3" >
+                    <div class="row fs-6">
+                        <div class="border-end col text-center" style="max-width: 80px;"><b>{{item.id}}</b></div>
+                        <div class="border-end col text-truncate">{{item.corporateName}}</div>
+                        <div class="border-end col text-truncate">{{item.fantasyName}}</div>
+                        <div class="border-end col text-truncate">{{item.email}}</div>
+                        <div class="border-end col text-center text-truncate">{{item.documentNumber | mask :'00.000.000/0000-00'}}
+                        </div>
 
-                    <td class="text-left tb-overflow-text">
-                        {{item.corporateName}}
-                    </td>
+                        <div class="border-end col text-center" style="max-width: 80px;">
+                            <span class="badge bg-primary-w">
+                                <small>Ativo</small>
+                            </span>
+                        </div>
 
-                    <td class="text-left tb-overflow-text">
-                        {{item.fantasyName}}
-                    </td>
-
-                    <td class="text-left tb-overflow-text">
-                        {{item.email}}
-                    </td>
-
-                    <td class="text-left tb-overflow-text">
-                        {{item.documentNumber | mask : '00.000.000/0000-00'}}
-                    </td>
-
-                    <td class="text-center tb-overflow-text">
-                        <span class="badge bg-success"><small>Ativo</small></span>
-                    </td>
-
-                    <td class="text-center">
-                        <div ngbDropdown placement="bottom-right">
-                            <button class="btn-transparent" id="action" ngbDropdownToggle>
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-
-                            <div ngbDropdownMenu="action">
-                                <button ngbDropdownItem type="button" (click)="Modal_Edit(item.id)">
-                                    <i class="bi bi-pencil-square me-2"></i>Editar
+                        <div class="col text-center" style="max-width: 80px;">
+                            <div ngbDropdown placement="bottom-right">
+                                <button class="btn-transparent" id="action" ngbDropdownToggle>
+                                    <i class="bi bi-three-dots-vertical"></i>
                                 </button>
+
+                                <div ngbDropdownMenu="action">
+                                    <button ngbDropdownItem type="button" (click)="Modal_Edit(item.id)">
+                                        <i class="bi bi-pencil-square me-2"></i>Editar
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </td>
 
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </div>
+
+         
+            </div>
+
+            <!-- Paginação -->
+            <app-pagination [totalItems]="totalItems" (OnPageChange)="ChangePage($event)"
+                (OnMaxItensChange)="ChangePageSize($event)"></app-pagination>
+        </div>
+
     </div>
 
-    <!-- Paginação -->
-    <app-pagination [totalItems]="totalItems" (OnPageChange)="ChangePage($event)" (OnMaxItensChange)="ChangePageSize($event)"></app-pagination>
 </div>

@@ -90,4 +90,11 @@ export class PageEstablishmentsComponent {
   Modal_Edit(id: number) {
     
   }
+
+  ClearSearch(){
+    this.searchField_document.value = null,
+    this.searchField_email.value = null
+    this.searchField_fantasyName.value = null,
+    this.searchField_name.value = null;
+  }
 }

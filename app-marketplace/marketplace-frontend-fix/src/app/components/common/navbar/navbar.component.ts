@@ -44,13 +44,10 @@ export class NavbarComponent {
         }
         
         this.profiles = (await this.servicePermission.GetByUser(user)).map(e => e.id); 
-    
-        var navStyle = "width: 0px;display: none;"
+
         if(this.HasPermission(PermissionEnum.Componente_MenuLateral)){
-          navStyle = "max-width: 300px;display: block;"
+          //navStyle = "max-width: 300px;display: block;"
         }
-    
-        this.OnNavBarInit.emit(navStyle);
       }
     });
 

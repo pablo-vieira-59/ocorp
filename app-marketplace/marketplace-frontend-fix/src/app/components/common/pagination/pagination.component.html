@@ -7,15 +7,16 @@
     }
 </style>
 
-<div class="row align-items-end bg-white-d p-2">
+<div class="row align-items-end p-2">
 
-    <div class="col-3 my-auto fs-6">
+    <div class="col-3 my-auto fs-6" *ngIf="(totalItems != 0)">
         <div class="row">
             <div class="col-6 my-auto p-0 text-end">
                 <label>Items : &nbsp;</label>
             </div>
             <div class="col-6 p-0">
                 <select class="my-auto form-select form-select-sm text-center" style="max-width: 80px;" [(ngModel)]="itemsPerPage_ddl" (change)="DDL_ChangeMaxItens()">
+                    <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
@@ -43,7 +44,7 @@
                     {{pageItem}}
             </button>
             
-            <ng-container *ngIf="page != totalPages">
+            <ng-container *ngIf="(page != totalPages) && (totalItems != 0)">
                 <button class="btn btn-outline-secondary me-1 btn-pgn" (click)="Button_Next()" type="button">
                     <i class="bi bi-chevron-right"></i>
                 </button>
@@ -54,7 +55,7 @@
         </div>  
     </div>
 
-    <div class="col-3 text-end my-auto" *ngIf="itemsPerPage!=0">
+    <div class="col-3 text-end my-auto" *ngIf="(itemsPerPage!=0) && (totalItems != 0)">
         <label><b>Página {{page}} de {{totalPages}}</b></label>
     </div> 
 

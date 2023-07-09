@@ -134,7 +134,21 @@ export class RoleGuard implements CanActivate {
   async canActivate( next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     var permissions = next.data['permissions'] as PermissionEnum[];
     
-    var hasPermission = await this.permissionService.CurrentUserHasPermission(permissions);
+    var hasPermission = await this.permissionService.CurrentUserHasPermission([PermissionEnum.Componente_MenuLateral]);
+    console.log(hasPermission);
+    var nav = document.getElementById("navbar");
+    if(nav)
+    {
+      if(hasPermission){
+        nav.style.display = "block";
+      }
+      else{
+        nav.style.display = "none";
+      }
+    }
+    
+
+    hasPermission = await this.permissionService.CurrentUserHasPermission(permissions);
 
     if(hasPermission){
       return true;

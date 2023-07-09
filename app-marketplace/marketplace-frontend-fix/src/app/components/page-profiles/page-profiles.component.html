@@ -23,47 +23,50 @@
     </div>
 
     <!-- Tabela -->
-    <div class="row mt-3" *ngIf="data.length > 0 && !isLoading">
-        <table class="table table-striped table-bordered m-0 bg-white tb-custom">
+    <div class="row card mt-2 p-2 ">
+        <div class="col-12">
+            <!-- Mensagem de não encontrado -->
+            <div class="row text-center py-4 mt-3" *ngIf="data.length == 0 && !isLoading">
+                <h5>Nenhum resultado encontrado.</h5>
+            </div>
 
-            <thead class="bg-white-dd text-primary">
-                <tr>
-                    <th class="text-center" style="width: 5%;">#</th>
-                    <th class="text-center" style="">Nome</th>
-                    <th class="text-center" style="width: 5%;">Ações</th>
-                </tr>
-            </thead>
+            <!-- Tabela -->
+            <div class="row" *ngIf="data.length > 0 && !isLoading">
+                <div class="col-12 p-2 my-1">
+                    <div class="row fs-7 fw-bold text-muted">
+                        <div class="border-end col text-center" style="max-width: 80px;">#</div>
+                        <div class="border-end col text-center text-truncate">Nome</div>
+                        <div class="col text-center" style="max-width: 80px;">Ações</div>
+                    </div>
+                </div>
 
-            <tbody>
-                <tr *ngFor="let item of data">
+                <div *ngFor="let item of data" class="col-12 p-2 my-1 bg-primary-www rounded-3" >
+                    <div class="row fs-6">
+                        <div class="border-end col text-center" style="max-width: 80px;"><b>{{item.id}}</b></div>
+                        <div class="border-end col text-truncate">{{item.name}}</div>
 
-                    <td class="text-center">
-                        <b>{{item.id}}</b>
-                    </td>
-
-                    <td class="text-left tb-overflow-text">
-                        {{item.name}}
-                    </td>
-
-                    <td class="text-center">
-                        <div ngbDropdown placement="bottom-right">
-                            <button class="btn-transparent" id="action" ngbDropdownToggle>
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-
-                            <div ngbDropdownMenu="action">
-                                <button ngbDropdownItem type="button" (click)="Modal_Edit(item.id)">
-                                    <i class="bi bi-pencil-square me-2"></i>Editar
+                        <div class="col text-center" style="max-width: 80px;">
+                            <div ngbDropdown placement="bottom-right">
+                                <button class="btn-transparent" id="action" ngbDropdownToggle>
+                                    <i class="bi bi-three-dots-vertical"></i>
                                 </button>
+
+                                <div ngbDropdownMenu="action">
+                                    <button ngbDropdownItem type="button" (click)="Modal_Edit(item.id)">
+                                        <i class="bi bi-pencil-square me-2"></i>Editar
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </td>
 
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paginação -->
+            <app-pagination [totalItems]="totalItems" (OnPageChange)="ChangePage($event)"
+                (OnMaxItensChange)="ChangePageSize($event)"></app-pagination>
+        </div>
+
     </div>
-
-    <!-- Paginação -->
-    <app-pagination [totalItems]="totalItems" (OnPageChange)="ChangePage($event)" (OnMaxItensChange)="ChangePageSize($event)"></app-pagination>
 </div>

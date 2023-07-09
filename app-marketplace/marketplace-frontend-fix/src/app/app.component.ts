@@ -11,16 +11,10 @@ import { PermissionService } from './services/permisson.service';
 
 export class AppComponent {
   title:string = "Frontend";
-
-  navStyle = "width: 0px;display: none;"
-
+  
   constructor(
   ){}
 
   async ngOnInit(){
-  }
-
-  ChangeNavStyle(style :string){
-    this.navStyle = style;
   }
 }
