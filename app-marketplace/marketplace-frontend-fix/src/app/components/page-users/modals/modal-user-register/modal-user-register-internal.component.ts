@@ -50,7 +50,9 @@ export class ModalUserRegisterInternalComponent {
   {  }
 
   async ngOnInit(){
+    this.loading = true;
     this.ddl_profile_options = await this.serviceProfile.GetAll();
+    this.loading = false;
   }
 
   IsFormValid() :boolean{
