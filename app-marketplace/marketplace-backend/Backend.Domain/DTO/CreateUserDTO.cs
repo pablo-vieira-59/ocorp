@@ -20,7 +20,6 @@ namespace Backend.Domain.DTO
         public string City { get; set; }
         public string State { get; set; }
         public long ZipCode { get; set; }
-        public bool HasAddress { get; set; }
         public int ProfileId { get; set; }
     }
 }

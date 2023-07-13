@@ -37,6 +37,7 @@ import { PageEstablishmentsComponent } from './components/page-establishments/pa
 import { PageHomeComponent } from './components/page-home/page-home.component';
 import { SlideButtonComponent } from './components/common/slide-button/slide-button.component';
 import { ModalEstablishmentRegisterComponent } from './components/page-establishments/modals/modal-establishment-register/modal-establishment-register.component';
+import { ModalUserRegisterInternalComponent } from './components/page-users/modals/modal-user-register/modal-user-register-internal.component';
 import { PageDashboardComponent } from './components/page-dashboard/page-dashboard.component';
 import { NgChartsModule } from 'ng2-charts';
 import { BaseChartComponent } from './components/common/charts/base-chart/base-chart.component';
@@ -68,6 +69,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     PageHomeComponent,
     SlideButtonComponent,
     ModalEstablishmentRegisterComponent,
+    ModalUserRegisterInternalComponent,
     PageDashboardComponent,
     BaseChartComponent,
     ProfileEditModalComponent,

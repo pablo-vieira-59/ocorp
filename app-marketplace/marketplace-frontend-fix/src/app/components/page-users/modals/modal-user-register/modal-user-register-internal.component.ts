@@ -1,25 +1,31 @@
 import { Component } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { ValidatorField } from 'src/app/helpers/formValidations';
+import { Profile } from 'src/app/models/Entities/Profile';
 import { AddressService } from 'src/app/services/address.services';
+import { ProfileService } from 'src/app/services/profile.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-	selector: 'app-modal-user-register',
-	templateUrl: './modal-user-register.component.html',
-	styleUrls: ['./modal-user-register.component.scss']
+  selector: 'app-modal-user-register-internal',
+  templateUrl: './modal-user-register-internal.component.html',
+  styleUrls: ['./modal-user-register-internal.component.scss']
 })
-export class ModalUserRegisterComponent {
-	personalForm!: FormGroup;
-	userForm!: FormGroup;
-	addressForm!: FormGroup;
+export class ModalUserRegisterInternalComponent {
+  loading = false;
+  modalRef?: BsModalRef;
 
-	loading = false;
-	validFields :string[] = [];
+  ddl_profile_options = [{id:1, name:"Teste"},{id:2, name:"Teste 2"}] as Profile[];
 
-	data: any = {
+  validFields :string[] = [];
+  val_required = ["name", "documentNumber", "phoneNumber", "email", "reg-password", "zipCode", "number", "addressName", "neighborhood", "state", "city", "profile"];
+	val_minSize =  [["documentNumber", "14"], ["phoneNumber", "15"], ["reg-password", "6"],["zipCode","9"]];
+	val_email = ["email"];
+	val_match = [["confirmPassword", "reg-password"]];
+	val_cpf = ["documentNumber"];
+
+  data: any = {
 		password: '',
 		name: '',
 		email: '',
@@ -31,41 +37,28 @@ export class ModalUserRegisterComponent {
 		neighborhood: '',
 		city: '',
 		state: '',
-		profileId: 4
+		profileId: undefined,
+    confirmPassword:''
 	}
 
-	val_required = ["name", "documentNumber", "phoneNumber", "email", "reg-password", "zipCode", "number", "addressName", "neighborhood", "state", "city"];
-	val_minSize =  [["documentNumber", "14"], ["phoneNumber", "15"], ["reg-password", "6"],["zipCode","9"]];
-	val_email = ["email"];
-	val_match = [["confirmPassword", "reg-password"]];
-	val_cpf = ["documentNumber"];
+  constructor(
+    private serviceModal :BsModalService, 
+    private serviceNotification :ToastrService,
+    private serviceUser :UserService,
+    private serviceAddress :AddressService,
+    private serviceProfile :ProfileService)
+  {  }
 
-	steps: string[] = ["Dados Pessoais", "Dados de Acesso", "Endereço"];
-	currentStep: number = 0;
-	confirmPassword = "";
+  async ngOnInit(){
+    this.ddl_profile_options = await this.serviceProfile.GetAll();
+  }
 
-	modalRef?: BsModalRef;
+  IsFormValid() :boolean{
+    return this.val_required.every(x => this.validFields.includes(x));
+  }
 
-	constructor(
-		private serviceModal: BsModalService,
-		private serviceNotification: ToastrService,
-		private serviceUser: UserService,
-		private serviceAddress: AddressService) { }
-
-	ngOnInit() {
-
-	}
-
-	IsFormValid(){
-		if(this.val_required.length == this.validFields.length){
-			return true;
-		}
-
-		return false;
-	}
-
-	async Submit() {
-		this.loading = true;
+  async Submit(){
+    this.loading = true;
 		var isRegistered = await this.serviceUser.CreateUser(this.data);
 
 		this.loading = false;
@@ -75,25 +68,13 @@ export class ModalUserRegisterComponent {
 			this.Close();
 			return;
 		}
-	}
+  }
 
-	NextStep() {
-		this.currentStep++;
-	}
-
-	PreviousStep() {
-		this.currentStep--;
-	}
-
-	Close() {
+  Close() {
 		this.serviceModal.hide();
 	}
 
-	ChangeStep(stepIdx: any) {
-		this.currentStep = stepIdx;
-	}
-
-	async GetAddress(value: string) {
+  async GetAddress(value: string) {
 		var address = await this.serviceAddress.GetAddressFromCep(value);
 
 		if(address.erro == true) {
@@ -128,15 +109,34 @@ export class ModalUserRegisterComponent {
 		element!.dispatchEvent(event);
 	}
 
+  ValidateProfile(value :number){
+    var idx = this.validFields.indexOf("profile");
+
+    if(value && value != 0){
+      if(idx == -1){
+        this.validFields.push("profile");
+      }
+    }
+    else{
+      if(idx != -1){
+        this.validFields.splice(idx, 1);
+      }	
+    }
+  }
+
 	ValidateField(event :Event){
 		var validField = ValidatorField.ValidateInputField(event, this.val_required, this.val_email, this.val_match, this.val_minSize, undefined, this.val_cpf);
 		var element = event.currentTarget as HTMLInputElement;
 
-		if(element.id == "reg-password"){
+    if(!element){
+      return;
+    }
+
+    if(element.id == "reg-password"){
 			var confirmElement = document.getElementById("confirmPassword") as HTMLInputElement;
 
 			confirmElement.value = "";
-			this.confirmPassword = "";
+			this.data.confirmPassword = "";
 			ValidatorField.SetElementAsInvalid(confirmElement, "Valor do campo deve ser igual !");
 		}
 
@@ -149,22 +149,4 @@ export class ModalUserRegisterComponent {
 			this.validFields.splice(idx, 1);
 		}	
 	}
-
-	IsStepValid(stepId :number): boolean{
-		if(stepId == 0){
-			var elements = ["name","documentNumber", "phoneNumber"]
-			return elements.every(x => this.validFields.includes(x));
-		}
-		if(stepId == 1){
-			var elements = ["name","documentNumber", "phoneNumber","email","reg-password", "confirmPassword"]
-			return elements.every(x => this.validFields.includes(x));
-		}
-		if(stepId == 2){
-			var elements = ["name","documentNumber", "phoneNumber","email","reg-password","zipCode", "number", "addressName", "neighborhood", "state", "city"]
-			return elements.every(x => this.validFields.includes(x));
-		}
-		return false;
-	}
 }
-
-

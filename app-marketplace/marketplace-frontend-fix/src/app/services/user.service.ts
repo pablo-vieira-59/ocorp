@@ -82,7 +82,7 @@ export class UserService {
 
   async CreateUser(user :any) :Promise<boolean>{
     var request = this.http.post<boolean>(this.base_url + "new-user", user);
-
+    console.log(user);
     var result = false;
 
     await lastValueFrom(await request)

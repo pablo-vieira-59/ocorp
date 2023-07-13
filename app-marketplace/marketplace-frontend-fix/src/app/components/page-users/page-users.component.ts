@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/Entities/User';
 import { FilterDto, SearchField, Paging } from 'src/app/models/DTO/FilterDto';
 import { ProfileService } from 'src/app/services/profile.service';
+import { ModalUserRegisterInternalComponent } from './modals/modal-user-register/modal-user-register-internal.component';
 
 @Component({
   selector: 'app-page-users',
@@ -91,19 +92,15 @@ export class PageUsersComponent {
   }
   
   Modal_Register() {
-    // this.modalRef = this.serviceModal.show(LivroCadastrarModalComponent, {
-    //   initialState: {
-    //     ddl_editora_options: this.ddl_editora_options,
-    //     ddl_genero_options: this.ddl_genero_options,
-    //     ddl_autores_options: this.ddl_autores_options
-    //   },
-    //   class: "modal-lg modal-dialog-centered"
-    // });
+    this.modalRef = this.serviceModal.show(ModalUserRegisterInternalComponent, {
+      initialState: {
+      },
+      class: "modal-lg modal-dialog-centered"
+    });
 
-    // this.modalRef.onHidden.subscribe(() => {
-    //   this.LoadLivros();
-    // });
-
+    this.modalRef.onHidden.subscribe(() => {
+      this.LoadTableData();
+    });
   }
 
   Modal_Edit(id: number) {

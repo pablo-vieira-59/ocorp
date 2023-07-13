@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { lettersOnly, numbersOnly } from 'src/app/models/commomRegex';
 import { ValidatorField } from 'src/app/helpers/formValidations';
 import { EstablishmentService } from 'src/app/services/establishment.service';
 import { AddressService } from 'src/app/services/address.services';

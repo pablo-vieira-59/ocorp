@@ -2,6 +2,10 @@ export class ValidatorField {
     static ValidateInputField(event: Event, required: string[], email?: string[], mustMatch?: string[][], minSize?: string[][], cnpj?: string[], cpf?: string[]): any {
         var inputElement = event.target as HTMLInputElement;
 
+        if(!inputElement){
+            return;
+        }
+
         var inputid = inputElement.id;
         var inputValue = inputElement.value as string;
 
