@@ -30,6 +30,10 @@ namespace Backend.Domain.Models
         Tela_Perfis,
         Componente_MenuLateral,
         Tela_Estabelecimentos,
-        Tela_Dashboard
+        Tela_Dashboard,
+        Cadastro_Admin,
+        Cadastro_Gerente,
+        Cadastro_Supervisor,
+        Cadastro_Funcionario
     }
 }

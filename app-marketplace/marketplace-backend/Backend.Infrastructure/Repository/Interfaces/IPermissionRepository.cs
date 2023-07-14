@@ -9,8 +9,9 @@ namespace Backend.Infrastructure.Repository.Interfaces
 {
     public interface IPermissionRepository : IBaseRepository<Permission>
     {
-        public Task<IQueryable<Permission>> GetByUser(string userGuid);
-        public Task<IQueryable<Permission>> GetByProfile(int profileId);
+        public IQueryable<Permission> GetByUser(long userId);
+        public IQueryable<Permission> GetByUser(string userGuid);
+        public IQueryable<Permission> GetByProfile(int profileId);
         public Task<bool> EditProfilePermissions(int profileId, List<int> permissionsToAdd, List<int> permissionsToRemove);
     }
 }

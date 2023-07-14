@@ -1,4 +1,4 @@
-<div *ngIf="HasPermission(5)" class="row p-0 bg-primary-d rounded-4 sdw" style="min-height:100%;">   
+<div class="row p-0 bg-primary-d rounded-4 sdw" style="min-height:100%;">   
     <ul class="col mt-4">
         <li class="row">
             <div class="col text-center">
@@ -6,7 +6,7 @@
             </div>
         </li>
 
-        <li class="row mt-4">
+        <li class="row mt-4 mb-4">
             <div class="col text-center">
                 <div class="mx-auto bg-secondary rounded rounded-circle" style="width: 164px;height: 164px;">
                     <i class="bi bi-person-fill text-white" style="line-height: 164px;font-size: 64px;"></i>
@@ -14,14 +14,9 @@
             </div>
         </li>
 
-        <li *ngIf="HasPermission(1)" class="row nav-button mt-4" (click)="GotoRoute('/users')">
+        <li *ngIf="HasPermission(1)" class="row nav-button" (click)="GotoRoute('/users')">
             <div class="col-2" style="text-align:right;"><i class="bi bi-person-fill"></i></div>
             <div class="col-10">Usuarios</div>
-        </li>
-
-        <li *ngIf="HasPermission(2)" class="row nav-button" (click)="GotoRoute('/permissions')">
-            <div class="col-2" style="text-align:right;"><i class="bi bi-lock-fill"></i></div>
-            <div class="col-10">Permissões</div>
         </li>
 
         <li *ngIf="HasPermission(3)" class="row nav-button" (click)="GotoRoute('/profiles')">

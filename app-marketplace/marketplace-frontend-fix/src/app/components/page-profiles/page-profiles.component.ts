@@ -52,7 +52,6 @@ export class PageProfilesComponent {
   }
   
   Modal_Register(){
-    console.log("Modal_Register");
   }
 
   Modal_Edit(id: number){

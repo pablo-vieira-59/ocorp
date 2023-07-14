@@ -14,10 +14,7 @@ import { environment } from 'src/environments/environment';
 export class NavbarComponent {
   public ambient = "Teste";
 
-  profiles :number[]= [];
-
-  @Output()
-  OnNavBarInit = new EventEmitter<any>();
+  permissions :number[]= [];
 
   constructor(
     private router: Router,
@@ -30,12 +27,6 @@ export class NavbarComponent {
 
     await this.router.events.subscribe(async e => {
       if (e instanceof NavigationEnd) {
-        currentRoute = this.router.url;
-
-        if(currentRoute == "/" || currentRoute == "/login"){
-          this.OnNavBarInit.emit("width: 0px;display: none;");
-          return;
-        }
     
         var user = localStorage.getItem('guid');
         
@@ -43,11 +34,7 @@ export class NavbarComponent {
           return;
         }
         
-        this.profiles = (await this.servicePermission.GetByUser(user)).map(e => e.id); 
-
-        if(this.HasPermission(PermissionEnum.Componente_MenuLateral)){
-          //navStyle = "max-width: 300px;display: block;"
-        }
+        this.permissions = (await this.servicePermission.GetByUser(user)).map(e => e.id); 
       }
     });
 
@@ -55,10 +42,10 @@ export class NavbarComponent {
   }
   
   HasPermission(permissionId :PermissionEnum){
-    if(this.profiles == null)
+    if(this.permissions == null)
       return false;
 
-    return this.profiles.includes(permissionId);
+    return this.permissions.includes(permissionId);
   }
 
   Button_Logout(){

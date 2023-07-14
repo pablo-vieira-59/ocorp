@@ -85,7 +85,7 @@
                         <div class="border-end col text-center text-truncate">{{item.documentNumber | mask :'000.000.000-00'}}</div>
 
                         <div class="border-end col text-center" style="max-width: 120px;">
-                            <span [ngClass]="{'bg-danger':item.profileId == 1, 'bg-warning':item.profileId == 2, 'bg-secondary':item.profileId == 3, 'bg-success':item.profileId == 4}"  
+                            <span [ngClass]="GetSpanClass(item.profileId)"  
                             class="badge"><small>{{item.profile.name}}</small></span>
                         </div>
 

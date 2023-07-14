@@ -91,6 +91,27 @@ export class PageUsersComponent {
     await this.LoadTableData();
   }
   
+  GetSpanClass(profileId :number){
+
+    if(profileId == 1){
+      return 'bg-danger'
+    }
+    if(profileId == 2){
+      return 'bg-warning'
+    }
+    if(profileId == 3){
+      return 'bg-secondary'
+    }
+    if(profileId == 4){
+      return 'bg-success'
+    }
+    if(profileId == 5){
+      return 'bg-dark'
+    }
+
+    return 'bg-white-ddd'
+  }
+
   Modal_Register() {
     this.modalRef = this.serviceModal.show(ModalUserRegisterInternalComponent, {
       initialState: {

@@ -48,7 +48,6 @@ export class EstablishmentService {
       this.serviceNotification.success("Estabelecimento adicionado com sucesso !");
     })
     .catch((error) => {
-      console.log(error);
       this.serviceNotification.error("Erro ao cadastrar estabelecimento." + "\n" + error.error);
     });
 

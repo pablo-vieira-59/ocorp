@@ -7,11 +7,11 @@ namespace Backend.Domain.Models
     {
         public long Id { get; set; }
         public int EstablishmentStatusId { get; set; }
-        public string CorporateName { get; set; }
-        public string FantasyName { get; set; }
-        public string DocumentNumber { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
+        public string? CorporateName { get; set; }
+        public string? FantasyName { get; set; }
+        public string? DocumentNumber { get; set; }
+        public string? Email { get; set; }
+        public string? PhoneNumber { get; set; }
         public string? Url { get; set; }
         public DateTime CreatedAt { get; set; }
 

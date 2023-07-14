@@ -30,7 +30,6 @@ export class AddressService {
 			result = payload;
 	    })
 	    .catch((error) => {
-	      console.log(error);
 	      this.serviceNotification.error("Erro ao carregar endereço da api.");
 		  result = {"erro":true} as ApiAddressDto;
 	    });

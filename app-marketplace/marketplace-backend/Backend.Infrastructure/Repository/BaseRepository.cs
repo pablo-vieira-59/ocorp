@@ -106,7 +106,7 @@ namespace Backend.Infrastructure.Repository
                                 break;
 
                             case "DateTime":
-                                DateTime searchDate = DateTime.Parse(searchField.Value);
+                                DateTime searchDate = DateTime.Parse(searchField.Value!);
                                 expression += $".{searchField.Property} {searchField.Operator} DateTime({searchDate.Year}, {searchDate.Month}, {searchDate.Day})";
                                 break;
 

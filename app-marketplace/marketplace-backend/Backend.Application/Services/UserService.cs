@@ -13,12 +13,14 @@ namespace Backend.Application.Services
     public class UserService : IUserService
     {
         IUserRepository _userRepository;
+        IPermissionRepository _permissionRepository;
         IUserAccessRepository _userAccessRepository;
 
-        public UserService(IUserRepository userRepository, IUserAccessRepository userAccessRepository)
+        public UserService(IUserRepository userRepository, IUserAccessRepository userAccessRepository, IPermissionRepository permissionRepository)
         {
             _userRepository = userRepository;
             _userAccessRepository = userAccessRepository;
+            _permissionRepository = permissionRepository;
         }
 
         public async Task<ServiceResult<PaginatedResult<User>>> AllDetails(FilterDTO filter)
@@ -33,7 +35,8 @@ namespace Backend.Application.Services
                 PhoneNumber = e.PhoneNumber,
                 CreatedAt = e.CreatedAt,
                 ProfileId = e.ProfileId,
-                Profile = new Profile { Name = e.Profile.Name },
+                Password = e.Password,
+                Profile = new Profile { Name = e.Profile!.Name },
             }).ToListAsync();
 
             var total = users.Count();
@@ -129,16 +132,54 @@ namespace Backend.Application.Services
         {
             var hasUser = (await _userRepository.GetByProperty("Username", request.Email).FirstOrDefaultAsync()) != null;
 
+            // Valida nome de usuário
             if (hasUser)
             {
                 return new FailServiceResultStruct<bool>("Usuario Existente.");
             }
-
+            
+            // Valida CPF
             hasUser = (await _userRepository.GetByProperty("DocumentNumber", request.DocumentNumber).FirstOrDefaultAsync()) != null;
-
             if (hasUser)
             {
                 return new FailServiceResultStruct<bool>("CPF já cadastrado.");
+            }
+
+            // Caso não seja cadastro de usuário comum
+            if (request.ProfileId != 4) 
+            {
+                // Caso a requisição não seja de um usuário logado
+                if (currentUser == null)
+                {
+                    return new FailServiceResultStruct<bool>("Sem permissão para realizar essa ação.");
+                }
+
+                // Verifica permissão de cadastro
+                PermissionEnum permissionId = PermissionEnum.Cadastro_Funcionario;
+                switch (request.ProfileId)
+                {
+                    case 1: // Admin
+                        permissionId = PermissionEnum.Cadastro_Admin;
+                        break;
+                    case 2: // Gerente
+                        permissionId = PermissionEnum.Cadastro_Gerente;
+                        break;
+                    case 3: // Funcionario
+                        permissionId = PermissionEnum.Cadastro_Funcionario;
+                        break;
+                    case 5: // Supervisor
+                        permissionId = PermissionEnum.Cadastro_Supervisor;
+                        break;
+                    default:
+                        break;
+                }
+
+                var hasPermission = (await HasPermission(currentUser.Id, permissionId)).Value;
+
+                if(!hasPermission)
+                {
+                    return new FailServiceResultStruct<bool>("Sem permissão para realizar essa ação.");
+                }
             }
 
             var newUser = new User
@@ -216,6 +257,19 @@ namespace Backend.Application.Services
             if (result == null) return new FailServiceResult<User>("Usuario não encontrado.");
 
             return new OkServiceResult<User>(result);
+        }
+    
+        public async Task<ServiceResult<bool>> HasPermission(long userId, PermissionEnum permission)
+        {
+            var query = _permissionRepository.GetByUser(userId);
+            var permissions = await query.Select(x => x.Id).ToListAsync();
+
+            if(permissions.Contains((int)permission))
+            {
+                return new OkServiceResultStruct<bool>(true);
+            }
+
+            return new OkServiceResultStruct<bool>(false);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Backend.Application.Services
             var users = await _permissionRepository.Get(filter).Select(e => new Profile
             {
                 Id = e.Id,
-                Name = e.Name,
+                Name = e.Name!,
             }).ToListAsync();
 
             return new OkServiceResult<List<Profile>>(users);
@@ -30,7 +30,7 @@ namespace Backend.Application.Services
 
         public async Task<ServiceResult<List<Permission>>> GetByUser(string userGuid)
         {
-            var permissionsQuery = await _permissionRepository.GetByUser(userGuid);
+            var permissionsQuery = _permissionRepository.GetByUser(userGuid);
 
             var permissions = await permissionsQuery.Select(x => new Permission
             {
@@ -43,7 +43,7 @@ namespace Backend.Application.Services
 
         public async Task<ServiceResult<List<Permission>>> GetByProfile(int profileId)
         {
-            var permissionsQuery = await _permissionRepository.GetByProfile(profileId);
+            var permissionsQuery = _permissionRepository.GetByProfile(profileId);
 
             var permissions = await permissionsQuery.Select(x => new Permission
             {

@@ -35,6 +35,8 @@ export class ProfileEditModalComponent {
     this.permissions = await this.servicePermission.AllDetails();
     this.profilePermissions = await this.servicePermission.GetByProfile(this.profileId);
 
+    this.permissions.sort((a, b) => a.name.localeCompare(b.name));
+
     this.MapData();
 
     this.isLoading = false;

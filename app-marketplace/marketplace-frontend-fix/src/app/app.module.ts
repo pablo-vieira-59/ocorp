@@ -28,7 +28,6 @@ import { SearchfieldComponent } from './components/common/searchfield/searchfiel
 import { PaginationComponent } from './components/common/pagination/pagination.component';
 import { BasefieldComponent } from './components/common/searchfield/fields/basefield/basefield.component';
 import { PageProfilesComponent } from './components/page-profiles/page-profiles.component';
-import { PagePermissionsComponent } from './components/page-permissions/page-permissions.component';
 import { ModalUserRegisterComponent } from './components/page-login/modals/modal-user-register/modal-user-register.component';
 import { ProgressBarComponent } from './components/common/progress-bar/progress-bar.component';
 import { MiddlewareService } from './services/middleware.service';
@@ -62,7 +61,6 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     PaginationComponent,
     BasefieldComponent,
     PageProfilesComponent,
-    PagePermissionsComponent,
     ModalUserRegisterComponent,
     ProgressBarComponent,
     PageEstablishmentsComponent,

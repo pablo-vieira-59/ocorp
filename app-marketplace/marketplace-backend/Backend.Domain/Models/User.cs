@@ -9,12 +9,12 @@ namespace Backend.Domain.Models
         public long Id { get; set; }
         public int ProfileId { get; set; }
         public int UserStatusId { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string DocumentNumber { get; set; }
+        public required string Username { get; set; }
+        public required string Password { get; set; }
+        public required string Name { get; set; }
+        public required string Email { get; set; }
+        public required string PhoneNumber { get; set; }
+        public required string DocumentNumber { get; set; }
         public Guid Guid { get; set; }
         
         public DateTime CreatedAt { get; set; }

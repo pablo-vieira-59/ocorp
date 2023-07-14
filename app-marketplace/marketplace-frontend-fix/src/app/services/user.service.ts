@@ -55,7 +55,6 @@ export class UserService {
       result = true;
     })
     .catch(e => {
-      console.log(e);
       this.serviceNotification.error("Falha ao Realizar Login");
       result = false;
     });
@@ -82,7 +81,6 @@ export class UserService {
 
   async CreateUser(user :any) :Promise<boolean>{
     var request = this.http.post<boolean>(this.base_url + "new-user", user);
-    console.log(user);
     var result = false;
 
     await lastValueFrom(await request)
@@ -90,7 +88,6 @@ export class UserService {
       result = true;
     })
     .catch(e => {
-      console.log(e);
       if(e.error != null){
         this.serviceNotification.error(e.error);
       }
@@ -135,7 +132,6 @@ export class RoleGuard implements CanActivate {
     var permissions = next.data['permissions'] as PermissionEnum[];
     
     var hasPermission = await this.permissionService.CurrentUserHasPermission([PermissionEnum.Componente_MenuLateral]);
-    console.log(hasPermission);
     var nav = document.getElementById("navbar");
     if(nav)
     {

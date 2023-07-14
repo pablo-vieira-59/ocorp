@@ -111,7 +111,5 @@ export class ModalEstablishmentRegisterComponent {
 		if(validField == null && idx != -1){
 			this.validFields.splice(idx, 1);
 		}	
-
-    console.log(this.validFields);
 	}
 }

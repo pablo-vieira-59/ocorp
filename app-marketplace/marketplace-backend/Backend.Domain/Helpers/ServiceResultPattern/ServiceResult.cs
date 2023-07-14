@@ -8,14 +8,9 @@ namespace Backend.Domain.Helpers
 {
     public class ServiceResult<T>
     {
-        public T Value { get; set; }
+        public T? Value { get; set; }
         public bool Success { get; set; }
-        public string Message { get; set; }
-        public List<string> Errors { get; set; }
-
-        public ServiceResult() 
-        {
-        
-        }
+        public string? Message { get; set; }
+        public List<string>? Errors { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace Backend.Infrastructure.Repository
                     transaction.Commit();
                     return true;
                 }
-                catch (Exception ex)
+                catch
                 {
                     transaction.Rollback();
                     return false;
@@ -40,20 +40,23 @@ namespace Backend.Infrastructure.Repository
             }
         }
 
-        public async Task<IQueryable<Permission>> GetByProfile(int profileId)
+        public IQueryable<Permission> GetByProfile(int profileId)
         {
-            var permissions = _context.Permission.Where(e => e.Permission_Profiles.Any(x => x.ProfileId == profileId)).AsQueryable();
-
-            await Task.CompletedTask;
+            var permissions = _context.Permission.Where(e => e.Permission_Profiles!.Any(x => x.ProfileId == profileId)).AsQueryable();
 
             return permissions;
         }
 
-        public async Task<IQueryable<Permission>> GetByUser(string userGuid)
+        public IQueryable<Permission> GetByUser(string userGuid)
         {
-            var permissions = _context.Permission.Where(e => e.Permission_Profiles.Any(x => x.Profile.Users.Any(y => y.Guid.ToString() == userGuid))).AsQueryable();
+            var permissions = _context.Permission.Where(e => e.Permission_Profiles!.Any(x => x.Profile!.Users!.Any(y => y.Guid.ToString() == userGuid))).AsQueryable();
 
-            await Task.CompletedTask;
+            return permissions;
+        }
+
+        public IQueryable<Permission> GetByUser(long userId)
+        {
+            var permissions = _context.Permission.Where(e => e.Permission_Profiles!.Any(x => x.Profile!.Users!.Any(y => y.Id == userId))).AsQueryable();
 
             return permissions;
         }

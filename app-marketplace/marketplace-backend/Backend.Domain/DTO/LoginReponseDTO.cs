@@ -9,8 +9,8 @@ namespace Backend.Domain.DTO
 {
     public class LoginReponseDTO
     {
-        public string Token { get; set; }
+        public required string Token { get; set; }
 
-        public string Guid { get; set; }
+        public required string Guid { get; set; }
     }
 }
