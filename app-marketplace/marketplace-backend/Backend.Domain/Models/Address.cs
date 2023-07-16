@@ -6,13 +6,13 @@ namespace Backend.Domain.Models
     public class Address
     {
         public long Id { get; set; }
-        public required string Number { get; set; }
-        public required string AddressName { get; set; }
-        public required string Neighborhood { get; set; }
-        public required string City { get; set; }
-        public required string State { get; set; }
-        public required string Country { get; set; }
-        public required string ZipCode { get; set; }
+        public string? Number { get; set; }
+        public string? AddressName { get; set; }
+        public string? Neighborhood { get; set; }
+        public string? City { get; set; }
+        public string? State { get; set; }
+        public string? Country { get; set; }
+        public string? ZipCode { get; set; }
 
         public virtual List<Address_Establishment>? Address_Establishments { get; set; }
         public virtual List<Address_User>? Address_Users { get; set; }

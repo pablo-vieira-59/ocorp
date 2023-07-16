@@ -32,7 +32,14 @@ export class UserService {
     .then((payload) => {
       data = payload;
     })
-    .catch((error) => {
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error("Falha ao obter usuários.");
+      }
+      else{
+        this.serviceNotification.error(e.message);
+      }
+
       data = {
         items: [],
         totalCount: 0
@@ -55,7 +62,12 @@ export class UserService {
       result = true;
     })
     .catch(e => {
-      this.serviceNotification.error("Falha ao Realizar Login");
+      if(e.error != null){
+        this.serviceNotification.error("Falha ao realizar login");
+      }
+      else{
+        this.serviceNotification.error(e.message);
+      }
       result = false;
     });
 
@@ -72,7 +84,12 @@ export class UserService {
       result = true;
     })
     .catch(e => {
-      //this.serviceNotification.error(e.error);
+      if(e.error != null){
+        this.serviceNotification.error(e.error);
+      }
+      else{
+        this.serviceNotification.error(e.message);
+      }
       result = false;
     });
 
@@ -89,7 +106,7 @@ export class UserService {
     })
     .catch(e => {
       if(e.error != null){
-        this.serviceNotification.error(e.error);
+        this.serviceNotification.error("Falha ao criar usuário");
       }
       else{
         this.serviceNotification.error(e.message);

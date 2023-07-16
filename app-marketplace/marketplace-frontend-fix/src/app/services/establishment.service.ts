@@ -30,8 +30,13 @@ export class EstablishmentService {
     .then((payload) => {
       data = payload;
     })
-    .catch((error) => {
-      this.serviceNotification.error("Erro ao carregar dados.");
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error("Erro ao carregar dados.");
+      }
+      else{
+        this.serviceNotification.error(e.message);
+      }
     });
 
     return data;
@@ -47,8 +52,13 @@ export class EstablishmentService {
       result = true;
       this.serviceNotification.success("Estabelecimento adicionado com sucesso !");
     })
-    .catch((error) => {
-      this.serviceNotification.error("Erro ao cadastrar estabelecimento." + "\n" + error.error);
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error("Erro ao adicionar estabelecimento.");
+      }
+      else{
+        this.serviceNotification.error(e.message);
+      }
     });
 
     return result;

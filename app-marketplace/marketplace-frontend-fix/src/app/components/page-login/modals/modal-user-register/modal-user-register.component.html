@@ -17,7 +17,7 @@
                     <div class="col">
                         <label for="name" class="required">Nome</label>
                         <input id="name" [(ngModel)]="data.name" type="text" class="form-control"
-                            placeholder="Digite seu nome ..." (change)="ValidateField($event)">
+                            placeholder="Digite seu nome ..." (change)="ValidateField('name')">
                     </div>
                 </div>
 
@@ -26,7 +26,7 @@
                         <label for="documentNumber" class="required">CPF</label>
                         <input id="documentNumber" [(ngModel)]="data.documentNumber" [mask]="'000.000.000-00'"
                             type="text" class="form-control" placeholder="Digite seu cpf ..."
-                            (change)="ValidateField($event)">
+                            (change)="ValidateField('documentNumber')">
                     </div>
                 </div>
 
@@ -34,7 +34,7 @@
                     <div class="col">
                         <label for="phoneNumber" class="required">Numero de Celular</label>
                         <input id="phoneNumber" [(ngModel)]="data.phoneNumber" [mask]="'(00) 00000-0000'" type="text"
-                            class="form-control" placeholder="Digite seu numero..." (change)="ValidateField($event)">
+                            class="form-control" placeholder="Digite seu numero..." (change)="ValidateField('phoneNumber')">
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                     <div class="col">
                         <label for="email" class="required">E-Mail</label>
                         <input id="email" [(ngModel)]="data.email" type="text" class="form-control"
-                            placeholder="Digite seu e-mail ..." (change)="ValidateField($event)">
+                            placeholder="Digite seu e-mail ..." (change)="ValidateField('email')">
                     </div>
                 </div>
 
@@ -52,7 +52,7 @@
                     <div class="col">
                         <label for="reg-password" class="required">Senha</label>
                         <input id="reg-password" [(ngModel)]="data.password" type="password"
-                            class="form-control" placeholder="Digite sua senha ..." (change)="ValidateField($event)">
+                            class="form-control" placeholder="Digite sua senha ..." (change)="ValidateField('reg-password')">
                     </div>
                 </div>
 
@@ -60,7 +60,7 @@
                     <div class="col">
                         <label for="confirmPassword" class="required">Confirmar Senha</label>
                         <input id="confirmPassword" [(ngModel)]="confirmPassword" type="password"
-                            class="form-control" placeholder="Digite sua senha ..." (change)="ValidateField($event)">
+                            class="form-control" placeholder="Digite sua senha ..." (change)="ValidateField('confirmPassword')">
                     </div>
                 </div>
             </div>
@@ -71,13 +71,13 @@
                         <label for="zipCode" class="required">CEP</label>
                         <input id="zipCode" [(ngModel)]="data.zipCode" [mask]="'00000-000'"
                             (change)="GetAddress(data.zipCode)" type="text" class="form-control"
-                            placeholder="Digite seu cep..." (change)="ValidateField($event)">
+                            placeholder="Digite seu cep..." (change)="ValidateField('zipCode')">
                     </div>
 
                     <div class="col-6">
                         <label for="number" class="required">Numero</label>
                         <input id="number" [(ngModel)]="data.number" type="number" class="form-control"
-                            placeholder="Digite o numero do endereço..." (change)="ValidateField($event)">
+                            placeholder="Digite o numero do endereço..." (change)="ValidateField('number')">
                     </div>
                 </div>
 
@@ -85,7 +85,7 @@
                     <div class="col">
                         <label for="addressName" class="required">Endereço</label>
                         <input id="addressName" [(ngModel)]="data.addressName" type="text" class="form-control"
-                            placeholder="Digite o endereço..." (change)="ValidateField($event)">
+                            placeholder="Digite o endereço..." (change)="ValidateField('addressName')">
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@
                     <div class="col">
                         <label for="city" class="required">Cidade</label>
                         <input id="city" [(ngModel)]="data.city" type="text" class="form-control"
-                            placeholder="Digite a cidade..." (change)="ValidateField($event)">
+                            placeholder="Digite a cidade..." (change)="ValidateField('city')">
                     </div>
                 </div>
 
@@ -101,13 +101,13 @@
                     <div class="col-6">
                         <label for="state" class="required">Estado</label>
                         <input id="state" [(ngModel)]="data.state" type="text" class="form-control"
-                            placeholder="Digite o estado..." (change)="ValidateField($event)">
+                            placeholder="Digite o estado..." (change)="ValidateField('state')">
                     </div>
 
                     <div class="col-6">
                         <label for="neighborhood" class="required">Bairro</label>
                         <input id="neighborhood" [(ngModel)]="data.neighborhood" type="text" class="form-control"
-                            placeholder="Digite o bairro..." (change)="ValidateField($event)">
+                            placeholder="Digite o bairro..." (change)="ValidateField('neighborhood')">
                     </div>
                 </div>
 

@@ -70,18 +70,8 @@ export class PageLoginComponent {
     });
   }
 
-  ValidateField(event :Event){
-		var validField = ValidatorField.ValidateInputField(event, this.val_required);
-		var element = event.currentTarget as HTMLInputElement;
-
-		var idx = this.validFields.indexOf(element.id);
-
-		if(validField != null && idx == -1){
-			this.validFields.push(element.id);
-		}
-		if(validField == null && idx != -1){
-			this.validFields.splice(idx, 1);
-		}	
+  ValidateField(inputId :string){
+		this.validFields = ValidatorField.ValidateInputField(this.validFields, inputId, this.val_required);
 	}
 
   IsFormValid() :boolean{

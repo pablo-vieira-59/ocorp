@@ -83,13 +83,12 @@ namespace App.Backend.Livraria.Controllers
             }
         }
 
-        [FreeAccess]
         [HttpPost("profile/edit-permissions")]
         public async Task<IActionResult> GetByProfile(EditProfilePermissionsRequestDTO request)
         {
             try
             {
-                var result = await _permissionService.EditPermissions(request.ProfileId, request.Permissions);
+                var result = await _permissionService.EditPermissions(request.ProfileId, request.Permissions!);
 
                 if (!result.Success)
                 {

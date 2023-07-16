@@ -37,26 +37,4 @@ export class AddressService {
 	    return result;
 	}
 
-
-	//   async AllDetails(filters :FilterDto){
-	//     var data :PaginatedResultDTO<Establishment> = {} as PaginatedResultDTO<Establishment>;
-
-	//     var request = this.http.post<PaginatedResultDTO<Establishment>>(this.base_url + "all-details", filters);
-
-	//     await lastValueFrom(await request)
-	//     .then((payload) => {
-	//       data = payload;
-	//     })
-	//     .catch((error) => {
-	//       console.log(error);
-	//       data = {
-	//         items: [],
-	//         totalCount: 0
-	//       } as PaginatedResultDTO<Establishment>;
-	//       this.serviceNotification.error("Erro ao carregar dados.");
-	//     });
-
-	//     return data;
-	//   }
-
 }

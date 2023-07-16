@@ -42,7 +42,7 @@
                     class="form-control" 
                     placeholder="Digite o nome de usuário ..."
                     [(ngModel)]="loginData.username"
-                    (change)="ValidateField($event)">
+                    (change)="ValidateField('username')">
             </div>
 
             <div class="col-12 mt-2">
@@ -53,7 +53,7 @@
                     class="form-control" 
                     placeholder="Digite sua senha ..."
                     [(ngModel)]="loginData.password"
-                    (change)="ValidateField($event)">
+                    (change)="ValidateField('password')">
             </div>
 
             <div class="col-12 mt-2">

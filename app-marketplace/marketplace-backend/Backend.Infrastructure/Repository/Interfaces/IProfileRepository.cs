@@ -9,5 +9,6 @@ namespace Backend.Infrastructure.Repository.Interfaces
 {
     public interface IProfileRepository : IBaseRepository<Profile>
     {
+        Task<IQueryable<Profile>> GetAvailableToRegister(long userId);
     }
 }

@@ -46,13 +46,20 @@ namespace Backend.Application.Services
 
         public async Task<ServiceResult<List<Profile>>> GetAll()
         {
+            var profiles = await _profileRepository.Get().ToListAsync();
+
+            var result = new OkServiceResult<List<Profile>>(profiles);
+
+            return result;
+        }
+
+        public async Task<ServiceResult<List<Profile>>> GetAllAvailableToRegister(long userId)
+        {
             var filter = new FilterDTO();
 
-            var profiles = await _profileRepository.Get().Select(e => new Profile
-            {
-                Id=e.Id,
-                Name=e.Name,
-            }).ToListAsync();
+            var profilesQuery = await _profileRepository.GetAvailableToRegister(userId);
+
+            var profiles = await profilesQuery.Select(x => new Profile { Id = x.Id, Name = x.Name}).ToListAsync();
 
             var result = new OkServiceResult<List<Profile>>(profiles);
 

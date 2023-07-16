@@ -9,5 +9,6 @@ namespace Backend.Application.Services.Interfaces
         Task<ServiceResult<PaginatedResult<Profile>>> AllDetails(FilterDTO filter);
         Task<ServiceResult<List<Profile>>> GetAll();
         Task<ServiceResult<Profile>> GetById(int profileId);
+        Task<ServiceResult<List<Profile>>> GetAllAvailableToRegister(long userId);
     }
 }

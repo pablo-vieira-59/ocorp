@@ -9,7 +9,7 @@ namespace Backend.Domain.DTO
 {
     public class EditProfilePermissionsRequestDTO
     {
-        public required List<Permission> Permissions { get; set; }
+        public List<Permission>? Permissions { get; set; }
         public int ProfileId { get; set; }
     }
 }

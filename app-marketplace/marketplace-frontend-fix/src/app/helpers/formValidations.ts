@@ -1,13 +1,13 @@
 export class ValidatorField {
-    static ValidateInputField(event: Event, required: string[], email?: string[], mustMatch?: string[][], minSize?: string[][], cnpj?: string[], cpf?: string[]): any {
-        var inputElement = event.target as HTMLInputElement;
-
+    static ValidateInputField(currentValidFields :string[], elementId: string, required: string[], email?: string[], mustMatch?: string[][], minSize?: string[][], cnpj?: string[], cpf?: string[]): any {
+        var inputElement = document.getElementById(elementId) as HTMLInputElement;
+        
         if(!inputElement){
             return;
         }
 
         var inputid = inputElement.id;
-        var inputValue = inputElement.value as string;
+        var inputValue = inputElement.value as string;       
 
         var validationElement = document.getElementById(inputid + "-validation") as HTMLElement;
         if (validationElement != null && validationElement != undefined) {
@@ -82,15 +82,26 @@ export class ValidatorField {
             }
         }
 
-        // Altera classe e coloca mensagem
+        var idx = currentValidFields.indexOf(inputElement.id);
+
+        // Caso seja inválido Altera classe e coloca mensagem
         if (errors.length != 0) {
             ValidatorField.SetElementAsInvalid(inputElement, errors[0]);
-            return null;
+
+            if (idx != -1) {
+                currentValidFields.splice(idx, 1);
+            }
+
+            return currentValidFields;
         }
 
         // Caso seja valido
         ValidatorField.SetElementAsValid(inputElement);
-        return inputid;
+		if (idx == -1) {
+			currentValidFields.push(inputElement.id);
+		}
+		
+        return currentValidFields;
     }
 
     static ValidateCPF(cpf: string): boolean {
@@ -188,7 +199,8 @@ export class ValidatorField {
 
     static SetElementAsInvalid(element :HTMLInputElement, message :string){
         element.setAttribute("isValid", 'false');
-        element.className = 'form-control is-invalid';
+        element.className = element.className.replace('is-valid','');
+        element.className += ' is-invalid';
 
         var hasErrorElement = document.getElementById(element.id + "-validation");
 
@@ -198,7 +210,8 @@ export class ValidatorField {
     }
 
     static SetElementAsValid(element :HTMLInputElement){
-        element.className = 'form-control is-valid';
+        element.className = element.className.replace('is-invalid','');
+        element.className += ' is-valid';
         element.setAttribute("isValid", 'true');
     }
 }

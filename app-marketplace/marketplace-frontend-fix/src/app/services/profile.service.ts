@@ -30,8 +30,34 @@ export class ProfileService {
     .then((payload) => {
       data = payload;
     })
-    .catch((error) => {
-      this.serviceNotification.error("Erro ao carregar dados.");
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error("Falha ao obter perfils.");
+      }
+      else{
+        this.serviceNotification.error(e.message);
+      }
+    });
+
+    return data;
+  }
+
+  async GetAllAvailable(){
+    var data :Profile[] = [];
+
+    var request = this.http.get<Profile[]>(this.base_url + "get-all-available");
+
+    await lastValueFrom(await request)
+    .then((payload :Profile[]) => {
+      data = payload;
+    })
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error("Falha ao obter perfils disponiveis para cadastro.");
+      }
+      else{
+        this.serviceNotification.error(e.message);
+      }
     });
 
     return data;
@@ -46,8 +72,13 @@ export class ProfileService {
     .then((payload :Profile[]) => {
       data = payload;
     })
-    .catch((error) => {
-      this.serviceNotification.error("Erro ao carregar dados.");
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error("Falha ao obter perfils.");
+      }
+      else{
+        this.serviceNotification.error(e.message);
+      }
     });
 
     return data;
@@ -62,8 +93,13 @@ export class ProfileService {
     .then((payload) => {
       data = payload;
     })
-    .catch((error) => {
-      this.serviceNotification.error("Erro ao carregar dados.");
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error("Falha ao obter perfil.");
+      }
+      else{
+        this.serviceNotification.error(e.message);
+      }
     });
 
     return data;

@@ -12,10 +12,6 @@ import { UserService } from 'src/app/services/user.service';
 	styleUrls: ['./modal-user-register.component.scss']
 })
 export class ModalUserRegisterComponent {
-	personalForm!: FormGroup;
-	userForm!: FormGroup;
-	addressForm!: FormGroup;
-
 	loading = false;
 	validFields :string[] = [];
 
@@ -128,26 +124,8 @@ export class ModalUserRegisterComponent {
 		element!.dispatchEvent(event);
 	}
 
-	ValidateField(event :Event){
-		var validField = ValidatorField.ValidateInputField(event, this.val_required, this.val_email, this.val_match, this.val_minSize, undefined, this.val_cpf);
-		var element = event.currentTarget as HTMLInputElement;
-
-		if(element.id == "reg-password"){
-			var confirmElement = document.getElementById("confirmPassword") as HTMLInputElement;
-
-			confirmElement.value = "";
-			this.confirmPassword = "";
-			ValidatorField.SetElementAsInvalid(confirmElement, "Valor do campo deve ser igual !");
-		}
-
-		var idx = this.validFields.indexOf(element.id);
-
-		if(validField != null && idx == -1){
-			this.validFields.push(element.id);
-		}
-		if(validField == null && idx != -1){
-			this.validFields.splice(idx, 1);
-		}	
+	ValidateField(inputId :string){
+		this.validFields = ValidatorField.ValidateInputField(this.validFields, inputId, this.val_required, this.val_email, this.val_match, this.val_minSize, undefined, this.val_cpf);
 	}
 
 	IsStepValid(stepId :number): boolean{

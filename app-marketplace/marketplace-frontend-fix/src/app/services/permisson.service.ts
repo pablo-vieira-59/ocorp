@@ -30,24 +30,13 @@ export class PermissionService {
     .then((payload :Permission[]) => {
       data = payload;
     })
-    .catch((error) => {
-      this.serviceNotification.error("Erro ao carregar dados.");
-    });
-
-    return data;
-  }
-
-  async AllDetailsCount(filters :FilterDto){
-    var data :number = 0;
-
-    var request = this.http.post<number>(this.base_url + "all-details/count", filters);
-
-    await lastValueFrom(await request)
-    .then((payload :number) => {
-      data = payload;
-    })
-    .catch((error) => {
-      this.serviceNotification.error("Erro ao carregar dados.");
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error("Erro ao carregar dados.");
+      }
+      else{
+        this.serviceNotification.error(e.message);
+      }
     });
 
     return data;
@@ -62,8 +51,13 @@ export class PermissionService {
     .then((payload :Permission[]) => {
       data = payload;
     })
-    .catch((error) => {
-      //this.serviceNotification.error("Erro ao carregar dados.");
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error("Erro ao carregar permissões.");
+      }
+      else{
+        this.serviceNotification.error(e.message);
+      }
     });
 
     return data;
@@ -78,8 +72,13 @@ export class PermissionService {
     .then((payload :Permission[]) => {
       data = payload;
     })
-    .catch((error) => {
-      this.serviceNotification.error("Erro ao carregar permissões.");
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error("Erro ao carregar permissões.");
+      }
+      else{
+        this.serviceNotification.error(e.message);
+      }
     });
 
     return data;
@@ -119,8 +118,13 @@ export class PermissionService {
     .then((payload :boolean) => {
       result = payload;
     })
-    .catch((error) => {
-      this.serviceNotification.error("Erro ao editar permissões.");
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error("Erro ao editar permissões.");
+      }
+      else{
+        this.serviceNotification.error(e.message);
+      }
     });
 
     return result;

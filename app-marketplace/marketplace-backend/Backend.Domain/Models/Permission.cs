@@ -8,6 +8,7 @@ namespace Backend.Domain.Models
     {
         public int Id { get; set; }
         public string? Name { get; set; }
+        public virtual Profile? Profile { get; set; }
         public virtual List<Permission_Profile>? Permission_Profiles { get; set; }
 
 
@@ -19,6 +20,7 @@ namespace Backend.Domain.Models
                 entityBuilder.Property(x => x.Name).IsRequired();
 
                 entityBuilder.HasMany(x => x.Permission_Profiles).WithOne(x => x.Permission).HasForeignKey(x => x.PermissionId);
+                entityBuilder.HasOne(x => x.Profile).WithOne(x => x.Permission);
             }
         }
     }
