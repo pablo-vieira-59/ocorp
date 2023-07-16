@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ValidatorField } from 'src/app/helpers/formValidations';
 import { EstablishmentService } from 'src/app/services/establishment.service';
 import { AddressService } from 'src/app/services/address.services';
+import { Address } from 'src/app/models/Entities/Address';
 
 @Component({
   selector: 'app-modal-establishment-register',
@@ -15,8 +16,10 @@ export class ModalEstablishmentRegisterComponent {
   loading = false;
   modalRef?: BsModalRef;
 
+  address = {} as Address;
+  isAddressValid = false;
   validFields :string[] = [];
-  val_required = ["corporateName", "fantasyName", "documentNumber", "email", "phoneNumber", "zipCode", "addressName", "number", "neighborhood", "city", "state"];
+  val_required = ["corporateName", "fantasyName", "documentNumber", "email", "phoneNumber"];
   val_email = ["email"];
   val_minSize = [["zipCode","9"]];
   val_cnpj = ["documentNumber"];
@@ -34,14 +37,12 @@ export class ModalEstablishmentRegisterComponent {
     neighborhood: '',
     city: '',
     state: '',
-    hasAddress: true,
   }
 
   constructor(
     private serviceModal :BsModalService, 
     private serviceNotification :ToastrService,
-    private serviceEstablishment :EstablishmentService,
-    private serviceAddress :AddressService)
+    private serviceEstablishment :EstablishmentService)
   {  }
 
   ngOnInit(){
@@ -49,10 +50,23 @@ export class ModalEstablishmentRegisterComponent {
   }
 
   IsFormValid() :boolean{
-    return this.val_required.every(x => this.validFields.includes(x));
+    var requiredIsvalid = this.val_required.every(x => this.validFields.includes(x));
+
+    if(requiredIsvalid && this.isAddressValid){
+      return true;
+    } 
+
+    return false;
   }
 
   async Submit(){
+    this.data.zipCode = this.address.zipCode;
+    this.data.addressName = this.address.addressName;
+    this.data.number = this.address.number;
+    this.data.neighborhood = this.address.neighborhood;
+    this.data.city = this.address.city;
+    this.data.state = this.address.state;
+
     var hasAdded = await this.serviceEstablishment.AddEstablishment(this.data);
 
     if(hasAdded){
@@ -62,41 +76,6 @@ export class ModalEstablishmentRegisterComponent {
 
   Close() {
 		this.serviceModal.hide();
-	}
-
-  async GetAddress(value: string) {
-		var address = await this.serviceAddress.GetAddressFromCep(value);
-
-		if(address.erro == true) {
-			address.logradouro = "";
-			address.bairro = "";
-			address.localidade = "";
-			address.uf = "";
-		}
-
-		var element = document.getElementById("addressName") as HTMLInputElement;
-		element.value = address.logradouro;
-		this.data.addressName = address.logradouro;
-		var event = new Event("change");
-		element!.dispatchEvent(event);
-
-		element = document.getElementById("neighborhood") as HTMLInputElement;
-		element.value = address.bairro;
-		this.data.neighborhood = address.bairro;
-		event = new Event("change");
-		element!.dispatchEvent(event);
-
-		element = document.getElementById("city") as HTMLInputElement;
-		element.value = address.localidade;
-		this.data.city = address.localidade;
-		event = new Event("change");
-		element!.dispatchEvent(event);
-
-		element = document.getElementById("state") as HTMLInputElement;
-		element.value = address.uf;
-		this.data.state = address.uf;
-		event = new Event("change");
-		element!.dispatchEvent(event);
 	}
 
 	ValidateField(inputId :string){

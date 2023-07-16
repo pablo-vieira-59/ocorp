@@ -198,8 +198,8 @@ export class ValidatorField {
     }
 
     static SetElementAsInvalid(element :HTMLInputElement, message :string){
-        element.setAttribute("isValid", 'false');
-        element.className = element.className.replace('is-valid','');
+        this.ClearClasses(element);
+        
         element.className += ' is-invalid';
 
         var hasErrorElement = document.getElementById(element.id + "-validation");
@@ -210,9 +210,15 @@ export class ValidatorField {
     }
 
     static SetElementAsValid(element :HTMLInputElement){
-        element.className = element.className.replace('is-invalid','');
+        this.ClearClasses(element);
+
         element.className += ' is-valid';
         element.setAttribute("isValid", 'true');
+    }
+
+    static ClearClasses(element :HTMLInputElement){
+        element.className = element.className.replace(/is-valid/g,'');
+        element.className = element.className.replace(/is-invalid/g,'');
     }
 }
 

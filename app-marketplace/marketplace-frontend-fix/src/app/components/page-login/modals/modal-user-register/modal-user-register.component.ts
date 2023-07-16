@@ -3,6 +3,7 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { ValidatorField } from 'src/app/helpers/formValidations';
+import { Address } from 'src/app/models/Entities/Address';
 import { AddressService } from 'src/app/services/address.services';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,8 +14,10 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ModalUserRegisterComponent {
 	loading = false;
-	validFields :string[] = [];
+	validFields: string[] = [];
 
+	isAddressValid = false;
+	address = {} as Address;
 	data: any = {
 		password: '',
 		name: '',
@@ -30,8 +33,8 @@ export class ModalUserRegisterComponent {
 		profileId: 4
 	}
 
-	val_required = ["name", "documentNumber", "phoneNumber", "email", "reg-password", "zipCode", "number", "addressName", "neighborhood", "state", "city"];
-	val_minSize =  [["documentNumber", "14"], ["phoneNumber", "15"], ["reg-password", "6"],["zipCode","9"]];
+	val_required = ["name", "documentNumber", "phoneNumber", "email", "reg-password"];
+	val_minSize = [["documentNumber", "14"], ["phoneNumber", "15"], ["reg-password", "6"]];
 	val_email = ["email"];
 	val_match = [["confirmPassword", "reg-password"]];
 	val_cpf = ["documentNumber"];
@@ -45,23 +48,26 @@ export class ModalUserRegisterComponent {
 	constructor(
 		private serviceModal: BsModalService,
 		private serviceNotification: ToastrService,
-		private serviceUser: UserService,
-		private serviceAddress: AddressService) { }
+		private serviceUser: UserService) { }
 
 	ngOnInit() {
 
 	}
 
-	IsFormValid(){
-		if(this.val_required.length == this.validFields.length){
-			return true;
-		}
-
-		return false;
+	IsFormValid() {
+		return this.val_required.every(x => this.validFields.includes(x)) && this.isAddressValid;
 	}
 
 	async Submit() {
 		this.loading = true;
+
+		this.data.zipCode = this.address.zipCode;
+		this.data.addressName = this.address.addressName;
+		this.data.number = this.address.number;
+		this.data.neighborhood = this.address.neighborhood;
+		this.data.city = this.address.city;
+		this.data.state = this.address.state;
+
 		var isRegistered = await this.serviceUser.CreateUser(this.data);
 
 		this.loading = false;
@@ -89,57 +95,22 @@ export class ModalUserRegisterComponent {
 		this.currentStep = stepIdx;
 	}
 
-	async GetAddress(value: string) {
-		var address = await this.serviceAddress.GetAddressFromCep(value);
-
-		if(address.erro == true) {
-			address.logradouro = "";
-			address.bairro = "";
-			address.localidade = "";
-			address.uf = "";
-		}
-
-		var element = document.getElementById("addressName") as HTMLInputElement;
-		element.value = address.logradouro;
-		this.data.addressName = address.logradouro;
-		var event = new Event("change");
-		element!.dispatchEvent(event);
-
-		element = document.getElementById("neighborhood") as HTMLInputElement;
-		element.value = address.bairro;
-		this.data.neighborhood = address.bairro;
-		event = new Event("change");
-		element!.dispatchEvent(event);
-
-		element = document.getElementById("city") as HTMLInputElement;
-		element.value = address.localidade;
-		this.data.city = address.localidade;
-		event = new Event("change");
-		element!.dispatchEvent(event);
-
-		element = document.getElementById("state") as HTMLInputElement;
-		element.value = address.uf;
-		this.data.state = address.uf;
-		event = new Event("change");
-		element!.dispatchEvent(event);
-	}
-
-	ValidateField(inputId :string){
+	ValidateField(inputId: string) {
 		this.validFields = ValidatorField.ValidateInputField(this.validFields, inputId, this.val_required, this.val_email, this.val_match, this.val_minSize, undefined, this.val_cpf);
 	}
 
-	IsStepValid(stepId :number): boolean{
-		if(stepId == 0){
-			var elements = ["name","documentNumber", "phoneNumber"]
+	IsStepValid(stepId: number): boolean {
+		if (stepId == 0) {
+			var elements = ["name", "documentNumber", "phoneNumber"]
 			return elements.every(x => this.validFields.includes(x));
 		}
-		if(stepId == 1){
-			var elements = ["name","documentNumber", "phoneNumber","email","reg-password", "confirmPassword"]
+		if (stepId == 1) {
+			var elements = ["name", "documentNumber", "phoneNumber", "email", "reg-password", "confirmPassword"]
 			return elements.every(x => this.validFields.includes(x));
 		}
-		if(stepId == 2){
-			var elements = ["name","documentNumber", "phoneNumber","email","reg-password","zipCode", "number", "addressName", "neighborhood", "state", "city"]
-			return elements.every(x => this.validFields.includes(x));
+		if (stepId == 2) {
+			var elements = ["name", "documentNumber", "phoneNumber", "email", "reg-password"]
+			return elements.every(x => this.validFields.includes(x)) && this.isAddressValid;
 		}
 		return false;
 	}

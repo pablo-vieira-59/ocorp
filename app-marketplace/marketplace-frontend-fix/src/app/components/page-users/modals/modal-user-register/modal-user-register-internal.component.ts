@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { ValidatorField } from 'src/app/helpers/formValidations';
+import { Address } from 'src/app/models/Entities/Address';
 import { Profile } from 'src/app/models/Entities/Profile';
 import { AddressService } from 'src/app/services/address.services';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -17,10 +18,11 @@ export class ModalUserRegisterInternalComponent {
 	modalRef?: BsModalRef;
 
 	ddl_profile_options = [] as Profile[];
-
+	isAddressValid = false;
+	address = {} as Address;
 	validFields: string[] = [];
-	val_required = ["name", "documentNumber", "phoneNumber", "email", "reg-password", "zipCode", "number", "addressName", "neighborhood", "state", "city", "profile"];
-	val_minSize = [["documentNumber", "14"], ["phoneNumber", "15"], ["reg-password", "6"], ["zipCode", "9"]];
+	val_required = ["name", "documentNumber", "phoneNumber", "email", "reg-password"];
+	val_minSize = [["documentNumber", "14"], ["phoneNumber", "15"], ["reg-password", "6"]];
 	val_email = ["email"];
 	val_match = [["confirmPassword", "reg-password"]];
 	val_cpf = ["documentNumber"];
@@ -45,7 +47,6 @@ export class ModalUserRegisterInternalComponent {
 		private serviceModal: BsModalService,
 		private serviceNotification: ToastrService,
 		private serviceUser: UserService,
-		private serviceAddress: AddressService,
 		private serviceProfile: ProfileService) { }
 
 	async ngOnInit() {
@@ -55,11 +56,18 @@ export class ModalUserRegisterInternalComponent {
 	}
 
 	IsFormValid(): boolean {
-		return this.val_required.every(x => this.validFields.includes(x));
+		return this.val_required.every(x => this.validFields.includes(x)) && this.isAddressValid;
 	}
 
 	async Submit() {
 		this.loading = true;
+		this.data.zipCode = this.address.zipCode;
+		this.data.addressName = this.address.addressName;
+		this.data.number = this.address.number;
+		this.data.neighborhood = this.address.neighborhood;
+		this.data.city = this.address.city;
+		this.data.state = this.address.state;
+
 		var isRegistered = await this.serviceUser.CreateUser(this.data);
 
 		this.loading = false;
@@ -73,41 +81,6 @@ export class ModalUserRegisterInternalComponent {
 
 	Close() {
 		this.serviceModal.hide();
-	}
-
-	async GetAddress(value: string) {
-		var address = await this.serviceAddress.GetAddressFromCep(value);
-
-		if (address.erro == true) {
-			address.logradouro = "";
-			address.bairro = "";
-			address.localidade = "";
-			address.uf = "";
-		}
-
-		var element = document.getElementById("addressName") as HTMLInputElement;
-		element.value = address.logradouro;
-		this.data.addressName = address.logradouro;
-		var event = new Event("change");
-		element!.dispatchEvent(event);
-
-		element = document.getElementById("neighborhood") as HTMLInputElement;
-		element.value = address.bairro;
-		this.data.neighborhood = address.bairro;
-		event = new Event("change");
-		element!.dispatchEvent(event);
-
-		element = document.getElementById("city") as HTMLInputElement;
-		element.value = address.localidade;
-		this.data.city = address.localidade;
-		event = new Event("change");
-		element!.dispatchEvent(event);
-
-		element = document.getElementById("state") as HTMLInputElement;
-		element.value = address.uf;
-		this.data.state = address.uf;
-		event = new Event("change");
-		element!.dispatchEvent(event);
 	}
 
 	ValidateField(inputId: string) {

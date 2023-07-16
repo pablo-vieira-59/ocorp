@@ -41,6 +41,7 @@ import { PageDashboardComponent } from './components/page-dashboard/page-dashboa
 import { NgChartsModule } from 'ng2-charts';
 import { BaseChartComponent } from './components/common/charts/base-chart/base-chart.component';
 import { ProfileEditModalComponent } from './components/page-profiles/modals/profile-edit-modal/profile-edit-modal.component';
+import { AddressFormComponent } from './components/common/forms/address-form/address-form.component';
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
@@ -71,6 +72,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     PageDashboardComponent,
     BaseChartComponent,
     ProfileEditModalComponent,
+    AddressFormComponent,
   ],
   imports: [
     HttpClientModule,

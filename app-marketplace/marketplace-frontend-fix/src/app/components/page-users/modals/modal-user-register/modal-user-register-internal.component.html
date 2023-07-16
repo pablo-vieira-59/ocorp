@@ -68,52 +68,7 @@
     <div class="row mt-4">
         <h5 class="col-12">Endereço</h5>
 
-        <div class="col-12">
-            <div class="row">
-                <div class="col-6">
-                    <label for="zipCode" class="required">CEP</label>
-                    <input id="zipCode" [(ngModel)]="data.zipCode" [mask]="'00000-000'"
-                        (change)="GetAddress(data.zipCode)" type="text" class="form-control"
-                        placeholder="Digite seu cep..." (change)="ValidateField('zipCode')">
-                </div>
-
-                <div class="col-6">
-                    <label for="number" class="required">Numero</label>
-                    <input id="number" [(ngModel)]="data.number" type="number" class="form-control"
-                        placeholder="Digite o numero do endereço..." (change)="ValidateField('number')">
-                </div>
-            </div>
-
-            <div class="row mt-2">
-                <div class="col">
-                    <label for="addressName" class="required">Endereço</label>
-                    <input id="addressName" [(ngModel)]="data.addressName" type="text" class="form-control"
-                        placeholder="Digite o endereço..." (change)="ValidateField('addressName')">
-                </div>
-            </div>
-
-            <div class="row mt-2">
-                <div class="col">
-                    <label for="city" class="required">Cidade</label>
-                    <input id="city" [(ngModel)]="data.city" type="text" class="form-control"
-                        placeholder="Digite a cidade..." (change)="ValidateField('city')">
-                </div>
-            </div>
-
-            <div class="row mt-2">
-                <div class="col-6">
-                    <label for="state" class="required">Estado</label>
-                    <input id="state" [(ngModel)]="data.state" type="text" class="form-control"
-                        placeholder="Digite o estado..." (change)="ValidateField('state')">
-                </div>
-
-                <div class="col-6">
-                    <label for="neighborhood" class="required">Bairro</label>
-                    <input id="neighborhood" [(ngModel)]="data.neighborhood" type="text" class="form-control"
-                        placeholder="Digite o bairro..." (change)="ValidateField('neighborhood')">
-                </div>
-            </div>
-        </div>
+        <app-address-form [(data)]="address" [(isFormValid)]="isAddressValid"></app-address-form>
     </div>
 </div>
 
