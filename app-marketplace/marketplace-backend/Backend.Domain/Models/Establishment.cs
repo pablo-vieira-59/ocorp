@@ -17,6 +17,7 @@ namespace Backend.Domain.Models
 
         public virtual EstablishmentStatus? EstablishmentStatus { get; set; }
         public virtual List<Address_Establishment>? Address_Establishments { get; set; }
+        public virtual List<User_Establishment>? User_Establishments { get; set; }
         public virtual List<Product>? Products { get; set; }
 
 
@@ -36,6 +37,7 @@ namespace Backend.Domain.Models
                 entityBuilder.HasOne(x => x.EstablishmentStatus).WithMany(x => x.Establishments).HasForeignKey(x => x.EstablishmentStatusId);
                 
                 entityBuilder.HasMany(x => x.Address_Establishments).WithOne(x => x.Establishment).HasForeignKey(x => x.EstablishmentId);
+                entityBuilder.HasMany(x => x.User_Establishments).WithOne(x => x.Establishment).HasForeignKey(x => x.EstablishmentId);
                 entityBuilder.HasMany(x => x.Products).WithOne(x => x.Establishment).HasForeignKey(x => x.EstablishmentId);
             }
         }

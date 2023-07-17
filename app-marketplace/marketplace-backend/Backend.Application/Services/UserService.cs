@@ -145,41 +145,11 @@ namespace Backend.Application.Services
                 return new FailServiceResultStruct<bool>("CPF já cadastrado.");
             }
 
-            // Caso não seja cadastro de usuário comum
-            if (request.ProfileId != 4) 
+            // Valida permissão de Perfil
+            var hasPermission = await this.CheckProfilePermission(request.ProfileId, currentUser);
+            if(!hasPermission)
             {
-                // Caso a requisição não seja de um usuário logado
-                if (currentUser == null)
-                {
-                    return new FailServiceResultStruct<bool>("Sem permissão para realizar essa ação.");
-                }
-
-                // Verifica permissão de cadastro
-                PermissionEnum permissionId = PermissionEnum.Cadastro_Funcionario;
-                switch (request.ProfileId)
-                {
-                    case 1: // Admin
-                        permissionId = PermissionEnum.Cadastro_Admin;
-                        break;
-                    case 2: // Gerente
-                        permissionId = PermissionEnum.Cadastro_Gerente;
-                        break;
-                    case 3: // Funcionario
-                        permissionId = PermissionEnum.Cadastro_Funcionario;
-                        break;
-                    case 5: // Supervisor
-                        permissionId = PermissionEnum.Cadastro_Supervisor;
-                        break;
-                    default:
-                        break;
-                }
-
-                var hasPermission = (await HasPermission(currentUser.Id, permissionId)).Value;
-
-                if(!hasPermission)
-                {
-                    return new FailServiceResultStruct<bool>("Sem permissão para realizar essa ação.");
-                }
+                return new FailServiceResultStruct<bool>("Sem permissão para realizar essa ação.");
             }
 
             var newUser = new User
@@ -270,6 +240,74 @@ namespace Backend.Application.Services
             }
 
             return new OkServiceResultStruct<bool>(false);
+        }
+    
+        public async Task<ServiceResult<bool>> EditUser(EditUserDTO request, User? currentUser)
+        {
+            var hasPermission = await this.CheckProfilePermission(request.ProfileId, currentUser);
+
+            if(!hasPermission)
+            {
+                return new FailServiceResultStruct<bool>("Sem permissão para realizar essa ação.");
+            }
+
+            var user = await _userRepository.GetByProperty("Id", request.Id.ToString()).FirstOrDefaultAsync();
+
+            if(user == null)
+            {
+                return new FailServiceResultStruct<bool>("Usuário não encontrado.");
+            }
+
+            user.Name = request.Name;
+            user.PhoneNumber = request.PhoneNumber;
+            user.Password = request.Password;
+            user.ProfileId = request.ProfileId;
+
+            await _userRepository.UpdateAsync(user);
+
+            return new OkServiceResultStruct<bool>(true);
+        }
+
+        private async Task<bool> CheckProfilePermission(int profileId, User? currentUser)
+        {
+            // Caso não seja cadastro de usuário comum
+            if (profileId != 4)
+            {
+                // Caso a requisição não seja de um usuário logado
+                if (currentUser == null)
+                {
+                    return false;
+                }
+
+                // Verifica permissão de cadastro
+                PermissionEnum permissionId = PermissionEnum.Cadastro_Funcionario;
+                switch (profileId)
+                {
+                    case 1: // Admin
+                        permissionId = PermissionEnum.Cadastro_Admin;
+                        break;
+                    case 2: // Gerente
+                        permissionId = PermissionEnum.Cadastro_Gerente;
+                        break;
+                    case 3: // Funcionario
+                        permissionId = PermissionEnum.Cadastro_Funcionario;
+                        break;
+                    case 5: // Supervisor
+                        permissionId = PermissionEnum.Cadastro_Supervisor;
+                        break;
+                    default:
+                        break;
+                }
+
+                var hasPermission = (await HasPermission(currentUser.Id, permissionId)).Value;
+
+                if (!hasPermission)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

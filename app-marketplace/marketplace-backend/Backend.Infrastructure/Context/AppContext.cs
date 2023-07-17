@@ -42,6 +42,7 @@ namespace Backend.Infrastructure.Context
             modelBuilder.ApplyConfiguration(new Address.Map());
             modelBuilder.ApplyConfiguration(new Address_Establishment.Map());
             modelBuilder.ApplyConfiguration(new Address_User.Map());
+            modelBuilder.ApplyConfiguration(new User_Establishment.Map());
 
         }
 

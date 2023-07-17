@@ -8,6 +8,7 @@ import { User } from 'src/app/models/Entities/User';
 import { FilterDto, SearchField, Paging } from 'src/app/models/DTO/FilterDto';
 import { ProfileService } from 'src/app/services/profile.service';
 import { ModalUserRegisterInternalComponent } from './modals/modal-user-register/modal-user-register-internal.component';
+import { ModalUserEditComponent } from './modals/modal-user-edit/modal-user-edit.component';
 
 @Component({
   selector: 'app-page-users',
@@ -125,14 +126,15 @@ export class PageUsersComponent {
   }
 
   Modal_Edit(id: number) {
-    // this.modalRef = this.serviceModal.show(LivroEditarModalComponent,{
-    //   initialState: {
-    //     ddl_editora_options : this.ddl_editora_options,
-    //     ddl_genero_options : this.ddl_genero_options,
-    //     ddl_autores_options : this.ddl_autores_options,
-    //     livro:livro
-    //   },
-    //   class: "modal-lg modal-dialog-centered"
-    // });
+    this.modalRef = this.serviceModal.show(ModalUserEditComponent,{
+      initialState: {
+        userId : id
+      },
+      class: "modal-lg modal-dialog-centered"
+    });
+
+    this.modalRef.onHidden.subscribe(() => {
+      this.LoadTableData();
+    });
   }
 }

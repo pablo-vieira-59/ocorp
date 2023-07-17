@@ -42,6 +42,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { BaseChartComponent } from './components/common/charts/base-chart/base-chart.component';
 import { ProfileEditModalComponent } from './components/page-profiles/modals/profile-edit-modal/profile-edit-modal.component';
 import { AddressFormComponent } from './components/common/forms/address-form/address-form.component';
+import { ModalUserEditComponent } from './components/page-users/modals/modal-user-edit/modal-user-edit.component';
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
@@ -73,6 +74,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     BaseChartComponent,
     ProfileEditModalComponent,
     AddressFormComponent,
+    ModalUserEditComponent,
   ],
   imports: [
     HttpClientModule,

@@ -3,7 +3,7 @@ export class ValidatorField {
         var inputElement = document.getElementById(elementId) as HTMLInputElement;
         
         if(!inputElement){
-            return;
+            return currentValidFields;
         }
 
         var inputid = inputElement.id;
@@ -86,7 +86,7 @@ export class ValidatorField {
 
         // Caso seja inválido Altera classe e coloca mensagem
         if (errors.length != 0) {
-            ValidatorField.SetElementAsInvalid(inputElement, errors[0]);
+            ValidatorField.SetElementAsInvalid(inputElement.id, errors[0]);
 
             if (idx != -1) {
                 currentValidFields.splice(idx, 1);
@@ -96,7 +96,7 @@ export class ValidatorField {
         }
 
         // Caso seja valido
-        ValidatorField.SetElementAsValid(inputElement);
+        ValidatorField.SetElementAsValid(inputElement.id);
 		if (idx == -1) {
 			currentValidFields.push(inputElement.id);
 		}
@@ -197,10 +197,17 @@ export class ValidatorField {
         return true;
     }
 
-    static SetElementAsInvalid(element :HTMLInputElement, message :string){
+    static SetElementAsInvalid(elementId :string, message :string){
+        var element = document.getElementById(elementId) as HTMLInputElement;
+
+        if(element == null){
+            return;
+        }
+
         this.ClearClasses(element);
         
         element.className += ' is-invalid';
+        console.log(element.className);
 
         var hasErrorElement = document.getElementById(element.id + "-validation");
 
@@ -209,16 +216,28 @@ export class ValidatorField {
         element.insertAdjacentHTML('afterend', "<small class=\"form-text text-danger\" id=\"" + element.id + "-validation\"><i class=\"bi bi-exclamation-triangle me-2\"></i>" + message + "<br></small>");
     }
 
-    static SetElementAsValid(element :HTMLInputElement){
+    static SetElementAsValid(elementId :string){
+        var element = document.getElementById(elementId) as HTMLInputElement;
+
+        if(element == null){
+            return;
+        }
+
         this.ClearClasses(element);
 
         element.className += ' is-valid';
-        element.setAttribute("isValid", 'true');
+        
     }
 
     static ClearClasses(element :HTMLInputElement){
-        element.className = element.className.replace(/is-valid/g,'');
-        element.className = element.className.replace(/is-invalid/g,'');
+        if(element.className.includes("form-select")){
+            element.className = "form-select";
+        }
+        if(element.className.includes("form-control")){
+            element.className = "form-control";
+        }
+
+        
     }
 }
 

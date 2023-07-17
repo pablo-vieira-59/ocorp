@@ -1,0 +1,76 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Editar usuário</h4>
+    <button type="button" class="btn-close" aria-describedby="modal-title" (click)="Close()"></button>
+</div>
+
+<div class="modal-body" *ngIf="!loading">
+    <div class="row">
+        <h5 class="col-12">Dados do usuário</h5>
+
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6">
+                    <label for="email" class="required">E-Mail</label>
+                    <input id="email" [(ngModel)]="model.email" type="text" class="form-control input-disabled"
+                        placeholder="Digite seu e-mail ..." readonly>
+                </div>
+
+                <div class="col-6">
+                    <label for="documentNumber" class="required">CPF</label>
+                    <input id="documentNumber" [(ngModel)]="model.documentNumber" [mask]="'000.000.000-00'" type="text"
+                        class="form-control input-disabled" placeholder="Digite seu cpf ..." readonly>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-6">
+                    <label for="name" class="required">Nome</label>
+                    <input id="name" [(ngModel)]="model.name" type="text" class="form-control"
+                        placeholder="Digite seu nome ..." (change)="ValidateField('name')">
+                </div>
+
+                <div class="col-6">
+                    <label for="phoneNumber" class="required">Numero de Celular</label>
+                    <input id="phoneNumber" [(ngModel)]="model.phoneNumber" [mask]="'(00) 00000-0000'" type="text"
+                        class="form-control" placeholder="Digite seu numero..." (change)="ValidateField('phoneNumber')">
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-6">
+                    <label for="reg-password" class="required">Senha</label>
+                    <input id="reg-password" [(ngModel)]="model.password" type="password" class="form-control"
+                        placeholder="Digite sua senha ..." (change)="ValidateField('reg-password')">
+                </div>
+
+                <div class="col-6">
+                    <label for="profile" class="required">Perfil</label>
+                    <select class="form-select" id="profile"
+                        [(ngModel)]="model.profileId" (change)="ValidateField('profile')">
+                        <option value="" selected>Selecione um perfil ...</option>
+                        <option *ngFor="let option of ddl_profile_options"
+                            value="{{option.id}}">{{option.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-body" *ngIf="loading">
+    <div class="row">
+        <app-spinner-black></app-spinner-black>
+    </div>
+</div>
+
+
+<div class="modal-footer bg-white-d">
+    <button type="button" (click)="Close()" class="btn btn-outline-danger">Cancelar</button>
+    <button [disabled]="!IsFormValid()" type="button" class="btn btn-success text-light"
+        (click)="Submit()">Salvar</button>
+</div>

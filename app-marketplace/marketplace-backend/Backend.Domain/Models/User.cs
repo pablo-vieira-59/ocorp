@@ -25,6 +25,7 @@ namespace Backend.Domain.Models
         public virtual UserStatus? UserStatus { get; set; }
 
         public virtual List<Address_User>? Address_Users { get; set; }
+        public virtual List<User_Establishment>? User_Establishments { get; set; }
 
         public class Map : IEntityTypeConfiguration<User>
         {
@@ -45,6 +46,7 @@ namespace Backend.Domain.Models
                 entityBuilder.HasOne(x => x.UserStatus).WithMany(x => x.Users).HasForeignKey(x => x.UserStatusId);
                 
                 entityBuilder.HasMany(x => x.Address_Users).WithOne(x => x.User).HasForeignKey(x => x.UserId);
+                entityBuilder.HasMany(x => x.User_Establishments).WithOne(x => x.User).HasForeignKey(x => x.UserId);
             }
         }
 

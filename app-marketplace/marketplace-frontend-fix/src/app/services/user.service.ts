@@ -20,100 +20,151 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private serviceNotification :ToastrService,
+    private serviceNotification: ToastrService,
   ) { }
 
-  async AllDetails(filters :FilterDto){
-    var data :PaginatedResultDTO<User> = {} as PaginatedResultDTO<User>;
+  async AllDetails(filters: FilterDto) {
+    var data: PaginatedResultDTO<User> = {} as PaginatedResultDTO<User>;
 
     var request = this.http.post<PaginatedResultDTO<User>>(this.base_url + "all-details", filters);
 
     await lastValueFrom(await request)
-    .then((payload) => {
-      data = payload;
-    })
-    .catch((e) => {
-      if(e.error != null){
-        this.serviceNotification.error("Falha ao obter usuários.");
-      }
-      else{
-        this.serviceNotification.error(e.message);
-      }
+      .then((payload) => {
+        data = payload;
+      })
+      .catch((e) => {
+        if (e.error != null) {
+          this.serviceNotification.error(e.error);
+        }
+        else {
+          console.log(e);
+          this.serviceNotification.error("Erro ao carregar dados.");
+        }
 
-      data = {
-        items: [],
-        totalCount: 0
-      } as PaginatedResultDTO<User>;
-      this.serviceNotification.error("Erro ao carregar dados.");
-    });
+        data = {
+          items: [],
+          totalCount: 0
+        } as PaginatedResultDTO<User>;
+
+      });
 
     return data;
   }
 
-  async Login(loginData: LoginDto) :Promise<boolean>{
+  async Login(loginData: LoginDto): Promise<boolean> {
     var request = this.http.post<LoginResponseDto>(this.base_url + "login/", loginData);
 
     var result = false;
 
     await lastValueFrom(await request)
-    .then(e => {
-      localStorage.setItem('token', e.token);
-      localStorage.setItem('guid', e.guid);
-      result = true;
-    })
-    .catch(e => {
-      if(e.error != null){
-        this.serviceNotification.error("Falha ao realizar login");
-      }
-      else{
-        this.serviceNotification.error(e.message);
-      }
-      result = false;
-    });
+      .then(e => {
+        localStorage.setItem('token', e.token);
+        localStorage.setItem('guid', e.guid);
+        result = true;
+      })
+      .catch(e => {
+        if (e.error != null) {
+          this.serviceNotification.error(e.error);
+        }
+        else {
+          console.log(e);
+          this.serviceNotification.error("Falha ao realizar login.");
+        }
+        result = false;
+      });
 
     return result;
   }
 
-  async IsLoggedIn() :Promise<boolean>{
+  async IsLoggedIn(): Promise<boolean> {
     var request = this.http.get<boolean>(this.base_url + "is-logged-in/");
 
     var result = false;
 
     await lastValueFrom(await request)
-    .then(e => {
-      result = true;
-    })
-    .catch(e => {
-      if(e.error != null){
-        this.serviceNotification.error(e.error);
-      }
-      else{
-        this.serviceNotification.error(e.message);
-      }
-      result = false;
-    });
+      .then(e => {
+        result = true;
+      })
+      .catch(e => {
+        if (e.error != null) {
+          this.serviceNotification.error(e.error);
+        }
+        else {
+          console.log(e);
+          this.serviceNotification.error("Erro ao verificar login.");
+        }
+        result = false;
+      });
 
     return result;
   }
 
-  async CreateUser(user :any) :Promise<boolean>{
+  async CreateUser(user: any): Promise<boolean> {
     var request = this.http.post<boolean>(this.base_url + "new-user", user);
     var result = false;
 
     await lastValueFrom(await request)
-    .then(e => {
-      result = true;
-    })
-    .catch(e => {
-      if(e.error != null){
-        this.serviceNotification.error("Falha ao criar usuário");
-      }
-      else{
-        this.serviceNotification.error(e.message);
-      }
-      
-      result = false;
-    });
+      .then(e => {
+        result = true;
+      })
+      .catch(e => {
+        if (e.error != null) {
+          this.serviceNotification.error(e.error);
+        }
+        else {
+          console.log(e);
+          this.serviceNotification.error("Erro ao criar usuário.");
+        }
+
+        result = false;
+      });
+
+    return result;
+  }
+
+  async GetById(userId: number): Promise<User> {
+    var request = this.http.get<User>(this.base_url + userId);
+    var result = {} as User;
+
+    await lastValueFrom(await request)
+      .then(e => {
+        result = e;
+      })
+      .catch(e => {
+        if (e.error != null) {
+          console.log(e);
+          this.serviceNotification.error(e.error);
+        }
+        else {
+          console.log(e);
+          this.serviceNotification.error("Erro ao obter usuário.");
+        }
+
+        return null;
+      });
+
+    return result;
+  }
+
+  async EditUser(user: any): Promise<boolean> {
+    var request = this.http.post<boolean>(this.base_url + "edit/" + user.Id, user);
+    var result = false;
+
+    await lastValueFrom(await request)
+      .then(e => {
+        result = true;
+      })
+      .catch(e => {
+        if (e.error != null) {
+          this.serviceNotification.error(e.error);
+        }
+        else {
+          console.log(e);
+          this.serviceNotification.error("Erro ao editar usuário.");
+        }
+
+        result = false;
+      });
 
     return result;
   }
@@ -123,7 +174,7 @@ export class UserService {
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router) { }
 
   async canActivate(): Promise<boolean> {
     if (await this.userService.IsLoggedIn()) {
@@ -140,30 +191,28 @@ export class AuthGuard implements CanActivate {
 })
 export class RoleGuard implements CanActivate {
   constructor(
-    private permissionService: PermissionService, 
+    private permissionService: PermissionService,
     private router: Router,
-    private notificationService: ToastrService) 
-  {}
+    private notificationService: ToastrService) { }
 
-  async canActivate( next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+  async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     var permissions = next.data['permissions'] as PermissionEnum[];
-    
+
     var hasPermission = await this.permissionService.CurrentUserHasPermission([PermissionEnum.Componente_MenuLateral]);
     var nav = document.getElementById("navbar");
-    if(nav)
-    {
-      if(hasPermission){
+    if (nav) {
+      if (hasPermission) {
         nav.style.display = "block";
       }
-      else{
+      else {
         nav.style.display = "none";
       }
     }
-    
+
 
     hasPermission = await this.permissionService.CurrentUserHasPermission(permissions);
 
-    if(hasPermission){
+    if (hasPermission) {
       return true;
     }
 

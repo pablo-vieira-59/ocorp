@@ -12,5 +12,6 @@ namespace Backend.Application.Services.Interfaces
         Task<ServiceResult<bool>> IsAuthenticated(long userId, Guid userToken);
         Task<ServiceResult<User>> GetDetails(long id);
         Task<ServiceResult<User>> GetById(long id);
+        Task<ServiceResult<bool>> EditUser(EditUserDTO request, User? currentUser);
     }
 }

@@ -120,5 +120,61 @@ namespace App.Backend.Livraria.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetById(long userId)
+        {
+            try
+            {
+                var result = await _userService.GetById(userId);
+
+                if (!result.Success)
+                {
+                    return BadRequest("Falha ao obter usuário");
+                }
+
+                return Ok(result.Value);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"UserController - GetById - {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("edit/{userId}")]
+        public async Task<IActionResult> EditUser(EditUserDTO userData)
+        {
+            try
+            {
+                User? currentUser = null;
+
+                var currentUserAccess = AuthMiddlewareExtensions.GetCurrentUser(HttpContext);
+
+                if (currentUserAccess != null)
+                {
+                    currentUser = (await _userService.GetById(currentUserAccess.UserId)).Value;
+                }
+
+                if(currentUser == null)
+                {
+                    return BadRequest("Falha ao obter usuário");
+                }
+
+                var result = await _userService.EditUser(userData, currentUser);
+
+                if (!result.Success)
+                {
+                    return BadRequest("Falha ao editar usuário");
+                }
+
+                return Ok(result.Value);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"UserController - EditUser - {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
