@@ -65,7 +65,7 @@ namespace Backend.Infrastructure.Repository
                 bool hasAnd = false;
                 Type typeAux = typeof(T);
                 PropertyInfo? propertyInfo = null;
-                var allowedOperators = new List<string> { "==", "!=", ">", "<", ">=", "<=", "like", "contains" };
+                var allowedOperators = new List<string> { "==", "!=", ">", "<", ">=", "<=", "like", "contains", "any" };
                 foreach (SearchField searchField in filter.SearchFields)
                 {
 
@@ -120,6 +120,11 @@ namespace Backend.Infrastructure.Repository
                         if (searchField.Operator == "contains")
                         {
                             expression += $".{searchField.Property}.Contains({searchField.Value})";
+                        }
+                        if(searchField.Operator == "any")
+                        {
+                            var splits = searchField.Property!.Split(".");
+                            expression += $".{splits[0]}.Any(x => x.{splits[1]} == {searchField.Value})";
                         }
                         else
                         {

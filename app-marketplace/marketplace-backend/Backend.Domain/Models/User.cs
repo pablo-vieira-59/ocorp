@@ -15,10 +15,11 @@ namespace Backend.Domain.Models
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
         public string? DocumentNumber { get; set; }
-        public Guid Guid { get; set; }
+        public Guid? Guid { get; set; }
         
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
         public DateTime? LastLogin { get; set; }
+        public DateTime? BirthdayDate { get; set; }
 
         public virtual Profile? Profile { get; set; }
         public virtual UserAccess? UserAccess { get; set; }
@@ -40,6 +41,7 @@ namespace Backend.Domain.Models
                 entityBuilder.Property(x => x.PhoneNumber).IsRequired();
                 entityBuilder.Property(x => x.CreatedAt).IsRequired();
                 entityBuilder.Property(x => x.LastLogin).IsRequired();
+                entityBuilder.Property(x => x.BirthdayDate).IsRequired();
 
                 entityBuilder.HasOne(x => x.UserAccess).WithOne(x => x.User).HasForeignKey<User>(x => x.Id);
                 entityBuilder.HasOne(x => x.Profile).WithMany(x => x.Users).HasForeignKey(x => x.ProfileId);

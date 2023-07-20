@@ -11,6 +11,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { PermissionEnum } from '../models/Entities/Permission';
 import { PermissionService } from './permisson.service';
 import { PaginatedResultDTO } from '../models/DTO/PaginatedResultDTO';
+import { UserEditDTO } from '../models/DTO/UserEditDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -146,8 +147,8 @@ export class UserService {
     return result;
   }
 
-  async EditUser(user: any): Promise<boolean> {
-    var request = this.http.post<boolean>(this.base_url + "edit/" + user.Id, user);
+  async EditUser(user: UserEditDTO): Promise<boolean> {
+    var request = this.http.post<boolean>(this.base_url + "edit/" + user.id, user);
     var result = false;
 
     await lastValueFrom(await request)

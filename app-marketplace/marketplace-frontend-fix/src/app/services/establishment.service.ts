@@ -32,10 +32,10 @@ export class EstablishmentService {
     })
     .catch((e) => {
       if(e.error != null){
-        this.serviceNotification.error("Erro ao carregar dados.");
+        this.serviceNotification.error(e.error);
       }
       else{
-        this.serviceNotification.error(e.message);
+        this.serviceNotification.error("Erro ao carregar dados.");
       }
     });
 
@@ -54,10 +54,54 @@ export class EstablishmentService {
     })
     .catch((e) => {
       if(e.error != null){
-        this.serviceNotification.error("Erro ao adicionar estabelecimento.");
+        this.serviceNotification.error(e.error);
       }
       else{
-        this.serviceNotification.error(e.message);
+        this.serviceNotification.error("Erro ao adicionar estabelecimento.");
+      }
+    });
+
+    return result;
+  }
+
+  async GetAllAvailable() :Promise<Establishment[]>{
+    var request = this.http.get<Establishment[]>(this.base_url + "get-all-available");
+
+    var result = [] as Establishment[];
+
+    await lastValueFrom(await request)
+    .then((payload) => {
+      result = payload;
+    })
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error(e.error);
+      }
+      else{
+        console.log(e);
+        this.serviceNotification.error("Erro ao obter estabelecimentos disponíveis.");
+      }
+    });
+
+    return result;
+  }
+
+  async GetUserEstablishment(userId :number) :Promise<Establishment[]>{
+    var request = this.http.get<Establishment[]>(this.base_url + "get-all-available/" + userId);
+
+    var result = [] as Establishment[];
+
+    await lastValueFrom(await request)
+    .then((payload) => {
+      result = payload;
+    })
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error(e.error);
+      }
+      else{
+        console.log(e);
+        this.serviceNotification.error("Erro ao obter estabelecimentos do usuário.");
       }
     });
 

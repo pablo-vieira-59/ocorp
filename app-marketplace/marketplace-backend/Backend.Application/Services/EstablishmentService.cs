@@ -12,14 +12,23 @@ namespace Backend.Application.Services
     public class EstablishmentService : IEstablishmentService
     {
         IEstablishmentRepository _establishmentRepository;
+        IUserRepository _userRepository;
 
-        public EstablishmentService(IEstablishmentRepository establishmentRepository)
+        public EstablishmentService(IEstablishmentRepository establishmentRepository, IUserRepository userRepository)
         {
             _establishmentRepository = establishmentRepository;
+            _userRepository = userRepository;
         }
 
-        public async Task<ServiceResult<PaginatedResult<Establishment>>> AllDetails(FilterDTO filter)
+        public async Task<ServiceResult<PaginatedResult<Establishment>>> AllDetails(FilterDTO filter, long userId)
         {
+            filter.SearchFields!.Add(new SearchField
+            {
+                Property = "User_Establishments.UserId",
+                Operator = "any",
+                Value = userId.ToString(),
+            });
+
             var establishments = await _establishmentRepository.Get(filter).Select(e => new Establishment
             {
                 Id = e.Id,
@@ -77,6 +86,52 @@ namespace Backend.Application.Services
             await this._establishmentRepository.AddAsync(newEstablishment);
 
             return new OkServiceResultStruct<bool>(true);
+        }
+    
+        public async Task<ServiceResult<List<Establishment>>> GetAllAvailableToRegister(User user)
+        {
+            var query = _establishmentRepository.GetAllAvailableToRegister(user.Id);
+
+            var establishments = await ToBasicEntity(query).ToListAsync();
+
+            return new OkServiceResult<List<Establishment>>(establishments);
+        }
+
+        public async Task<ServiceResult<List<Establishment>>> GetAll()
+        {
+            var query = _establishmentRepository.Get();
+
+            var establishments = await ToBasicEntity(query).ToListAsync();
+
+            return new OkServiceResult<List<Establishment>>(establishments);
+        }
+
+        public async Task<ServiceResult<List<Establishment>>> GetUserEstablishments(long userId)
+        {
+            var user = await _userRepository.GetByProperty("Id", userId.ToString()).FirstOrDefaultAsync();
+
+            if(user == null)
+            {
+                return new FailServiceResult<List<Establishment>>("Usuário não encontrado.");
+            }
+
+            return await GetAllAvailableToRegister(user);
+        }
+
+        private IQueryable<Establishment> ToBasicEntity(IQueryable<Establishment> query)
+        {
+            return query.Select(e => new Establishment
+            {
+                Id = e.Id,
+                EstablishmentStatusId = e.EstablishmentStatusId,
+                CorporateName = e.CorporateName,
+                FantasyName = e.FantasyName,
+                DocumentNumber = e.DocumentNumber,
+                Email = e.Email,
+                PhoneNumber = e.PhoneNumber,
+                Url = e.Url,
+                CreatedAt = e.CreatedAt,
+            });
         }
     }
 }

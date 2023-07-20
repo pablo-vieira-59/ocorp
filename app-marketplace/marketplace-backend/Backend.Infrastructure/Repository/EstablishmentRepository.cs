@@ -11,11 +11,10 @@ namespace Backend.Infrastructure.Repository
 
         }
 
-        public async Task<IQueryable<Establishment>> GetByCNPJ(string cnpj)
+        public IQueryable<Establishment> GetAllAvailableToRegister(long userId)
         {
-            var result = this._context.Establishment.Where(e => e.DocumentNumber == cnpj).AsQueryable();
-            await Task.CompletedTask;
-            return result;
+            var query = _context.User_Establishment.Where(e => e.UserId == userId).Select(x => x.Establishment).AsQueryable();
+            return query!;
         }
     }
 }

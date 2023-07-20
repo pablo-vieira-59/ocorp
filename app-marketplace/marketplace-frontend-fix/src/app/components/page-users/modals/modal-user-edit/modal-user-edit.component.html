@@ -7,18 +7,26 @@
     <div class="row">
         <h5 class="col-12">Dados do usuário</h5>
 
-        <div class="col-12">
+        <div class="col-12 mt-2">
             <div class="row">
-                <div class="col-6">
+                <div class="col-12">
                     <label for="email" class="required">E-Mail</label>
                     <input id="email" [(ngModel)]="model.email" type="text" class="form-control input-disabled"
                         placeholder="Digite seu e-mail ..." readonly>
                 </div>
+            </div>
 
+            <div class="row">
                 <div class="col-6">
                     <label for="documentNumber" class="required">CPF</label>
                     <input id="documentNumber" [(ngModel)]="model.documentNumber" [mask]="'000.000.000-00'" type="text"
                         class="form-control input-disabled" placeholder="Digite seu cpf ..." readonly>
+                </div>
+
+                <div class="col-6">
+                    <label for="birthdayDate" class="required">Data de nascimento</label>
+                    <input id="birthdayDate" [(ngModel)]="model.birthdayDate" type="date"
+                        class="form-control" placeholder="Digite sua data de nascimento ..." (change)="ValidateField('birthdayDate')">
                 </div>
             </div>
 
@@ -54,9 +62,42 @@
                     </select>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="row mt-2">
-                
+    <div class="row mt-4">
+        <h5 class="col-12">Estabelecimentos</h5>
+        
+        <div class="col-12 mt-2" style="max-height: 220px; overflow: auto;">
+            <div *ngFor="let item of current_establishments" class="col-12 rounded bg-primary-www mt-1">
+                <div class="row p-2">
+                    <div class="col" style="max-width: 60px;">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" [(ngModel)]="item.isEnabled" type="checkbox" role="switch" [id]="item.name">
+                        </div>
+                    </div>
+                    <div class="col" style="min-width: 200px;">
+                        <label class="text-truncate" [for]="item.name">{{item.name}}</label>
+                    </div>
+                    <div class="col-3 text-center">
+                        <label class="text-truncate" [for]="item.name">{{item.documentNumber | mask :'000.000.000-00'}}</label>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="current_establishments.length == 0" class="col-12 rounded-3 input-disabled mt-1">
+                <div class="row p-2">
+                    <div class="col" style="max-width: 60px;">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" [checked]="false" type="checkbox" role="switch" id="empty" readonly>
+                        </div>
+                    </div>
+                    <div class="col" style="min-width: 200px;">
+                        <label class="text-truncate form-check-label" for="empty">Nenhum Estabelecimento disponível.</label>
+                    </div>
+                    <div class="col-3 text-center">
+                        <label class="text-truncate form-check-label" for="empty">000.000.000/0000-00</label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

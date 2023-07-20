@@ -22,15 +22,20 @@
     </div>
     <div class="row mt-2" style="max-height: 220px; overflow: auto;">
         <div class="col-12">
-            <ul class="list-group">
-                <li *ngFor="let item of profilePermissionsModel" class="list-group-item">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" [(ngModel)]="item.isEnabled" type="checkbox" role="switch" [id]="item.name">
+            <div *ngFor="let item of profilePermissionsModel" class="col-12 rounded-3 mt-1 bg-primary-www">
+                <div class="row p-2">
+                    <div class="col" style="max-width: 60px;">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" [(ngModel)]="item.isEnabled" type="checkbox" role="switch" [id]="item.name">
+                        </div>
+                    </div>
+                    <div class="col">
                         <label class="form-check-label" [for]="item.name">{{item.name}}</label>
                     </div>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
+        
     </div>
 </div>
 

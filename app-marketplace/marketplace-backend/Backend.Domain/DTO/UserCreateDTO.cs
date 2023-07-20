@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Domain.DTO
 {
-    public class CreateUserDTO
+    public class UserCreateDTO
     {
         public required string Password { get; set; }
         public required string Name { get; set; }
@@ -19,6 +19,7 @@ namespace Backend.Domain.DTO
         public required string Neighborhood { get; set; }
         public required string City { get; set; }
         public required string State { get; set; }
+        public required string BirthdayDate { get; set; }
         public long ZipCode { get; set; }
         public int ProfileId { get; set; }
     }

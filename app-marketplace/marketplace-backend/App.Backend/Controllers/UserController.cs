@@ -23,7 +23,7 @@ namespace App.Backend.Livraria.Controllers
 
         [FreeAccess]
         [HttpPost("new-user")]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO user)
+        public async Task<IActionResult> CreateUser([FromBody] UserCreateDTO user)
         {
             try
             {
@@ -143,7 +143,7 @@ namespace App.Backend.Livraria.Controllers
         }
 
         [HttpPost("edit/{userId}")]
-        public async Task<IActionResult> EditUser(EditUserDTO userData)
+        public async Task<IActionResult> EditUser(UserEditDTO userData)
         {
             try
             {

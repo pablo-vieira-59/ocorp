@@ -25,6 +25,7 @@ namespace Backend.Infrastructure.Context
         public DbSet<Address> Address { get; set; }
         public DbSet<Address_Establishment> Address_Establishment { get; set; }
         public DbSet<Address_User> Address_User { get; set; }
+        public DbSet<User_Establishment> User_Establishment { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

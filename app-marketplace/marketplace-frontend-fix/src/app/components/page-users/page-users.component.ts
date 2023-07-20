@@ -128,7 +128,7 @@ export class PageUsersComponent {
   Modal_Edit(id: number) {
     this.modalRef = this.serviceModal.show(ModalUserEditComponent,{
       initialState: {
-        userId : id
+        user_id : id
       },
       class: "modal-lg modal-dialog-centered"
     });

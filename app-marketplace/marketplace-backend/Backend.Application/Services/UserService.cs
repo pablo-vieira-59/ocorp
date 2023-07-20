@@ -15,12 +15,14 @@ namespace Backend.Application.Services
         IUserRepository _userRepository;
         IPermissionRepository _permissionRepository;
         IUserAccessRepository _userAccessRepository;
+        IEstablishmentRepository _establishmentRepository;
 
-        public UserService(IUserRepository userRepository, IUserAccessRepository userAccessRepository, IPermissionRepository permissionRepository)
+        public UserService(IUserRepository userRepository, IUserAccessRepository userAccessRepository, IPermissionRepository permissionRepository, IEstablishmentRepository establishmentRepository)
         {
             _userRepository = userRepository;
             _userAccessRepository = userAccessRepository;
             _permissionRepository = permissionRepository;
+            _establishmentRepository = establishmentRepository;
         }
 
         public async Task<ServiceResult<PaginatedResult<User>>> AllDetails(FilterDTO filter)
@@ -128,7 +130,7 @@ namespace Backend.Application.Services
             return new OkServiceResultStruct<bool>(true);
         }
 
-        public async Task<ServiceResult<bool>> CreateUserAsync(CreateUserDTO request, User? currentUser)
+        public async Task<ServiceResult<bool>> CreateUserAsync(UserCreateDTO request, User? currentUser)
         {
             var hasUser = (await _userRepository.GetByProperty("Username", request.Email).FirstOrDefaultAsync()) != null;
 
@@ -152,6 +154,13 @@ namespace Backend.Application.Services
                 return new FailServiceResultStruct<bool>("Sem permissão para realizar essa ação.");
             }
 
+            DateTime birthDay;
+            var isDateValid = DateTime.TryParseExact(request.BirthdayDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AdjustToUniversal, out birthDay);
+            if (!isDateValid)
+            {
+                return new FailServiceResultStruct<bool>("Data inválida.");
+            }
+
             var newUser = new User
             {
                 Username = request.Email,
@@ -164,6 +173,7 @@ namespace Backend.Application.Services
                 ProfileId = request.ProfileId,
                 UserStatusId = (int)UserStatusEnum.Active,
                 LastLogin = DateTime.Now,
+                BirthdayDate = birthDay,
                 Guid = Guid.NewGuid(),
             };
 
@@ -222,6 +232,7 @@ namespace Backend.Application.Services
                 ProfileId = e.ProfileId,
                 Username = e.Username,
                 UserStatusId = e.UserStatusId,
+                BirthdayDate = e.BirthdayDate,
             }).FirstOrDefaultAsync();
 
             if (result == null) return new FailServiceResult<User>("Usuario não encontrado.");
@@ -242,9 +253,9 @@ namespace Backend.Application.Services
             return new OkServiceResultStruct<bool>(false);
         }
     
-        public async Task<ServiceResult<bool>> EditUser(EditUserDTO request, User? currentUser)
+        public async Task<ServiceResult<bool>> EditUser(UserEditDTO request, User? currentUser)
         {
-            var hasPermission = await this.CheckProfilePermission(request.ProfileId, currentUser);
+            var hasPermission = await CheckProfilePermission(request.ProfileId, currentUser);
 
             if(!hasPermission)
             {
@@ -258,12 +269,26 @@ namespace Backend.Application.Services
                 return new FailServiceResultStruct<bool>("Usuário não encontrado.");
             }
 
+            DateTime birthDay;
+            var isDateValid = DateTime.TryParseExact(request.BirthdayDate, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AdjustToUniversal, out birthDay);
+            if (!isDateValid)
+            {
+                return new FailServiceResultStruct<bool>("Data inválida.");
+            }
+
             user.Name = request.Name;
             user.PhoneNumber = request.PhoneNumber;
             user.Password = request.Password;
             user.ProfileId = request.ProfileId;
+            user.BirthdayDate = birthDay;
 
-            await _userRepository.UpdateAsync(user);
+            var selectedEstablishmentsId = request.UserEstablishments!.Select(x => x.Id).ToList();
+            var currentEstablishmentsIds = _establishmentRepository.GetAllAvailableToRegister(request.Id).Select(x => x.Id);
+
+            var establishmentsToAdd = selectedEstablishmentsId.Where(x => !currentEstablishmentsIds.Contains(x)).ToList();
+            var establishmentsToRemove = currentEstablishmentsIds.Where(x => !selectedEstablishmentsId.Contains(x)).ToList();
+
+            await _userRepository.EditUser(user, establishmentsToAdd, establishmentsToRemove);
 
             return new OkServiceResultStruct<bool>(true);
         }
