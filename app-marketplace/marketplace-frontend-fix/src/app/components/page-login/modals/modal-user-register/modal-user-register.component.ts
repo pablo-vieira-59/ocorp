@@ -30,7 +30,9 @@ export class ModalUserRegisterComponent {
 		neighborhood: '',
 		city: '',
 		state: '',
-		profileId: 4
+		profileId: 0,
+		birthdayDate:'01/05/1997',
+		isNewClient : true
 	}
 
 	val_required = ["name", "documentNumber", "phoneNumber", "email", "reg-password"];

@@ -1,11 +1,11 @@
 <style>
-    .pill-input{
-        border:none;
+    .pill-input {
+        border: none;
         width: 70px;
         font-size: small;
     }
 
-    .pill-input:focus{
+    .pill-input:focus {
         outline: none;
     }
 </style>
@@ -25,56 +25,54 @@
 
 <div class="row">
     <div class="col-6 align-self-center text-end">
-        <img src="../../../assets/Bibliophile-pana.svg" style="max-width: 50vh;">
+        <img src="../../../assets/Storyset-Business.svg" style="width: 400px; height: 400px;">
     </div>
 
     <div class="col-6 p-5">
-        <div class="row bg-primary-w text-white p-2 rounded sdw" *ngIf="!isLoading" style="max-width: 400px;">
-            <div class="col-12 text-center">
-                <h1>Login</h1>
+        <div class="row bg-primary-w text-white p-2 rounded sdw" *ngIf="!isLoading"
+            style="width: 400px; height: 400px;">
+            <div class="col-12 text-center my-2">
+                <img src="../../../assets/Ocorp.svg" style="width: 128px;">
             </div>
 
             <div class="col-12 mt-2">
-                <label for="nome" class="required">Usuário</label>
-                <input 
-                    id="username"
-                    type="text" 
-                    class="form-control" 
-                    placeholder="Digite o nome de usuário ..."
-                    [(ngModel)]="loginData.username"
-                    (change)="ValidateField('username')">
+                <label for="nome" class="required fs-7">Usuário</label>
+                <input id="username" type="text" class="form-control" placeholder="Digite o nome de usuário ..."
+                    [(ngModel)]="loginData.username" (change)="ValidateField('username')">
             </div>
 
             <div class="col-12 mt-2">
-                <label for="nome" class="required">Senha</label>
-                <input 
-                    id="password"
-                    type="password" 
-                    class="form-control" 
-                    placeholder="Digite sua senha ..."
-                    [(ngModel)]="loginData.password"
-                    (change)="ValidateField('password')">
+                <label for="nome" class="required fs-7">Senha</label>
+                <input id="password" type="password" class="form-control" placeholder="Digite sua senha ..."
+                    [(ngModel)]="loginData.password" (change)="ValidateField('password')">
             </div>
 
             <div class="col-12 mt-2">
                 <div class="row p-2">
-                    <button type="submit" [disabled]="!IsFormValid()" (click)="Submit()" class="btn btn-success text-light">Login</button>
+                    <button type="submit" [disabled]="!IsFormValid()" (click)="Submit()"
+                        class="btn btn-info text-light">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>
+                        Login
+                    </button>
                 </div>
             </div>
 
             <div class="col-12 mt-2">
                 <small for="nome">Não tem conta ?</small>
                 <div class="row p-2">
-                    <button (click)="Modal_Register()" type="button" class="btn btn-primary text-light">Cadastre-se</button>
+                    <button (click)="Modal_Register()" type="button"
+                        class="btn btn-success text-light">
+                        <i class="bi bi-person-fill-add me-2"></i>
+                        Cadastre-se
+                    </button>
                 </div>
             </div>
         </div>
-    
-        <div class="row bg-primary-w text-white p-2 rounded sdw" *ngIf="isLoading" style="max-width: 400px;">
-            <app-spinner-white></app-spinner-white>
+
+        <div class="row bg-primary-w text-white p-2 rounded sdw" *ngIf="isLoading" style="width: 400px; height: 400px;">
+            <app-spinner-white class="my-auto"></app-spinner-white>
         </div>
 
         <small class="text-muted">Copyright 2023 © Ocorp. Todos os direitos reservados.</small>
     </div>
 </div>
-

@@ -1,0 +1,63 @@
+<div class="p-1">
+    <div class="row bg-primary-www rounded-1 p-1">
+        <div class="col p-0" style="max-width: 100px;">
+            <div class="bg-white rounded-1 p-1" style="height: 100%;">
+                <div style="
+                height: 100%; 
+                background-image: url('{{product.imageUrl}}');
+                background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+
+        <div class="col ms-1">
+            <div class="row">
+                <div class="col">
+                    <label>{{product.name}}</label>
+                </div>
+                <div class="col text-end p-0" style="max-width: 60px;">
+                    <div ngbDropdown placement="bottom-right">
+                        <button class="btn-transparent" id="action" ngbDropdownToggle>
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+
+                        <div ngbDropdownMenu="action">
+                            <button ngbDropdownItem type="button">
+                                <i class="bi bi-pencil-square me-2"></i>Editar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-1">
+                <div class="col-auto">
+                    <label class="text-success">{{product.price | currency:'BRL'}}</label>
+                </div>
+            </div>
+
+            <div class="row flex-row-reverse mt-1">
+                <div class="col-auto fs-7">
+                    <i class="bi bi-filter-square-fill me-1"></i>#{{product.id}}
+                </div>
+                <div class="col-auto fs-7">
+                    <i class="bi bi-box-seam-fill me-1"></i>{{6999 | number:'.0':'pt-pt'}}
+                </div>
+                <div class="col-auto fs-7">
+                    <i class="bi bi-calendar-fill me-1"></i>22/02/2023
+                </div>
+            </div>
+
+            <div class="row mt-1">
+                <div class="col bg-light border rounded-1 p-1">
+                    <div class="row my-auto m-0 p-0">
+                        <span *ngFor="let item of product.brand_Products" class="col-auto badge bg-primary me-1"><small>{{item.brand.name}}</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

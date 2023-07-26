@@ -3,6 +3,7 @@ import { EstablishmentStatus } from "./EstablishmentStatus";
 
 export interface Establishment {
     id: number;
+    clientId :number;
     establishmentStatusId :number;
     corporateName :string;
     fantasyName :string;

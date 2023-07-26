@@ -26,6 +26,13 @@ namespace Backend.Infrastructure.Context
         public DbSet<Address_Establishment> Address_Establishment { get; set; }
         public DbSet<Address_User> Address_User { get; set; }
         public DbSet<User_Establishment> User_Establishment { get; set; }
+        public DbSet<Batch> Batch { get; set; }
+        public DbSet<BatchStatus> BatchStatus { get; set; }
+        public DbSet<Supplier> Supplier { get; set; }
+        public DbSet<Supplier_Establishment> Supplier_Establishment { get; set; }
+        public DbSet<Brand> Brand { get; set; }
+        public DbSet<Brand_Product> Brand_Product { get; set; }
+        public DbSet<Product_Establishment> Product_Establishment { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,16 +42,21 @@ namespace Backend.Infrastructure.Context
             modelBuilder.ApplyConfiguration(new UserStatus.Map());            
             modelBuilder.ApplyConfiguration(new Permission_Profile.Map());            
             modelBuilder.ApplyConfiguration(new Permission.Map());       
-            modelBuilder.ApplyConfiguration(new Product.Map());
             modelBuilder.ApplyConfiguration(new Establishment.Map());
+            modelBuilder.ApplyConfiguration(new Product.Map());
             modelBuilder.ApplyConfiguration(new EstablishmentStatus.Map());
             modelBuilder.ApplyConfiguration(new SubCategory.Map());
             modelBuilder.ApplyConfiguration(new Category.Map());
             modelBuilder.ApplyConfiguration(new Address.Map());
             modelBuilder.ApplyConfiguration(new Address_Establishment.Map());
             modelBuilder.ApplyConfiguration(new Address_User.Map());
-            modelBuilder.ApplyConfiguration(new User_Establishment.Map());
-
+            modelBuilder.ApplyConfiguration(new Batch.Map());
+            modelBuilder.ApplyConfiguration(new BatchStatus.Map());
+            modelBuilder.ApplyConfiguration(new Supplier.Map());
+            modelBuilder.ApplyConfiguration(new Supplier_Establishment.Map());
+            modelBuilder.ApplyConfiguration(new Brand.Map());
+            modelBuilder.ApplyConfiguration(new Product_Establishment.Map());
+            modelBuilder.ApplyConfiguration(new Brand_Product.Map());
         }
 
     }

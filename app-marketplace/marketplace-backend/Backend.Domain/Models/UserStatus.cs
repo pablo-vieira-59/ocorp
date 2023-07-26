@@ -25,7 +25,8 @@ namespace Backend.Domain.Models
     public enum UserStatusEnum
     {
         Active = 1,
-        Inactive,
-        Canceled
+        Inactive = 2,
+        Canceled = 3,
+        Pendente = 4,
     }
 }

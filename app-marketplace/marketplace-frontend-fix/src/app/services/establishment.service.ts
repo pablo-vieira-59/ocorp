@@ -64,8 +64,8 @@ export class EstablishmentService {
     return result;
   }
 
-  async GetAllAvailable() :Promise<Establishment[]>{
-    var request = this.http.get<Establishment[]>(this.base_url + "get-all-available");
+  async GetClientEstablishments(clientId :number) :Promise<Establishment[]>{
+    var request = this.http.get<Establishment[]>(this.base_url + "client/" + clientId);
 
     var result = [] as Establishment[];
 
@@ -79,15 +79,15 @@ export class EstablishmentService {
       }
       else{
         console.log(e);
-        this.serviceNotification.error("Erro ao obter estabelecimentos disponíveis.");
+        this.serviceNotification.error("Erro ao obter estabelecimentos do cliente.");
       }
     });
 
     return result;
   }
 
-  async GetUserEstablishment(userId :number) :Promise<Establishment[]>{
-    var request = this.http.get<Establishment[]>(this.base_url + "get-all-available/" + userId);
+  async GetUserEstablishments(userId :number) :Promise<Establishment[]>{
+    var request = this.http.get<Establishment[]>(this.base_url + "user/" + userId);
 
     var result = [] as Establishment[];
 

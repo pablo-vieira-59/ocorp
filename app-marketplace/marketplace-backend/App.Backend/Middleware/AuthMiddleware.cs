@@ -2,17 +2,9 @@
 using Backend.Application.Services.Interfaces;
 using Backend.Domain.Helpers;
 using Backend.Domain.Models;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Net.Http;
 using System.Reflection;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 public class AuthMiddleware
 {
@@ -78,7 +70,7 @@ public class AuthMiddleware
             if (!result.Success)
             {
                 context.Response.StatusCode = 403;
-                await context.Response.WriteAsync(result.Message);
+                await context.Response.WriteAsync(result.Message!);
                 return;
             }
         }
@@ -92,26 +84,5 @@ public static class AuthMiddlewareExtensions
     public static IApplicationBuilder UseAuthMiddleware(this IApplicationBuilder builder)
     {
         return builder.UseMiddleware<AuthMiddleware>();
-    }
-
-    public static UserAccess? GetCurrentUser(HttpContext context)
-    {
-        var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-
-        if(token == null || token == "null")
-        {
-            return null;
-        }
-
-        var tokenDecrypt = EncryptionHelper.Decrypt(token);
-
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true,
-        };
-
-        var userAuth = JsonSerializer.Deserialize<UserAccess>(tokenDecrypt, options);
-
-        return userAuth;
     }
 }

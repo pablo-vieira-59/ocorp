@@ -28,14 +28,14 @@ namespace Backend.Domain.Models
     public enum PermissionEnum
     {
         Tela_Usuarios = 1,
-        Tela_Permissoes,
-        Tela_Perfis,
-        Componente_MenuLateral,
-        Tela_Estabelecimentos,
-        Tela_Dashboard,
-        Cadastro_Admin,
-        Cadastro_Gerente,
-        Cadastro_Supervisor,
-        Cadastro_Funcionario
+        Tela_Perfis = 3,
+        Componente_MenuLateral = 4,
+        Tela_Estabelecimentos = 5,
+        Tela_Dashboard = 6,
+        Cadastro_Admin = 7,
+        Cadastro_Gerente = 8,
+        Cadastro_Supervisor = 9,
+        Cadastro_Funcionario = 10,
+        Cadastro_Estabelecimento = 11,
     }
 }

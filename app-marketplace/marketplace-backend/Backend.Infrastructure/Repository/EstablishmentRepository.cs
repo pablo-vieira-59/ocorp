@@ -11,7 +11,13 @@ namespace Backend.Infrastructure.Repository
 
         }
 
-        public IQueryable<Establishment> GetAllAvailableToRegister(long userId)
+        public IQueryable<Establishment> GetClientEstablishments(long clienId)
+        {
+            var query = _context.Establishment.Where(e => e.ClientId == clienId).AsQueryable();
+            return query!;
+        }
+
+        public IQueryable<Establishment> GetUserEstablishments(long userId)
         {
             var query = _context.User_Establishment.Where(e => e.UserId == userId).Select(x => x.Establishment).AsQueryable();
             return query!;

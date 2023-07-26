@@ -35,7 +35,7 @@ export class PageLoginComponent {
 
   ngOnInit(){
     this.loginData = {username:"", password:""};
-    this.serviceSpinner.show();
+
     var nav = document.getElementById("navbar");
     if(nav)
     {

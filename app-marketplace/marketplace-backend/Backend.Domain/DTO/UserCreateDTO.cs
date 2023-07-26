@@ -22,5 +22,6 @@ namespace Backend.Domain.DTO
         public required string BirthdayDate { get; set; }
         public long ZipCode { get; set; }
         public int ProfileId { get; set; }
+        public bool IsNewClient { get; set; }
     }
 }

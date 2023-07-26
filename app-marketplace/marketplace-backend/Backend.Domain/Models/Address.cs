@@ -16,6 +16,7 @@ namespace Backend.Domain.Models
 
         public virtual List<Address_Establishment>? Address_Establishments { get; set; }
         public virtual List<Address_User>? Address_Users { get; set; }
+        public virtual List<Batch>? Batches { get; set; }
 
         public class Map : IEntityTypeConfiguration<Address>
         {
@@ -31,6 +32,7 @@ namespace Backend.Domain.Models
 
                 entityBuilder.HasMany(x => x.Address_Establishments).WithOne(x => x.Address).HasForeignKey(x => x.AddressId);
                 entityBuilder.HasMany(x => x.Address_Users).WithOne(x => x.Address).HasForeignKey(x => x.AddressId);
+                entityBuilder.HasMany(x => x.Batches).WithOne(x => x.Address).HasForeignKey(x => x.AddressId);
             }
         }
     }

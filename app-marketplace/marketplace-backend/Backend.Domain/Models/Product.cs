@@ -6,18 +6,41 @@ namespace Backend.Domain.Models
     public class Product
     {
         public long Id { get; set; }
-        public long EstablishmentId { get; set; }
-        public int SubCategoryId { get; set; }
+        public long ClientId { get; set; }
+        public long SubCategoryId { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
         public decimal Price { get; set; }
         public string? ImageUrl { get; set; }
-        public string? Brand { get; set; }
 
         public virtual SubCategory? SubCategory { get; set; }
+        public virtual Client? Client { get; set; }
 
-        public virtual Establishment? Establishment { get; set; }
+        public virtual List<Supplier_Product>? Supplier_Products { get; set; }
+        public virtual List<Brand_Product>? Brand_Products { get; set; }
+        public virtual List<Product_Establishment>? Product_Establishments { get; set; }
 
+        public virtual List<Batch>? Batches { get; set; }
+        
+        public static IQueryable<Product> ToBasic(IQueryable<Product> query)
+        {
+            var result = query.Select(x => new Product
+            {
+                Id = x.Id,
+                ClientId = x.ClientId,
+                SubCategoryId = x.SubCategoryId,
+                Name = x.Name,
+                Description = x.Description,
+                Price = x.Price,
+                ImageUrl = x.ImageUrl,
+                Brand_Products = x.Brand_Products!.Select(z => new Brand_Product
+                {
+                    Brand = new Brand { Name = z.Brand!.Name }
+                }).ToList(),
+            });
+
+            return result;
+        }
 
         public class Map : IEntityTypeConfiguration<Product>
         {
@@ -29,11 +52,15 @@ namespace Backend.Domain.Models
                 entityBuilder.Property(x => x.Description).IsRequired();
                 entityBuilder.Property(x => x.Price).IsRequired();
                 entityBuilder.Property(x => x.ImageUrl).IsRequired();
-                entityBuilder.Property(x => x.Brand).IsRequired();
 
                 entityBuilder.HasOne(x => x.SubCategory).WithMany(x => x.Products).HasForeignKey(x => x.SubCategoryId);
-                entityBuilder.HasOne(x => x.Establishment).WithMany(x => x.Products).HasForeignKey(x => x.EstablishmentId);
+                
+                entityBuilder.HasMany(x => x.Batches).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
+                entityBuilder.HasMany(x => x.Supplier_Products).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
+                entityBuilder.HasMany(x => x.Brand_Products).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
+                entityBuilder.HasMany(x => x.Product_Establishments).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
             }
         }
     }
 }
+ 

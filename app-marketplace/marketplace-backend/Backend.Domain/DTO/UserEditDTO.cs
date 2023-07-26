@@ -16,7 +16,7 @@ namespace Backend.Domain.DTO
         public int ProfileId { get; set; }
         public required string BirthdayDate { get; set; }
 
-        public List<Establishment>? UserEstablishments { get; set; }
+        public List<Product>? UserEstablishments { get; set; }
         
     }
 }

@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore.DynamicLinq;
 using Backend.Domain.Helpers.ServiceResultPattern;
+using Microsoft.AspNetCore.Http;
+using System.Runtime.ConstrainedExecution;
 
 namespace Backend.Application.Services
 {
@@ -25,8 +27,18 @@ namespace Backend.Application.Services
             _establishmentRepository = establishmentRepository;
         }
 
-        public async Task<ServiceResult<PaginatedResult<User>>> AllDetails(FilterDTO filter)
+        public async Task<ServiceResult<PaginatedResult<User>>> AllDetails(FilterDTO filter, User currentUser)
         {
+            if(filter.SearchFields == null)
+            {
+                filter.SearchFields = new List<SearchField>();
+            }
+
+            if(currentUser.ProfileId != (int)ProfileEnum.Admin)
+            {
+                filter.SearchFields.Add(new SearchField { Property = "ClientId", Value = currentUser.ClientId.ToString() });
+            }
+            
             var users = await _userRepository.Get(filter).Select(e => new User
             {
                 Id = e.Id,
@@ -39,6 +51,7 @@ namespace Backend.Application.Services
                 ProfileId = e.ProfileId,
                 Password = e.Password,
                 Profile = new Profile { Name = e.Profile!.Name },
+                ClientId = e.ClientId,
             }).ToListAsync();
 
             var total = users.Count();
@@ -102,7 +115,7 @@ namespace Backend.Application.Services
             var result = new LoginReponseDTO
             {
                 Token = tokenCrypt,
-                Guid = dbUser.Guid.ToString(),
+                Guid = dbUser.Guid.ToString()!,
             };
 
             return new OkServiceResult<LoginReponseDTO>(result);
@@ -148,12 +161,15 @@ namespace Backend.Application.Services
             }
 
             // Valida permissão de Perfil
-            var hasPermission = await this.CheckProfilePermission(request.ProfileId, currentUser);
-            if(!hasPermission)
+            if (!request.IsNewClient)
             {
-                return new FailServiceResultStruct<bool>("Sem permissão para realizar essa ação.");
+                var hasPermission = await this.CheckProfilePermission(request.ProfileId, currentUser);
+                if (!hasPermission)
+                {
+                    return new FailServiceResultStruct<bool>("Sem permissão para realizar essa ação.");
+                }
             }
-
+            
             DateTime birthDay;
             var isDateValid = DateTime.TryParseExact(request.BirthdayDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AdjustToUniversal, out birthDay);
             if (!isDateValid)
@@ -176,6 +192,16 @@ namespace Backend.Application.Services
                 BirthdayDate = birthDay,
                 Guid = Guid.NewGuid(),
             };
+
+            if(request.IsNewClient)
+            {
+                newUser.Client = new Client();
+                newUser.ProfileId = (int)ProfileEnum.Diretor;
+            }
+            else
+            {
+                newUser.ClientId = currentUser!.ClientId;
+            }
 
             var userAccess = new UserAccess
             {
@@ -218,22 +244,7 @@ namespace Backend.Application.Services
         {
             var query = _userRepository.GetByProperty("Id", id.ToString());
 
-            var result = await query.Select(e => new User
-            {
-                Email = e.Email,
-                CreatedAt = e.CreatedAt,
-                DocumentNumber = e.DocumentNumber,
-                Guid = e.Guid,
-                Id = e.Id,
-                Name = e.Name,
-                LastLogin = e.LastLogin,
-                Password = e.Password,
-                PhoneNumber = e.PhoneNumber,
-                ProfileId = e.ProfileId,
-                Username = e.Username,
-                UserStatusId = e.UserStatusId,
-                BirthdayDate = e.BirthdayDate,
-            }).FirstOrDefaultAsync();
+            var result = await ToBasicEntity(query).FirstOrDefaultAsync();
 
             if (result == null) return new FailServiceResult<User>("Usuario não encontrado.");
 
@@ -283,7 +294,7 @@ namespace Backend.Application.Services
             user.BirthdayDate = birthDay;
 
             var selectedEstablishmentsId = request.UserEstablishments!.Select(x => x.Id).ToList();
-            var currentEstablishmentsIds = _establishmentRepository.GetAllAvailableToRegister(request.Id).Select(x => x.Id);
+            var currentEstablishmentsIds = _establishmentRepository.GetUserEstablishments(request.Id).Select(x => x.Id);
 
             var establishmentsToAdd = selectedEstablishmentsId.Where(x => !currentEstablishmentsIds.Contains(x)).ToList();
             var establishmentsToRemove = currentEstablishmentsIds.Where(x => !selectedEstablishmentsId.Contains(x)).ToList();
@@ -333,6 +344,55 @@ namespace Backend.Application.Services
             }
 
             return true;
+        }
+
+        public async Task<ServiceResult<User>> GetCurrentUser(HttpContext context)
+        {
+            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+
+            if (token == null || token == "null")
+            {
+                return new FailServiceResult<User>("Usuário não encontrado");
+            }
+
+            var tokenDecrypt = EncryptionHelper.Decrypt(token);
+
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+            };
+
+            var userAuth = JsonSerializer.Deserialize<UserAccess>(tokenDecrypt, options);
+
+            if (userAuth != null)
+            {
+                return await GetById(userAuth.UserId);
+            }
+
+            return new FailServiceResult<User>("Usuário não encontrado");
+        }
+    
+        private IQueryable<User> ToBasicEntity(IQueryable<User> query) 
+        {
+            var result = query.Select(e => new User
+            {
+                Email = e.Email,
+                CreatedAt = e.CreatedAt,
+                DocumentNumber = e.DocumentNumber,
+                Guid = e.Guid,
+                Id = e.Id,
+                Name = e.Name,
+                LastLogin = e.LastLogin,
+                Password = e.Password,
+                PhoneNumber = e.PhoneNumber,
+                ProfileId = e.ProfileId,
+                Username = e.Username,
+                UserStatusId = e.UserStatusId,
+                BirthdayDate = e.BirthdayDate,
+                ClientId = e.ClientId,
+            });
+
+            return result;
         }
     }
 }

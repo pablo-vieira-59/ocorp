@@ -210,6 +210,9 @@ export class RoleGuard implements CanActivate {
       }
     }
 
+    if(permissions.length == 0){
+      return true;
+    }
 
     hasPermission = await this.permissionService.CurrentUserHasPermission(permissions);
 

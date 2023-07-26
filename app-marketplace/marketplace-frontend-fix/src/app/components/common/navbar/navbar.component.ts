@@ -14,6 +14,8 @@ import { environment } from 'src/environments/environment';
 export class NavbarComponent {
   public ambient = "Teste";
 
+  pageItem = '/dashboard';
+
   permissions :number[]= [];
 
   constructor(
@@ -24,6 +26,8 @@ export class NavbarComponent {
 
   async ngOnInit(){
     var currentRoute = this.router.url;
+    
+    this.pageItem = '';
 
     await this.router.events.subscribe(async e => {
       if (e instanceof NavigationEnd) {
@@ -55,6 +59,7 @@ export class NavbarComponent {
   }
   
   GotoRoute(route :string){
+    this.pageItem = route;
     this.router.navigate([route])
   }
 }

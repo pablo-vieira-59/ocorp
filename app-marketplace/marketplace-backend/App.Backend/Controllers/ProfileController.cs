@@ -66,21 +66,14 @@ namespace App.Backend.Livraria.Controllers
         {
             try
             {
-                User? currentUser = null;
+                var currentUser = await _userService.GetCurrentUser(HttpContext);
 
-                var currentUserAccess = AuthMiddlewareExtensions.GetCurrentUser(HttpContext);
-
-                if (currentUserAccess != null)
+                if (!currentUser.Success)
                 {
-                    currentUser = (await _userService.GetById(currentUserAccess.UserId)).Value;
+                    return BadRequest(currentUser.Message);
                 }
 
-                if (currentUserAccess == null || currentUser == null)
-                {
-                    return BadRequest("Usuário não identificado.");
-                }
-
-                var result = await _profileService.GetAllAvailableToRegister(currentUser.Id);
+                var result = await _profileService.GetAllAvailableToRegister(currentUser.Value!.Id);
                 if (!result.Success)
                 {
                     return BadRequest(result.Message);

@@ -5,11 +5,13 @@ namespace Backend.Domain.Models
 {
     public class Category
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
+        public long ClientId { get; set; }
         public string? Name { get; set; }
 
-        public virtual List<SubCategory>? SubCategories { get; set; }
+        public virtual Client? Client { get; set; }
 
+        public virtual List<SubCategory>? SubCategories { get; set; }
 
         public class Map : IEntityTypeConfiguration<Category>
         {

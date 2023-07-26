@@ -6,11 +6,11 @@ namespace Backend.Application.Services.Interfaces
 {
     public interface IEstablishmentService
     {
-        Task<ServiceResult<PaginatedResult<Establishment>>> AllDetails(FilterDTO filter, long userId);
+        Task<ServiceResult<PaginatedResult<Establishment>>> AllDetails(FilterDTO filter, User currentUser);
 
-        Task<ServiceResult<bool>> AddEstablishment(CreateEstablishmentDTO establishmentDTO);
+        Task<ServiceResult<bool>> AddEstablishment(CreateEstablishmentDTO establishmentDTO, User currentUser);
 
-        Task<ServiceResult<List<Establishment>>> GetAllAvailableToRegister(User user);
+        Task<ServiceResult<List<Establishment>>> GetClientEstablishments(long clientId);
 
         Task<ServiceResult<List<Establishment>>> GetUserEstablishments(long userId);
     }

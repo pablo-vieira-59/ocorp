@@ -56,7 +56,7 @@
             <!-- Tabela -->
             <div class="row" *ngIf="establishments.length > 0 && !isLoading">
                 <div class="col-12 p-2 my-1">
-                    <div class="row fs-7 fw-bold text-muted">
+                    <div class="row fs-7 text-muted">
                         <div class="border-end col text-center" style="max-width: 80px;">#</div>
                         <div class="border-end col text-center text-truncate">Razão Social</div>
                         <div class="border-end col text-center text-truncate">Nome Fantasia</div>
@@ -68,7 +68,7 @@
                 </div>
 
                 <div *ngFor="let item of establishments" class="col-12 p-2 my-1 bg-primary-www rounded-3" >
-                    <div class="row fs-6">
+                    <div class="row fs-7">
                         <div class="border-end col text-center" style="max-width: 80px;"><b>{{item.id}}</b></div>
                         <div class="border-end col text-truncate">{{item.corporateName}}</div>
                         <div class="border-end col text-truncate">{{item.fantasyName}}</div>

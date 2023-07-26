@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PageUsersComponent } from './components/page-users/page-users.component';
-import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -43,8 +43,15 @@ import { BaseChartComponent } from './components/common/charts/base-chart/base-c
 import { ProfileEditModalComponent } from './components/page-profiles/modals/profile-edit-modal/profile-edit-modal.component';
 import { AddressFormComponent } from './components/common/forms/address-form/address-form.component';
 import { ModalUserEditComponent } from './components/page-users/modals/modal-user-edit/modal-user-edit.component';
+import { PageProductsComponent } from './components/page-products/page-products.component';
+import { ProductCardComponent } from './components/common/product-card/product-card.component';
+import { LOCALE_ID } from '@angular/core';
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
 
-export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
+export const options: Partial<null | IConfig> | (() => Partial<IConfig>) = null;
+
+registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
@@ -75,6 +82,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     ProfileEditModalComponent,
     AddressFormComponent,
     ModalUserEditComponent,
+    PageProductsComponent,
+    ProductCardComponent,
   ],
   imports: [
     HttpClientModule,
@@ -91,11 +100,20 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     ModalModule.forRoot(),
     BrowserAnimationsModule,
     NgMultiSelectDropDownModule.forRoot(),
-    ToastrModule.forRoot({timeOut:5000, preventDuplicates:false, autoDismiss:true, progressBar:true, maxOpened:5}),
+    ToastrModule.forRoot({ timeOut: 5000, preventDuplicates: false, autoDismiss: true, progressBar: true, maxOpened: 5 }),
     NgChartsModule
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  providers: [AuthGuard,{ provide: HTTP_INTERCEPTORS, useClass: MiddlewareService, multi: true }],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MiddlewareService,
+      multi: true
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: 'pt'
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

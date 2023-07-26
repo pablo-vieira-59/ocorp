@@ -7,6 +7,7 @@ namespace Backend.Domain.Models
     public class User
     {
         public long Id { get; set; }
+        public long ClientId { get; set; }
         public int ProfileId { get; set; }
         public int UserStatusId { get; set; }
         public string? Username { get; set; }
@@ -21,6 +22,7 @@ namespace Backend.Domain.Models
         public DateTime? LastLogin { get; set; }
         public DateTime? BirthdayDate { get; set; }
 
+        public virtual Client? Client { get; set; }
         public virtual Profile? Profile { get; set; }
         public virtual UserAccess? UserAccess { get; set; }
         public virtual UserStatus? UserStatus { get; set; }
@@ -44,6 +46,8 @@ namespace Backend.Domain.Models
                 entityBuilder.Property(x => x.BirthdayDate).IsRequired();
 
                 entityBuilder.HasOne(x => x.UserAccess).WithOne(x => x.User).HasForeignKey<User>(x => x.Id);
+
+                entityBuilder.HasOne(x => x.Client).WithMany(x => x.Users).HasForeignKey(x => x.ClientId);
                 entityBuilder.HasOne(x => x.Profile).WithMany(x => x.Users).HasForeignKey(x => x.ProfileId);
                 entityBuilder.HasOne(x => x.UserStatus).WithMany(x => x.Users).HasForeignKey(x => x.UserStatusId);
                 

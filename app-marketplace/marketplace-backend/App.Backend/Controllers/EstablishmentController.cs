@@ -28,21 +28,14 @@ namespace App.Backend.Livraria.Controllers
         {
             try
             {
-                User? currentUser = null;
+                var currentUser = await _userService.GetCurrentUser(HttpContext);
 
-                var currentUserAccess = AuthMiddlewareExtensions.GetCurrentUser(HttpContext);
-
-                if (currentUserAccess != null)
+                if (!currentUser.Success)
                 {
-                    currentUser = (await _userService.GetById(currentUserAccess.UserId)).Value;
+                    return BadRequest(currentUser.Message);
                 }
 
-                if (currentUserAccess == null || currentUser == null)
-                {
-                    return BadRequest("Usuário não identificado.");
-                }
-
-                var result = await _establishmentService.AllDetails(filter, currentUser.Id);
+                var result = await _establishmentService.AllDetails(filter, currentUser.Value!);
                 if (!result.Success)
                 {
                     return BadRequest(result.Message);
@@ -61,11 +54,20 @@ namespace App.Backend.Livraria.Controllers
         {
             try
             {
-                var result = await _establishmentService.AddEstablishment(establishment);
+                var currentUser = await _userService.GetCurrentUser(HttpContext);
+
+                if (!currentUser.Success)
+                {
+                    return BadRequest(currentUser.Message);
+                }
+
+                var result = await _establishmentService.AddEstablishment(establishment, currentUser.Value!);
+
                 if (!result.Success)
                 {
                     return BadRequest(result.Message);
                 }
+
                 return Ok(result.Value);
             }
             catch (Exception ex)
@@ -75,26 +77,12 @@ namespace App.Backend.Livraria.Controllers
             }
         }
 
-        [HttpGet("get-all-available")]
-        public async Task<IActionResult> GetAllAvailable()
+        [HttpGet("client/{clientId}")]
+        public async Task<IActionResult> GetClientEstablishments(long clientId)
         {
             try
             {
-                User? currentUser = null;
-
-                var currentUserAccess = AuthMiddlewareExtensions.GetCurrentUser(HttpContext);
-
-                if (currentUserAccess != null)
-                {
-                    currentUser = (await _userService.GetById(currentUserAccess.UserId)).Value;
-                }
-
-                if (currentUserAccess == null || currentUser == null)
-                {
-                    return BadRequest("Usuário não identificado.");
-                }
-
-                var result = await _establishmentService.GetAllAvailableToRegister(currentUser);
+                var result = await _establishmentService.GetClientEstablishments(clientId);
                 if (!result.Success)
                 {
                     return BadRequest(result.Message);
@@ -103,13 +91,13 @@ namespace App.Backend.Livraria.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"EstablishmentController - GetAllAvailable - {ex.Message}");
+                _logger.LogError($"EstablishmentController - GetClientEstablishments - {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }
 
-        [HttpGet("get-all-available/{userId}")]
-        public async Task<IActionResult> GetAllAvailable(long userId)
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetUserEstablishments(long userId)
         {
             try
             {
@@ -122,7 +110,7 @@ namespace App.Backend.Livraria.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"EstablishmentController - GetAllAvailable - {ex.Message}");
+                _logger.LogError($"EstablishmentController - GetUserEstablishments - {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

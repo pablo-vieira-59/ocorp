@@ -27,16 +27,9 @@ namespace App.Backend.Livraria.Controllers
         {
             try
             {
-                User? currentUser = null;
+                var currentUser = await _userService.GetCurrentUser(HttpContext);
 
-                var currentUserAccess = AuthMiddlewareExtensions.GetCurrentUser(HttpContext);
-
-                if (currentUserAccess != null)
-                {
-                    currentUser = (await _userService.GetById(currentUserAccess.UserId)).Value;
-                }
-
-                var result = await _userService.CreateUserAsync(user, currentUser);
+                var result = await _userService.CreateUserAsync(user, currentUser.Value);
 
                 if (!result.Success)
                 {
@@ -92,7 +85,14 @@ namespace App.Backend.Livraria.Controllers
         {
             try
             {
-                var result = await _userService.AllDetails(filter);
+                var currentUser = await _userService.GetCurrentUser(HttpContext);
+
+                if (!currentUser.Success)
+                {
+                    return BadRequest(currentUser.Message);
+                }
+
+                var result = await _userService.AllDetails(filter, currentUser.Value!);
                 if (!result.Success)
                 {
                     return BadRequest(result.Message);
@@ -147,21 +147,14 @@ namespace App.Backend.Livraria.Controllers
         {
             try
             {
-                User? currentUser = null;
+                var currentUser = await _userService.GetCurrentUser(HttpContext);
 
-                var currentUserAccess = AuthMiddlewareExtensions.GetCurrentUser(HttpContext);
-
-                if (currentUserAccess != null)
+                if (!currentUser.Success)
                 {
-                    currentUser = (await _userService.GetById(currentUserAccess.UserId)).Value;
+                    return BadRequest(currentUser.Message);
                 }
 
-                if(currentUser == null)
-                {
-                    return BadRequest("Falha ao obter usuário");
-                }
-
-                var result = await _userService.EditUser(userData, currentUser);
+                var result = await _userService.EditUser(userData, currentUser.Value!);
 
                 if (!result.Success)
                 {

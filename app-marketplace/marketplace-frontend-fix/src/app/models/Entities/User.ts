@@ -6,6 +6,7 @@ import { User_Establishment } from "./User_Establishment";
 
 export interface User {
     id :number;
+    clientId :number;
     profileId :number;
     userStatusId :number;
     username :string;

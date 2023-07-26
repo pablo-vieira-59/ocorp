@@ -8,6 +8,7 @@ import { PermissionEnum } from './models/Entities/Permission';
 import { PageEstablishmentsComponent } from './components/page-establishments/page-establishments.component';
 import { PageHomeComponent } from './components/page-home/page-home.component';
 import { PageDashboardComponent } from './components/page-dashboard/page-dashboard.component';
+import { PageProductsComponent } from './components/page-products/page-products.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'profiles', component: PageProfilesComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Perfis] } },
   { path: 'establishments', component: PageEstablishmentsComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Estabelecimentos] } },
   { path: 'dashboard', component: PageDashboardComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Dashboard] } },
+  { path: 'products', component: PageProductsComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [] } },
   { path: '**', redirectTo: '/login' }
 ];
 

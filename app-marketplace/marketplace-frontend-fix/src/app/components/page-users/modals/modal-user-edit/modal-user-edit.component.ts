@@ -60,8 +60,8 @@ export class ModalUserEditComponent {
     this.model.birthdayDate = formatDate(user.birthdayDate, "yyyy-MM-dd", "en-US");
 
     this.ddl_profile_options = await this.serviceProfile.GetAllAvailable();
-    this.all_establishments = await this.serviceEstablishment.GetAllAvailable();
-    this.user_establishments = await this.serviceEstablishment.GetUserEstablishment(this.user_id);
+    this.all_establishments = await this.serviceEstablishment.GetClientEstablishments(user.clientId);
+    this.user_establishments = await this.serviceEstablishment.GetUserEstablishments(this.user_id);
   
     this.MapData();
 

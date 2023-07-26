@@ -40,7 +40,8 @@ export class ModalUserRegisterInternalComponent {
 		city: '',
 		state: '',
 		profileId: '',
-		confirmPassword: ''
+		confirmPassword: '',
+		isNewClient:false,
 	}
 
 	constructor(

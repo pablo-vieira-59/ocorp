@@ -5,6 +5,14 @@ $primary: #294566;
 $success: #4d9b5c;
 $danger: #AD343E;
 
+.fs-7{
+    font-size: 12px;
+}
+
+.fs-8{
+    font-size: 8px;
+}
+
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 @import '../node_modules/ng-multiselect-dropdown/themes/ng-multiselect-dropdown.theme.scss';
@@ -38,7 +46,7 @@ $danger: #AD343E;
 }
 
 *{
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .bg-white{

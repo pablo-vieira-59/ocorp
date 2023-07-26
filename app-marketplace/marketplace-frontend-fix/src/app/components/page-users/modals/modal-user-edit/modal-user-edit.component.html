@@ -80,7 +80,7 @@
                         <label class="text-truncate" [for]="item.name">{{item.name}}</label>
                     </div>
                     <div class="col-3 text-center">
-                        <label class="text-truncate" [for]="item.name">{{item.documentNumber | mask :'000.000.000-00'}}</label>
+                        <label class="text-truncate" [for]="item.name">{{item.documentNumber | mask :'00.000.000/0000-00'}}</label>
                     </div>
                 </div>
             </div>
@@ -91,11 +91,8 @@
                             <input class="form-check-input" [checked]="false" type="checkbox" role="switch" id="empty" readonly>
                         </div>
                     </div>
-                    <div class="col" style="min-width: 200px;">
+                    <div class="col-auto" style="min-width: 200px;">
                         <label class="text-truncate form-check-label" for="empty">Nenhum Estabelecimento disponível.</label>
-                    </div>
-                    <div class="col-3 text-center">
-                        <label class="text-truncate form-check-label" for="empty">000.000.000/0000-00</label>
                     </div>
                 </div>
             </div>
