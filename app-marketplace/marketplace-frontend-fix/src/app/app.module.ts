@@ -51,6 +51,9 @@ import { registerLocaleData } from '@angular/common';
 import { PageBrandsComponent } from './components/page-brands/page-brands.component';
 import { ModalBrandRegisterComponent } from './components/page-brands/modal-brand-register/modal-brand-register.component';
 import { ModalBrandEditComponent } from './components/page-brands/modal-brand-edit/modal-brand-edit.component';
+import { PageSuppliersComponent } from './components/page-suppliers/page-suppliers.component';
+import { ModalSupplierEditComponent } from './components/page-suppliers/modal-supplier-edit/modal-supplier-edit.component';
+import { ModalSupplierRegisterComponent } from './components/page-suppliers/modal-supplier-register/modal-supplier-register.component';
 
 export const options: Partial<null | IConfig> | (() => Partial<IConfig>) = null;
 
@@ -90,6 +93,9 @@ registerLocaleData(localePt, 'pt');
     PageBrandsComponent,
     ModalBrandRegisterComponent,
     ModalBrandEditComponent,
+    PageSuppliersComponent,
+    ModalSupplierEditComponent,
+    ModalSupplierRegisterComponent,
   ],
   imports: [
     HttpClientModule,

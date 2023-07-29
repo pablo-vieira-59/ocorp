@@ -10,8 +10,9 @@
     </div>
 
     <div class="col-12 text-center text-muted mt-2" style="font-size: 12px;">
-        <label class="col-12">Pablo Andrade</label>
+        <label class="col-12">Nome Sobrenome</label>
         <label class="col-12">usuario@email.com</label>
+        <label class="col-12">Ocorp</label>
     </div>
 
     <div class="col-12 text-center mt-2">
@@ -31,6 +32,13 @@
             <div class="nav-btn bg-primary-d">
                 <i class="bi bi-bar-chart-line me-1 ms-2"></i>
                 Dashboard
+            </div>
+        </div>
+
+        <div *ngIf="HasPermission(2)" class="px-2 mt-1" (click)="GotoRoute('/products')">
+            <div class="nav-btn bg-primary-d">
+                <i class="bi bi-box-seam-fill me-1 ms-2"></i>
+                Produtos
             </div>
         </div>
 
@@ -55,13 +63,6 @@
             </div>
         </div>
 
-        <div *ngIf="HasPermission(2)" class="px-2 mt-1" (click)="GotoRoute('/products')">
-            <div class="nav-btn bg-primary-d">
-                <i class="bi bi-box-seam-fill me-1 ms-2"></i>
-                Produtos
-            </div>
-        </div>
-
         <div class="px-2 mt-1" (click)="GotoRoute('/brands')">
             <div class="nav-btn bg-primary-d">
                 <i class="bi bi-patch-check-fill me-1 ms-2"></i>
@@ -69,7 +70,7 @@
             </div>
         </div>
 
-        <div class="px-2 mt-1" (click)="GotoRoute('/suplliers')">
+        <div class="px-2 mt-1" (click)="GotoRoute('/suppliers')">
             <div class="nav-btn bg-primary-d">
                 <i class="bi bi-truck me-1 ms-2"></i>
                 Fornecedores

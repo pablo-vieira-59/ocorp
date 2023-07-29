@@ -10,6 +10,7 @@ import { PageHomeComponent } from './components/page-home/page-home.component';
 import { PageDashboardComponent } from './components/page-dashboard/page-dashboard.component';
 import { PageProductsComponent } from './components/page-products/page-products.component';
 import { PageBrandsComponent } from './components/page-brands/page-brands.component';
+import { PageSuppliersComponent } from './components/page-suppliers/page-suppliers.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'dashboard', component: PageDashboardComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Dashboard] } },
   { path: 'products', component: PageProductsComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [] } },
   { path: 'brands', component: PageBrandsComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [] } },
+  { path: 'suppliers', component: PageSuppliersComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [] } },
   { path: '**', redirectTo: '/login' }
 ];
 

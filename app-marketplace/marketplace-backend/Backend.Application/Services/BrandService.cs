@@ -20,6 +20,20 @@ namespace Backend.Application.Services
 
         public async Task<ServiceResult<PaginatedResult<Brand>>> AllPaginated(FilterDTO filter, User currentUser)
         {
+            if (filter.SearchFields == null)
+            {
+                filter.SearchFields = new List<SearchField>();
+            }
+
+            if (currentUser.ProfileId != (int)ProfileEnum.Admin)
+            {
+                filter.SearchFields.Add(new SearchField
+                {
+                    Property = "ClientId",
+                    Value = currentUser.ClientId.ToString(),
+                });
+            }
+
             var brands = await Brand.ToBasic(_brandRepository.Get(filter)).ToListAsync();
 
             var totalCount = brands.Count();

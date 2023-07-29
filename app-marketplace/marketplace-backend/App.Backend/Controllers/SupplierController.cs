@@ -1,43 +1,37 @@
-using Backend.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Backend.Application.Services.Interfaces;
 using Backend.Domain.DTO;
-using System.Reflection;
-using Backend.Domain.Helpers;
-using App.Backend.Livraria.Middleware;
 
 namespace App.Backend.Livraria.Controllers
 {
     [ApiController]
-    [Route("brands")]
-    public class BrandController : ControllerBase
+    [Route("suppliers")]
+    public class SupplierController : ControllerBase
     {
         private readonly ILogger<BrandController> _logger;
         private readonly IUserService _userService;
-        private readonly IProductService _productService;
-        private readonly IBrandService _brandService;
+        private readonly ISupplierService _supplierService;
 
-        public BrandController(ILogger<BrandController> logger, IUserService userService, IProductService productService, IBrandService brandService)
+        public SupplierController(ILogger<BrandController> logger, IUserService userService, ISupplierService supplierService)
         {
             _logger = logger;
             _userService = userService;
-            _productService = productService;
-            _brandService = brandService;
+            _supplierService = supplierService;
         }
 
         [HttpPost("new")]
-        public async Task<IActionResult> Create([FromBody] BrandCreateDTO request)
+        public async Task<IActionResult> Create([FromBody] SupplierCreateDTO request)
         {
             try
             {
                 var currentUser = await _userService.GetCurrentUser(HttpContext);
 
-                if (!currentUser.Success)
+                if(!currentUser.Success)
                 {
                     return BadRequest(currentUser.Message);
                 }
 
-                var result = await _brandService.Create(request, currentUser.Value!);
+                var result = await _supplierService.Create(request, currentUser.Value!);
 
                 if (!result.Success)
                 {
@@ -48,7 +42,7 @@ namespace App.Backend.Livraria.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"BrandController - CreateBrand - {ex.Message}");
+                _logger.LogError($"SupplierController - Create - {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }
@@ -65,7 +59,7 @@ namespace App.Backend.Livraria.Controllers
                     return BadRequest(currentUser.Message);
                 }
 
-                var result = await _brandService.AllPaginated(filter, currentUser.Value!);
+                var result = await _supplierService.AllPaginated(filter, currentUser.Value!);
                 if (!result.Success)
                 {
                     return BadRequest(result.Message);
@@ -75,7 +69,7 @@ namespace App.Backend.Livraria.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"BrandController - AllPaginated - {ex.Message}");
+                _logger.LogError($"SupplierController - AllPaginated - {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }
@@ -85,7 +79,7 @@ namespace App.Backend.Livraria.Controllers
         {
             try
             {
-                var result = await _brandService.GetById(id);
+                var result = await _supplierService.GetById(id);
 
                 if (!result.Success)
                 {
@@ -96,13 +90,13 @@ namespace App.Backend.Livraria.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"BrandController - GetById - {ex.Message}");
+                _logger.LogError($"SupplierController - GetById - {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }
 
         [HttpPost("edit/{id}")]
-        public async Task<IActionResult> Edit(BrandEditDTO request)
+        public async Task<IActionResult> Edit(SupplierEditDTO request)
         {
             try
             {
@@ -113,7 +107,7 @@ namespace App.Backend.Livraria.Controllers
                     return BadRequest(currentUser.Message);
                 }
 
-                var result = await _brandService.Edit(request, currentUser.Value!);
+                var result = await _supplierService.Edit(request, currentUser.Value!);
 
                 if (!result.Success)
                 {
@@ -124,7 +118,7 @@ namespace App.Backend.Livraria.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"BrandController - Edit - {ex.Message}");
+                _logger.LogError($"SupplierController - Edit - {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

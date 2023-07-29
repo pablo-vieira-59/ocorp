@@ -6,15 +6,15 @@ import { Brand } from 'src/app/models/Entities/Brand';
 import { BrandService } from 'src/app/services/brand.service';
 
 @Component({
-  selector: 'app-modal-brand-edit',
-  templateUrl: './modal-brand-edit.component.html',
-  styleUrls: ['./modal-brand-edit.component.scss']
+	selector: 'app-modal-brand-edit',
+	templateUrl: './modal-brand-edit.component.html',
+	styleUrls: ['./modal-brand-edit.component.scss']
 })
 export class ModalBrandEditComponent {
-  loading = false;
+	loading = false;
 	modalRef?: BsModalRef;
 
-  brandId = 0;
+	brandId = 0;
 
 	validFields: string[] = ["brand", "description"];
 	val_required = ["brand", "description"];
@@ -29,12 +29,12 @@ export class ModalBrandEditComponent {
 		private serviceModal: BsModalService,
 		private serviceNotification: ToastrService,
 		private serviceBrand: BrandService
-    ) { }
+	) { }
 
 	async ngOnInit() {
-    this.loading = true;
-    this.data = await this.serviceBrand.GetById(this.brandId);
-    this.loading = false;
+		this.loading = true;
+		this.data = await this.serviceBrand.GetById(this.brandId);
+		this.loading = false;
 	}
 
 	IsFormValid(): boolean {

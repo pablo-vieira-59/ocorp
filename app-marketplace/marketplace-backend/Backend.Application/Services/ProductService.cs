@@ -20,6 +20,20 @@ namespace Backend.Application.Services
 
         public async Task<ServiceResult<PaginatedResult<Product>>> AllPaginated(FilterDTO filter, User currentUser)
         {
+            if (filter.SearchFields == null)
+            {
+                filter.SearchFields = new List<SearchField>();
+            }
+
+            if (currentUser.ProfileId != (int)ProfileEnum.Admin)
+            {
+                filter.SearchFields.Add(new SearchField
+                {
+                    Property = "ClientId",
+                    Value = currentUser.ClientId.ToString(),
+                });
+            }
+
             var products = await Product.ToBasic(_productRepository.Get(filter)).ToListAsync();
 
             var totalCount = products.Count();

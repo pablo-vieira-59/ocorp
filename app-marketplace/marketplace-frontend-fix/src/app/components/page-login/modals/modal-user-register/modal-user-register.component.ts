@@ -31,8 +31,9 @@ export class ModalUserRegisterComponent {
 		city: '',
 		state: '',
 		profileId: 0,
-		birthdayDate:'01/05/1997',
-		isNewClient : true
+		birthdayDate:'1997-05-01',
+		isNewClient : true,
+		clientName:''
 	}
 
 	val_required = ["name", "documentNumber", "phoneNumber", "email", "reg-password"];

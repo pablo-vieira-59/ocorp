@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Editar Fornecedor</h4>
+    <button type="button" class="btn-close" aria-describedby="modal-title" (click)="Close()"></button>
+</div>
+
+<div class="modal-body" *ngIf="!loading">
+    <div class="row">
+        <h5 class="col-12">Dados do Fornecedor</h5>
+
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6">
+                    <label for="documentNumber" class="required">CNPJ</label>
+                    <input [mask]="'00.000.000/0000-00'" id="documentNumber" [(ngModel)]="data.documentNumber" type="text" class="form-control input-disabled"
+                        placeholder="Digite seu e-mail ..." readonly>
+                </div>
+
+                <div class="col-6">
+                    <label for="fantasyName" class="required">Nome</label>
+                    <input id="fantasyName" [(ngModel)]="data.fantasyName" type="text" class="form-control"
+                        placeholder="Digite o nome da empresa ..." (change)="ValidateField('fantasyName')">
+                </div>
+
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-6">
+                    <label for="email" class="required">Email</label>
+                    <input id="email" [(ngModel)]="data.email" type="email" class="form-control"
+                        placeholder="Digite um email..." (change)="ValidateField('email')">
+                </div>
+
+                <div class="col-6">
+                    <label for="phoneNumber" class="required">Número de Telefone</label>
+                    <input id="phoneNumber" [(ngModel)]="data.phoneNumber" [mask]="'(00) 0000-0000'" type="text"
+                        class="form-control" placeholder="Digite um numero..." (change)="ValidateField('phoneNumber')">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="modal-body" *ngIf="loading">
+    <div class="row">
+        <app-spinner-black></app-spinner-black>
+    </div>
+</div>
+
+
+<div class="modal-footer bg-white-d">
+    <button type="button" (click)="Close()" class="btn btn-outline-danger">Cancelar</button>
+    <button [disabled]="!IsFormValid()" type="button" class="btn btn-success text-light"
+        (click)="Submit()">Salvar</button>
+</div>

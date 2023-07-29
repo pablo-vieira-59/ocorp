@@ -29,16 +29,20 @@ namespace Backend.Application.Services
 
         public async Task<ServiceResult<PaginatedResult<User>>> AllDetails(FilterDTO filter, User currentUser)
         {
-            if(filter.SearchFields == null)
+            if (filter.SearchFields == null)
             {
                 filter.SearchFields = new List<SearchField>();
             }
 
-            if(currentUser.ProfileId != (int)ProfileEnum.Admin)
+            if (currentUser.ProfileId != (int)ProfileEnum.Admin)
             {
-                filter.SearchFields.Add(new SearchField { Property = "ClientId", Value = currentUser.ClientId.ToString() });
+                filter.SearchFields.Add(new SearchField
+                {
+                    Property = "ClientId",
+                    Value = currentUser.ClientId.ToString(),
+                });
             }
-            
+
             var users = await _userRepository.Get(filter).Select(e => new User
             {
                 Id = e.Id,
@@ -171,7 +175,7 @@ namespace Backend.Application.Services
             }
             
             DateTime birthDay;
-            var isDateValid = DateTime.TryParseExact(request.BirthdayDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AdjustToUniversal, out birthDay);
+            var isDateValid = DateTime.TryParseExact(request.BirthdayDate, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AdjustToUniversal, out birthDay);
             if (!isDateValid)
             {
                 return new FailServiceResultStruct<bool>("Data inválida.");
@@ -195,7 +199,7 @@ namespace Backend.Application.Services
 
             if(request.IsNewClient)
             {
-                newUser.Client = new Client();
+                newUser.Client = new Client { Name = request.ClientName };
                 newUser.ProfileId = (int)ProfileEnum.Diretor;
             }
             else

@@ -19,6 +19,21 @@ namespace Backend.Domain.Models
         public virtual List<Batch>? Batches { get; set; }
 
 
+        public static IQueryable<Supplier> ToBasic(IQueryable<Supplier> query)
+        {
+            var result = query.Select(x => new Supplier
+            {
+                Id = x.Id,
+                ClientId = x.ClientId,
+                DocumentNumber = x.DocumentNumber,
+                Email = x.Email,
+                PhoneNumber = x.PhoneNumber,
+                FantasyName = x.FantasyName,
+            });
+
+            return result;
+        }
+
         public class Map : IEntityTypeConfiguration<Supplier>
         {
             public void Configure(EntityTypeBuilder<Supplier> entityBuilder)

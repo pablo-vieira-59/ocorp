@@ -21,7 +21,7 @@ export class ModalUserRegisterInternalComponent {
 	isAddressValid = false;
 	address = {} as Address;
 	validFields: string[] = [];
-	val_required = ["name", "documentNumber", "phoneNumber", "email", "reg-password"];
+	val_required = ["name", "documentNumber", "phoneNumber", "email", "reg-password", "birthdayDate"];
 	val_minSize = [["documentNumber", "14"], ["phoneNumber", "15"], ["reg-password", "6"]];
 	val_email = ["email"];
 	val_match = [["confirmPassword", "reg-password"]];
@@ -41,7 +41,9 @@ export class ModalUserRegisterInternalComponent {
 		state: '',
 		profileId: '',
 		confirmPassword: '',
+		birthdayDate:'',
 		isNewClient:false,
+		clientName:''
 	}
 
 	constructor(
