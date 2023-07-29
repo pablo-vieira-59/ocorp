@@ -12,6 +12,8 @@ namespace Backend.Domain.Models
         public string? Description { get; set; }
         public decimal Price { get; set; }
         public string? ImageUrl { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public long Units { get; set; }
 
         public virtual SubCategory? SubCategory { get; set; }
         public virtual Client? Client { get; set; }
@@ -33,9 +35,10 @@ namespace Backend.Domain.Models
                 Description = x.Description,
                 Price = x.Price,
                 ImageUrl = x.ImageUrl,
+                CreatedAt = x.CreatedAt,
                 Brand_Products = x.Brand_Products!.Select(z => new Brand_Product
                 {
-                    Brand = new Brand { Name = z.Brand!.Name }
+                    Brand = new Brand { Name = z.Brand!.Name , Color = z.Brand!.Color}
                 }).ToList(),
             });
 
@@ -52,6 +55,8 @@ namespace Backend.Domain.Models
                 entityBuilder.Property(x => x.Description).IsRequired();
                 entityBuilder.Property(x => x.Price).IsRequired();
                 entityBuilder.Property(x => x.ImageUrl).IsRequired();
+                entityBuilder.Property(x => x.CreatedAt).IsRequired();
+                entityBuilder.Property(x => x.Units).IsRequired();
 
                 entityBuilder.HasOne(x => x.SubCategory).WithMany(x => x.Products).HasForeignKey(x => x.SubCategoryId);
                 

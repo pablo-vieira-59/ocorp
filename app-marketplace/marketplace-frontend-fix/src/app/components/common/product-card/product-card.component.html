@@ -44,17 +44,18 @@
                     <i class="bi bi-filter-square-fill me-1"></i>#{{product.id}}
                 </div>
                 <div class="col-auto fs-7">
-                    <i class="bi bi-box-seam-fill me-1"></i>{{6999 | number:'.0':'pt-pt'}}
+                    <i class="bi bi-box-seam-fill me-1"></i>{{product.units | number:'.0':'pt-pt'}}
                 </div>
                 <div class="col-auto fs-7">
-                    <i class="bi bi-calendar-fill me-1"></i>22/02/2023
+                    <i class="bi bi-calendar-fill me-1"></i>{{product.createdAt | date:'dd/MM/yyyy'}}
                 </div>
             </div>
 
             <div class="row mt-1">
                 <div class="col bg-light border rounded-1 p-1">
                     <div class="row my-auto m-0 p-0">
-                        <span *ngFor="let item of product.brand_Products" class="col-auto badge bg-primary me-1"><small>{{item.brand.name}}</small></span>
+                        <span *ngFor="let item of product.brand_Products" class="col-auto badge me-1"
+                            style="background-color: {{item.brand.color}};"><small>{{item.brand.name}}</small></span>
                     </div>
                 </div>
             </div>

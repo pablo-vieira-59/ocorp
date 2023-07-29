@@ -1,4 +1,7 @@
 export interface Brand {
     id :number,
-    name :string
+    name :string,
+    clientId :number,
+    description :string,
+    color :string,
 }

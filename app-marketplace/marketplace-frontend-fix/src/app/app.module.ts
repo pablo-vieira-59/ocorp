@@ -48,6 +48,9 @@ import { ProductCardComponent } from './components/common/product-card/product-c
 import { LOCALE_ID } from '@angular/core';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { PageBrandsComponent } from './components/page-brands/page-brands.component';
+import { ModalBrandRegisterComponent } from './components/page-brands/modal-brand-register/modal-brand-register.component';
+import { ModalBrandEditComponent } from './components/page-brands/modal-brand-edit/modal-brand-edit.component';
 
 export const options: Partial<null | IConfig> | (() => Partial<IConfig>) = null;
 
@@ -84,6 +87,9 @@ registerLocaleData(localePt, 'pt');
     ModalUserEditComponent,
     PageProductsComponent,
     ProductCardComponent,
+    PageBrandsComponent,
+    ModalBrandRegisterComponent,
+    ModalBrandEditComponent,
   ],
   imports: [
     HttpClientModule,

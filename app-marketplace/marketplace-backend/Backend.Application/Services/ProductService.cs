@@ -40,7 +40,7 @@ namespace Backend.Application.Services
             return new OkServiceResult<PaginatedResult<Product>>(result);
         }
 
-        public async Task<ServiceResult<Product>> GetById(int profileId)
+        public async Task<ServiceResult<Product>> GetById(long profileId)
         {
             var product = await Product.ToBasic(_productRepository.GetByProperty("Id", profileId.ToString())).FirstOrDefaultAsync();
 

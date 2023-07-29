@@ -8,6 +8,8 @@ export interface Product{
     description :string,
     price :number,
     imageUrl :string,
+    createdAt :Date,
+    units :number,
 
     // subcategory :Subcategory,
     // client :Client,
