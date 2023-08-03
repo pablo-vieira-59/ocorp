@@ -1,0 +1,86 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Cadastrar Categoria</h4>
+    <button type="button" class="btn-close" aria-describedby="modal-title" (click)="Close()"></button>
+</div>
+
+<div class="modal-body bg-white" *ngIf="!loading">
+    <div class="row p-2">
+
+        <div class="col-12">
+            <label class="text-primary fw-bolder fs-6">Categoria</label>
+            <hr>
+        </div>
+        
+        <div class="col-12 mt-2">
+            <div class="row">
+                <div class="col">
+                    <label for="category" class="required">Nome</label>
+                    <input id="category" [(ngModel)]="data.name" type="text" class="form-control"
+                        placeholder="Digite o nome da categoria ..." (change)="ValidateField('category')">
+                </div>
+
+                <div class="col-1">
+                    <label for="color" class="required">Cor</label>
+                    <input type="color" class="form-control form-control-color" id="color" [(ngModel)]="data.color">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6">
+                    <label class="text-primary fw-bolder fs-6">Subcategorias</label>
+                </div>
+                
+                <div class="col-6 text-end">
+                    <label>&nbsp;</label>
+                    <button class="btn btn-success text-light fw-bolder"> <i class="bi bi-plus-lg" (click)="AddSubcategoryField()"></i> </button>
+                </div>
+            </div>
+            
+
+            <hr>
+        </div>
+
+        <div class="col-12  pb-2" style="max-height: 200px;overflow-y: auto;">
+            <div class="row mt-2" *ngFor="let item of data.subcategories; let i = index">
+                <div class="col">
+                    <label for="subcategory_{{i}}" class="required">Nome</label>
+                    <input id="subcategory_{{i}}" type="text" [(ngModel)]="item.name" class="form-control" placeholder="Digite o nome da subcategoria ..." (change)="ValidateField('subcategory_'+i)">
+                </div>
+
+                <div class="col-1 p-0">
+                    <label for="color_{{i}}" class="required">Cor</label>
+                    <input id="color_{{i}}" type="color" class="form-control form-control-color">
+                </div>
+
+                <div class="col-1 ps-0 text-end">
+                    <label class="col-12">&nbsp;</label>
+                    <button class="btn btn-danger text-light fw-bolder"> <i class="bi bi-dash-lg" (click)="RemoveSubcategoryField(i)"></i> </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="errors.length > 0" class="alert alert-danger mt-2" role="alert">
+        <!-- <h6 class="alert-heading">Erro!</h6> -->
+        <div *ngFor="let error of errors">
+            <i class="bi bi-exclamation-circle-fill fs-7 me-2"></i><label class="fs-7">{{error}}</label>
+        </div>
+    </div>
+</div>
+
+<div class="modal-body" *ngIf="loading">
+    <div class="row">
+        <app-spinner-black></app-spinner-black>
+    </div>
+</div>
+
+
+<div class="modal-footer">
+    <button type="button" (click)="Close()" class="btn btn-outline-danger">Cancelar</button>
+    <button [disabled]="!IsFormValid()" type="button" class="btn btn-success text-light"
+        (click)="Submit()">Cadastrar</button>
+</div>

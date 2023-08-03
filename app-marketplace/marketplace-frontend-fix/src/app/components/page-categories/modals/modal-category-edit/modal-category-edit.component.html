@@ -1,0 +1,87 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Editar Categoria</h4>
+    <button type="button" class="btn-close" aria-describedby="modal-title" (click)="Close()"></button>
+</div>
+
+<div class="modal-body bg-white" *ngIf="!loading">
+    <div class="row p-2">
+
+        <div class="col-12">
+            <label class="text-primary fw-bolder fs-6">Categoria</label>
+            <hr>
+        </div>
+
+        <div class="col-12 mt-2">
+            <div class="row">
+                <div class="col">
+                    <label for="category" class="required">Nome</label>
+                    <input id="category" [(ngModel)]="category.name" type="text" class="form-control"
+                        placeholder="Digite o nome da categoria ..." (change)="ValidateField('category')">
+                </div>
+
+                <div class="col-1">
+                    <label for="color" class="required">Cor</label>
+                    <input type="color" class="form-control form-control-color" id="color" [(ngModel)]="category.color">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6">
+                    <label class="text-primary fw-bolder fs-6">Subcategorias</label>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="col-12 mt-2 pb-2" style="max-height: 220px; overflow: auto;">
+                <!-- <div *ngFor="let item of category.subCategories" class="col-12 rounded bg-primary-www mt-1">
+                    <div class="col-12 p-2">
+                        <div class="row m-0">
+                            <label class="col-3">{{item.name}}</label>
+                            <div class="col text-end">
+                                <span class="badge" style="background-color: {{item.color}};">
+                                    <small>{{item.name}}</small>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div *ngFor="let item of category.subCategories; let i = index" class="row m-0">
+                    <div class="col">
+                        <label for="subcategory_{{i}}" class="required">Nome</label>
+                        <input id="subcategory_{{i}}" [(ngModel)]="item.name" type="text" class="form-control"
+                            placeholder="Digite o nome da subcategoria ..." (change)="ValidateField('subcategory_'+i)">
+                    </div>
+    
+                    <div class="col-1">
+                        <label for="color" class="required">Cor</label>
+                        <input type="color" class="form-control form-control-color" id="color" [(ngModel)]="item.color">
+                    </div>
+                </div>
+
+                <div *ngIf="category.subCategories == null || category.subCategories.length == 0" class="col-12 p-2 rounded bg-primary-www mt-1">
+                    <div class="col text-center">
+                        <label>Nenhuma subcategoria disponível.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-body" *ngIf="loading">
+    <div class="row">
+        <app-spinner-black></app-spinner-black>
+    </div>
+</div>
+
+
+<div class="modal-footer">
+    <button type="button" (click)="Close()" class="btn btn-outline-danger">Cancelar</button>
+    <button [disabled]="!IsFormValid()" type="button" class="btn btn-success text-light"
+        (click)="Submit()">Salvar</button>
+</div>

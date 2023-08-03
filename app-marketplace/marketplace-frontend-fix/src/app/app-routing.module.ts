@@ -11,6 +11,8 @@ import { PageDashboardComponent } from './components/page-dashboard/page-dashboa
 import { PageProductsComponent } from './components/page-products/page-products.component';
 import { PageBrandsComponent } from './components/page-brands/page-brands.component';
 import { PageSuppliersComponent } from './components/page-suppliers/page-suppliers.component';
+import { PageCategoriesComponent } from './components/page-categories/page-categories.component';
+import { PageBatchesComponent } from './components/page-batches/page-batches.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -22,6 +24,8 @@ const routes: Routes = [
   { path: 'products', component: PageProductsComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [] } },
   { path: 'brands', component: PageBrandsComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [] } },
   { path: 'suppliers', component: PageSuppliersComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [] } },
+  { path: 'categories', component: PageCategoriesComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [] } },
+  { path: 'batches', component: PageBatchesComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [] } },
   { path: '**', redirectTo: '/login' }
 ];
 

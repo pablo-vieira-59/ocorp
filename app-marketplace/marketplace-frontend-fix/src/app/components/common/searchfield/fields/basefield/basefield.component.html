@@ -1,10 +1,10 @@
-<h6 class="col-12">
+<div class="col-12 fs-7">
     <label for="{{label}}_field">
         {{label}}
     </label>
-</h6>
+</div>
 
-<ng-select *ngIf="fieldType == 0" i
+<ng-select *ngIf="fieldType == fieldTypeNames.Dropdown" i class=""
     id="{{label}}_field" placeholder="{{placeholder}}" 
     notFoundText="{{notFoundText}}"
     [(ngModel)]="selected_item"
@@ -12,29 +12,29 @@
     <ng-option *ngFor="let option of items" value="{{option.id}}">{{option.value}}</ng-option>
 </ng-select>
 
-<input *ngIf="fieldType == 2 && mask != ''" 
-    class="form-control" 
+<input *ngIf="fieldType == fieldTypeNames.Text && mask != ''" 
+    class="form-control " 
     type="text" 
     placeholder="{{placeholder}}" 
     [(ngModel)]="text_value"
     (input)="updateText()"
     [mask]="mask">
 
-<input *ngIf="fieldType == 2 && mask == ''" 
-    class="form-control" 
+<input *ngIf="fieldType == fieldTypeNames.Text && mask == ''" 
+    class="form-control " 
     type="text" 
     placeholder="{{placeholder}}" 
     [(ngModel)]="text_value"
     (input)="updateText()">
 
-<input *ngIf="fieldType == 3" 
-    class="form-control" 
+<input *ngIf="fieldType == fieldTypeNames.Date" 
+    class="form-control " 
     type="date" 
     placeholder="{{placeholder}}" 
     [(ngModel)]="text_value"
     (input)="updateText()">
 
-<div class="form-check" *ngIf="fieldType == 4">
+<div class="form-check" *ngIf="fieldType == fieldTypeNames.Checkbox">
     <input 
         id="{{label}}_field" 
         type="checkbox" 
@@ -49,7 +49,7 @@
     </label>
 </div>
 
-<div *ngIf="fieldType == 5">
+<div *ngIf="fieldType == fieldTypeNames.Radio">
     <div class="form-check" *ngFor="let option of items">
         <input class="form-check-input" 
         name="radio_group_{{label}}" 

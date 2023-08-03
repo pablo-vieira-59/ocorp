@@ -49,8 +49,8 @@ export class BaseChartComponent {
   }
 
   public chart_type :any = "pie";
-  public colors = ['#294566', '#2C677D', '#287273', '#2D2873', '#2C3C7D']
-  public colors_individual = [['#294566'], ['#2C677D'], ['#287273'], ['#2D2873'], ['#2C3C7D']]
+  public colors = ['#1F9BCF', '#F0AD4E', '#4BBF73', '#D9534F', '#3B82EC']
+  public colors_individual = [['#1F9BCF'], ['#F0AD4E'], ['#4BBF73'], ['#D9534F'], ['#3B82EC']]
 
   ngOnInit(){
     this.chart_options = {};

@@ -60,4 +60,8 @@ export class BasefieldComponent {
   updateSelected_items(){
     this.selected_itemsChange.emit(this.selected_items);
   }
+
+  get fieldTypeNames(){
+    return FieldType;
+  }
 }

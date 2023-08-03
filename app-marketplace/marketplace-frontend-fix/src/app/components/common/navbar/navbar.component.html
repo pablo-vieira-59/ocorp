@@ -12,7 +12,7 @@
     <div class="col-12 text-center text-muted mt-2" style="font-size: 12px;">
         <label class="col-12">Nome Sobrenome</label>
         <label class="col-12">usuario@email.com</label>
-        <label class="col-12">Ocorp</label>
+        <label class="col-12 fw-bold">Ocorp</label>
     </div>
 
     <div class="col-12 text-center mt-2">
@@ -25,8 +25,8 @@
             <i class="bi bi-gear-fill"></i>
         </button>
     </div>
-
-    <div class="col-12 mt-4" style="max-height: 246px;overflow-x: auto;">
+    
+    <div class="col-12 mt-4 mb-4" style="max-height: 246px;overflow-x: auto;">
 
         <div *ngIf="HasPermission(6)" class="px-2 mt-1" (click)="GotoRoute('/dashboard')">
             <div class="nav-btn bg-primary-d">
@@ -84,7 +84,7 @@
             </div>
         </div>
 
-        <div class="px-2 mt-1" (click)="GotoRoute('/batchs')">
+        <div class="px-2 mt-1" (click)="GotoRoute('/batches')">
             <div class="nav-btn bg-primary-d">
                 <i class="bi bi-boxes me-1 ms-2"></i>
                 Lotes

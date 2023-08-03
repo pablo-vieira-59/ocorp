@@ -30,6 +30,31 @@ namespace Backend.Domain.Models
         public virtual Client? Client{ get; set; }
 
 
+        public static IQueryable<Batch> ToBasic(IQueryable<Batch> query)
+        {
+            var result = query.Select(x => new Batch
+            {
+                Id = x.Id,
+                ClientId = x.ClientId,
+                SupplierId = x.SupplierId,
+                ProductId = x.ProductId,
+                AddressId = x.AddressId,
+                BatchStatusId = x.BatchStatusId,
+                Serial = x.Serial,
+                Description = x.Description,
+                TotalPrice = x.TotalPrice,
+                UnitPrice = x.UnitPrice,
+                TotalUnits = x.TotalUnits,
+                RemainingUnits = x.RemainingUnits,
+                FabricatedAt = x.FabricatedAt,
+                ValidUntil = x.ValidUntil,
+                OrderedAt = x.OrderedAt,
+                ReceivedAt = x.ReceivedAt,
+            });
+
+            return result;
+        }
+
         public class Map : IEntityTypeConfiguration<Batch>
         {
             public void Configure(EntityTypeBuilder<Batch> entityBuilder)

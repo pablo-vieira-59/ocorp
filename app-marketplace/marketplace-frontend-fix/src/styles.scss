@@ -1,15 +1,13 @@
-
-
 /* You can add global styles to this file, and also import other style files */
 $primary: #294566;
 $success: #4d9b5c;
 $danger: #AD343E;
 
-.fs-7{
+.fs-7 {
     font-size: 12px;
 }
 
-.fs-8{
+.fs-8 {
     font-size: 8px;
 }
 
@@ -22,7 +20,7 @@ $danger: #AD343E;
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
 
-.input-disabled{
+.input-disabled {
     color: grey;
     background-color: lightgrey;
     pointer-events: none;
@@ -33,63 +31,63 @@ $danger: #AD343E;
     color: $danger;
 }
 
-.sdw{
+.sdw {
     box-shadow: 0px 3px 8px 3px rgba(0, 0, 0, 0.4);
 }
 
-.shadow-2{
+.shadow-2 {
     box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
 }
 
-.pointer{
+.pointer {
     cursor: pointer;
 }
 
-*{
+* {
     font-family: 'Poppins', sans-serif;
 }
 
-.bg-white{
+.bg-white {
     background-color: white !important;
 }
 
-.bg-white-d{
+.bg-white-d {
     background-color: #f0f0f0 !important;
 }
 
-.bg-white-dd{
+.bg-white-dd {
     background-color: #e4e4e4 !important;
 }
 
-.bg-white-ddd{
+.bg-white-ddd {
     background-color: #d8d8d8 !important;
 }
 
-.bg-primary-www{
+.bg-primary-www {
     background-color: #e7effc !important;
 }
 
-.bg-primary-ww{
+.bg-primary-ww {
     background-color: #698eb9 !important;
 }
 
-.bg-primary-w{
+.bg-primary-w {
     background-color: #3a618d !important;
 }
 
-.bg-primary-d{
+.bg-primary-d {
     background-color: #1d3147 !important;
 }
 
-.bg-primary-dd{
+.bg-primary-dd {
     background-color: #172738 !important;
 }
 
-.text-primary-d{
+.text-primary-d {
     color: #1d3147;
 }
 
-.text-primary-dd{
+.text-primary-dd {
     color: #172738;
 }
 
@@ -118,28 +116,32 @@ $danger: #AD343E;
     content: none;
 }
 
-.fs-7{
+.fs-7 {
     font-size: 14px;
+}
+
+hr{
+    margin: 4px 0px;
 }
 
 /* width */
 ::-webkit-scrollbar {
     width: 16px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
+}
+
+/* Track */
+::-webkit-scrollbar-track {
     background: #0d1a27;
     border-radius: 12px;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: #294566;
     border-radius: 12px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
     background: #3a618d;
-  }
+}

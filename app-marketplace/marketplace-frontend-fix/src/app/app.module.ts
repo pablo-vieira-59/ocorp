@@ -54,6 +54,12 @@ import { ModalBrandEditComponent } from './components/page-brands/modal-brand-ed
 import { PageSuppliersComponent } from './components/page-suppliers/page-suppliers.component';
 import { ModalSupplierEditComponent } from './components/page-suppliers/modal-supplier-edit/modal-supplier-edit.component';
 import { ModalSupplierRegisterComponent } from './components/page-suppliers/modal-supplier-register/modal-supplier-register.component';
+import { PageCategoriesComponent } from './components/page-categories/page-categories.component';
+import { ModalCategoryRegisterComponent } from './components/page-categories/modals/modal-category-register/modal-category-register.component';
+import { ModalCategoryEditComponent } from './components/page-categories/modals/modal-category-edit/modal-category-edit.component';
+import { ModalBatchEditComponent } from './components/page-batches/modals/modal-batch-edit/modal-batch-edit.component';
+import { ModalBatchRegisterComponent } from './components/page-batches/modals/modal-batch-register/modal-batch-register.component';
+import { PageBatchesComponent } from './components/page-batches/page-batches.component';
 
 export const options: Partial<null | IConfig> | (() => Partial<IConfig>) = null;
 
@@ -96,6 +102,12 @@ registerLocaleData(localePt, 'pt');
     PageSuppliersComponent,
     ModalSupplierEditComponent,
     ModalSupplierRegisterComponent,
+    PageCategoriesComponent,
+    ModalCategoryRegisterComponent,
+    ModalCategoryEditComponent,
+    ModalBatchEditComponent,
+    ModalBatchRegisterComponent,
+    PageBatchesComponent,
   ],
   imports: [
     HttpClientModule,

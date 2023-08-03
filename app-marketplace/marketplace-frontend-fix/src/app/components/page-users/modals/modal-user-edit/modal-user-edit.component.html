@@ -84,16 +84,9 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="current_establishments.length == 0" class="col-12 rounded-3 input-disabled mt-1">
-                <div class="row p-2">
-                    <div class="col" style="max-width: 60px;">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" [checked]="false" type="checkbox" role="switch" id="empty" readonly>
-                        </div>
-                    </div>
-                    <div class="col-auto" style="min-width: 200px;">
-                        <label class="text-truncate form-check-label" for="empty">Nenhum Estabelecimento disponível.</label>
-                    </div>
+            <div *ngIf="current_establishments.length == 0" class="col-12 p-2 rounded bg-primary-www mt-1">
+                <div class="col text-center">
+                    <label>Nenhuma estabelecimento disponível.</label>
                 </div>
             </div>
         </div>

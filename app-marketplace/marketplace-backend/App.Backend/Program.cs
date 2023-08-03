@@ -50,6 +50,8 @@ builder.Services.AddTransient<IEstablishmentRepository, EstablishmentRepository>
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IBrandRepository, BrandRepository>();
 builder.Services.AddTransient<ISupplierRepository, SupplierRepository>();
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IBatchRepository, BatchRepository>();
 
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IProfileService, ProfileService>();
@@ -58,6 +60,8 @@ builder.Services.AddTransient<IEstablishmentService, EstablishmentService>();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IBrandService, BrandService>();
 builder.Services.AddTransient<ISupplierService, SupplierService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<IBatchService, BatchService>();
 #endregion
 
 #region Build

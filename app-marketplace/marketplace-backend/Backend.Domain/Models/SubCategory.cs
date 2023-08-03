@@ -8,6 +8,7 @@ namespace Backend.Domain.Models
         public long Id { get; set; }
         public long CategoryId { get; set; }
         public string? Name { get; set; }
+        public string? Color { get; set; }
 
         public virtual Category? Category { get; set; }
 

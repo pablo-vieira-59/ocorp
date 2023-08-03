@@ -23,8 +23,8 @@ namespace Backend.Domain.Models
 
     public enum BacthStatusEnum
     {
-        Active = 1,
-        Inactive = 2,
-        Canceled = 3
+        EmTransito = 1,
+        EmEstoque = 2,
+        Cancelado = 3,
     }
 }
