@@ -1,5 +1,4 @@
-<div class="flex-column">
-
+<app-window>
     <div class="row" style="font-size: 2em;">
         <div class="col">
             <i class="bi bi-person-fill"></i>
@@ -21,29 +20,23 @@
             </app-basefield>
         </div>
         <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Nome"
-                placeholder="Digite um nome ..."
+            <app-basefield [fieldType]="2" label="Nome" placeholder="Digite um nome ..."
                 [(text_value)]="searchField_name.value">
             </app-basefield>
         </div>
         <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Numero de documento"
-                placeholder="Digite um numero ..."
-                [(text_value)]="searchField_document.value"
-                [mask]="'000.000.000-00'">
+            <app-basefield [fieldType]="2" label="Numero de documento" placeholder="Digite um numero ..."
+                [(text_value)]="searchField_document.value" [mask]="'000.000.000-00'">
             </app-basefield>
         </div>
         <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Email"
-                placeholder="Digite um e-mail ..."
+            <app-basefield [fieldType]="2" label="Email" placeholder="Digite um e-mail ..."
                 [(text_value)]="searchField_email.value">
             </app-basefield>
         </div>
         <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Telefone"
-                placeholder="Digite um telefone ..."
-                [(text_value)]="searchField_phoneNumber.value"
-                mask="(00) 00000-0000">
+            <app-basefield [fieldType]="2" label="Telefone" placeholder="Digite um telefone ..."
+                [(text_value)]="searchField_phoneNumber.value" mask="(00) 00000-0000">
             </app-basefield>
         </div>
     </app-searchfield>
@@ -76,17 +69,19 @@
                     </div>
                 </div>
 
-                <div *ngFor="let item of users" class="col-12 p-2 my-1 bg-primary-www rounded-3" >
+                <div *ngFor="let item of users" class="col-12 p-2 my-1 bg-primary-www rounded-3">
                     <div class="row fs-7">
                         <div class="border-end col text-center" style="max-width: 80px;"><b>{{item.id}}</b></div>
                         <div class="border-end col text-truncate">{{item.name}}</div>
                         <div class="border-end col text-truncate">{{item.email}}</div>
-                        <div class="border-end col text-center text-truncate">{{item.phoneNumber | mask : '(00) 00000-0000'}}</div>
-                        <div class="border-end col text-center text-truncate">{{item.documentNumber | mask :'000.000.000-00'}}</div>
+                        <div class="border-end col text-center text-truncate">{{item.phoneNumber | mask : '(00)
+                            00000-0000'}}</div>
+                        <div class="border-end col text-center text-truncate">{{item.documentNumber | mask
+                            :'000.000.000-00'}}</div>
 
                         <div class="border-end col text-center" style="max-width: 120px;">
-                            <span [ngClass]="GetSpanClass(item.profileId)"  
-                            class="badge"><small>{{item.profile.name}}</small></span>
+                            <span [ngClass]="GetSpanClass(item.profileId)"
+                                class="badge"><small>{{item.profile.name}}</small></span>
                         </div>
 
                         <div class="border-end col text-center" style="max-width: 80px;">
@@ -119,4 +114,4 @@
         </div>
 
     </div>
-</div>
+</app-window>

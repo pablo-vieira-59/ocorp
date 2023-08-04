@@ -1,98 +1,101 @@
-<div class="flex-column">
-    <div class="row" style="font-size: 2em;">
-        <div class="col">
-            <i class="bi bi-bar-chart-line-fill"></i>
-            Dashboard
-        </div>
-        <div class="col p-0 text-end">
-            <!-- <button type="button" class="btn btn-outline-primary">
-                Adicionar <i class="bi bi-plus-lg"></i>
-            </button> -->
+<div class="row m-0 p-2" style="min-height: 100%;">
+    <div class="col m-0">
+        <div class="p-2">
+            <div class="row" style="font-size: 2em;">
+                <div class="col">
+                    <i class="bi bi-bar-chart-line-fill"></i>
+                    Dashboard
+                </div>
+                <div class="col p-0 text-end">
+                    <!-- <button type="button" class="btn btn-outline-primary">
+                        Adicionar <i class="bi bi-plus-lg"></i>
+                    </button> -->
+                </div>
+            </div>
+        
+            <div class="row mt-2">
+        
+                <div class="col-6">
+                    <app-base-chart
+                    [chartType]="4"
+                    [title]="'Análise de Clientes'"
+                    [position]="'top'"
+                    [data]="data_user_count_compare" 
+                    [labels]="labels_user_count"
+                    [legend]="true"
+                    [dataNames]="names_user_count_compare"
+                    [aspect]="2"
+                    ></app-base-chart>
+                </div>
+        
+                <div class="col-3">
+                    <app-base-chart
+                    [chartType]="1"
+                    [title]="'Estabelecimentos Cadastrados'"
+                    [position]="'top'"
+                    [data]="data_user_type" 
+                    [labels]="labels_user_type"
+                    [legend]="true"
+                    ></app-base-chart>
+                </div>
+        
+                <div class="col-3">
+                    <app-base-chart
+                    [chartType]="3"
+                    [title]="'Tipos de Estabelecimentos'"
+                    [position]="'top'"
+                    [data]="data_establishments" 
+                    [labels]="labels_establishments"
+                    [dataNames]="names_establishments"
+                    [legend]="true"
+                    [direction]="'y'"
+                    [scalesY]="false"
+                    ></app-base-chart>
+                </div>
+        
+            </div>
+        
+            <div class="row mt-2">
+        
+                <div class="col-3">
+                    <app-base-chart
+                    [chartType]="3"
+                    [title]="'Permissões'"
+                    [position]="'bottom'"
+                    [data]="data_permissions" 
+                    [labels]="labels_permissions"
+                    [legend]="true"
+                    [dataNames]="names_permissions"
+                    [direction]="'y'"
+                    [scalesY]="true"
+                    ></app-base-chart>
+                </div>
+        
+                <div class="col-3">
+                    <app-base-chart
+                    [chartType]="2"
+                    [title]="'Tipos de Usuários'"
+                    [position]="'bottom'"
+                    [data]="data_user_type" 
+                    [labels]="labels_user_type"
+                    [legend]="true"
+                    ></app-base-chart>
+                </div>
+        
+                <div class="col-6">
+                    <app-base-chart
+                    [chartType]="3"
+                    [title]="'Quantidade de Usuários'"
+                    [position]="'top'"
+                    [data]="data_user_count" 
+                    [labels]="labels_user_count"
+                    [legend]="true"
+                    [dataNames]="names_user_count"
+                    [aspect]="2"
+                    ></app-base-chart>
+                </div>
+        
+            </div>
         </div>
     </div>
-
-    <div class="row mt-2">
-
-        <div class="col-6">
-            <app-base-chart
-            [chartType]="4"
-            [title]="'Análise de Clientes'"
-            [position]="'top'"
-            [data]="data_user_count_compare" 
-            [labels]="labels_user_count"
-            [legend]="true"
-            [dataNames]="names_user_count_compare"
-            [aspect]="2"
-            ></app-base-chart>
-        </div>
-
-        <div class="col-3">
-            <app-base-chart
-            [chartType]="1"
-            [title]="'Estabelecimentos Cadastrados'"
-            [position]="'top'"
-            [data]="data_user_type" 
-            [labels]="labels_user_type"
-            [legend]="true"
-            ></app-base-chart>
-        </div>
-
-        <div class="col-3">
-            <app-base-chart
-            [chartType]="3"
-            [title]="'Tipos de Estabelecimentos'"
-            [position]="'top'"
-            [data]="data_establishments" 
-            [labels]="labels_establishments"
-            [dataNames]="names_establishments"
-            [legend]="true"
-            [direction]="'y'"
-            [scalesY]="false"
-            ></app-base-chart>
-        </div>
-
-    </div>
-
-    <div class="row mt-2">
-
-        <div class="col-3">
-            <app-base-chart
-            [chartType]="3"
-            [title]="'Permissões'"
-            [position]="'bottom'"
-            [data]="data_permissions" 
-            [labels]="labels_permissions"
-            [legend]="true"
-            [dataNames]="names_permissions"
-            [direction]="'y'"
-            [scalesY]="true"
-            ></app-base-chart>
-        </div>
-
-        <div class="col-3">
-            <app-base-chart
-            [chartType]="2"
-            [title]="'Tipos de Usuários'"
-            [position]="'bottom'"
-            [data]="data_user_type" 
-            [labels]="labels_user_type"
-            [legend]="true"
-            ></app-base-chart>
-        </div>
-
-        <div class="col-6">
-            <app-base-chart
-            [chartType]="3"
-            [title]="'Quantidade de Usuários'"
-            [position]="'top'"
-            [data]="data_user_count" 
-            [labels]="labels_user_count"
-            [legend]="true"
-            [dataNames]="names_user_count"
-            [aspect]="2"
-            ></app-base-chart>
-        </div>
-
-    </div>
-
 </div>
