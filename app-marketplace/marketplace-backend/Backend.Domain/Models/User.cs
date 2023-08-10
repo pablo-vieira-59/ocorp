@@ -17,6 +17,7 @@ namespace Backend.Domain.Models
         public string? PhoneNumber { get; set; }
         public string? DocumentNumber { get; set; }
         public Guid? Guid { get; set; }
+        public Guid? ImageGuid { get; set; }
         
         public DateTime? CreatedAt { get; set; }
         public DateTime? LastLogin { get; set; }
@@ -29,6 +30,29 @@ namespace Backend.Domain.Models
 
         public virtual List<Address_User>? Address_Users { get; set; }
         public virtual List<User_Establishment>? User_Establishments { get; set; }
+
+        public static IQueryable<User> ToBasic(IQueryable<User> query)
+        {
+            var result = query.Select(e => new User
+            {
+                Email = e.Email,
+                CreatedAt = e.CreatedAt,
+                DocumentNumber = e.DocumentNumber,
+                Guid = e.Guid,
+                Id = e.Id,
+                Name = e.Name,
+                LastLogin = e.LastLogin,
+                PhoneNumber = e.PhoneNumber,
+                ProfileId = e.ProfileId,
+                Username = e.Username,
+                UserStatusId = e.UserStatusId,
+                BirthdayDate = e.BirthdayDate,
+                ClientId = e.ClientId,
+                ImageGuid = e.ImageGuid,
+            });
+
+            return result;
+        }
 
         public class Map : IEntityTypeConfiguration<User>
         {

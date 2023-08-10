@@ -36,7 +36,6 @@ export class ModalCategoryRegisterComponent {
 	}
 
 	IsFormValid(): boolean {
-		console.log(this.validFields);
 
 		for (let i = 0; i < this.data.subcategories.length; i++) {
 			if (!this.validFields.includes("subcategory_" + i.toString())) {

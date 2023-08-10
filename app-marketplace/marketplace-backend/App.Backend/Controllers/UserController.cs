@@ -142,6 +142,28 @@ namespace App.Backend.Livraria.Controllers
             }
         }
 
+        [HttpGet("guid/{userGuid}")]
+        public async Task<IActionResult> GetByGuid(string userGuid)
+        {
+            try
+            {
+                var result = await _userService.GetByGuid(userGuid);
+
+                if (!result.Success)
+                {
+                    return BadRequest("Falha ao obter usuário");
+                }
+
+                return Ok(result.Value);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"UserController - GetById - {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost("edit/{userId}")]
         public async Task<IActionResult> EditUser(UserEditDTO userData)
         {

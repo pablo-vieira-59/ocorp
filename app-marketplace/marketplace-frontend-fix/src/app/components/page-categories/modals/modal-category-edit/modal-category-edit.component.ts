@@ -40,8 +40,6 @@ export class ModalCategoryEditComponent {
 	}
 
 	IsFormValid(): boolean {
-		console.log(this.validFields);
-
 		for (let i = 0; i < this.category.subCategories.length; i++) {
 			if (!this.validFields.includes("subcategory_" + i.toString())) {
 				return false;

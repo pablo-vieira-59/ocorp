@@ -1,0 +1,119 @@
+<style>
+    .label-active {
+        background-color: #294566;
+        color: white;
+    }
+</style>
+
+<app-window-transparent>
+    <div class="row">
+        <div class="col fs-5">
+            <i class="bi bi-user"></i>
+            Editar informações
+        </div>
+        <div class="col p-0 text-end">
+            <!-- <button type="button" class="btn btn-outline-primary">
+                Adicionar <i class="bi bi-plus-lg"></i>
+            </button> -->
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-2">
+            <app-card title="Configurações">
+                <div class="col-12 fs-8">
+                    <div class="p-2 border-bottom" [ngClass]="{'label-active': page == 0}"
+                        (click)="SelectPage(0)">Informações</div>
+                    <div class="p-2 border-bottom" [ngClass]="{'label-active': page == 1}"
+                        (click)="SelectPage(1)">Endereço</div>
+                    <div class="p-2 border-bottom" [ngClass]="{'label-active': page == 2}"
+                        (click)="SelectPage(2)">Senha</div>
+                    <div class="p-2 border-bottom" [ngClass]="{'label-active': page == 3}"
+                        (click)="SelectPage(3)">Configurações
+                    </div>
+                </div>
+            </app-card>
+        </div>
+        <div class="col-10">
+            <app-card title="Informações pessoais" *ngIf="page==0">
+                <div class="row text-muted fs-8">
+                    <div class="col-6">
+                        <div class="col-12 mt-2">
+                            <label for="email" class="required">E-Mail</label>
+                            <input id="email" [(ngModel)]="model.email" type="text" class="form-control input-disabled"
+                                placeholder="Digite seu e-mail ..." readonly>
+                        </div>
+
+                        <div class="col-12 mt-2">
+                            <label for="documentNumber" class="required">CPF</label>
+                            <input id="documentNumber" [(ngModel)]="model.documentNumber" [mask]="'000.000.000-00'"
+                                type="text" class="form-control input-disabled" placeholder="Digite seu cpf ..."
+                                readonly>
+                        </div>
+
+                        <div class="col-12 mt-2">
+                            <label for="birthdayDate" class="required">Data de nascimento</label>
+                            <input id="birthdayDate" [(ngModel)]="model.birthdayDate" type="date" class="form-control"
+                                placeholder="Digite sua data de nascimento ..."
+                                (change)="ValidateField('birthdayDate')">
+                        </div>
+
+                        <div class="col-12 mt-2">
+                            <label for="name" class="required">Nome</label>
+                            <input id="name" [(ngModel)]="model.name" type="text" class="form-control"
+                                placeholder="Digite seu nome ..." (change)="ValidateField('name')">
+                        </div>
+
+                        <div class="col-12 mt-2">
+                            <label for="phoneNumber" class="required">Numero de Celular</label>
+                            <input id="phoneNumber" [(ngModel)]="model.phoneNumber" [mask]="'(00) 00000-0000'"
+                                type="text" class="form-control" placeholder="Digite seu numero..."
+                                (change)="ValidateField('phoneNumber')">
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="my-auto mt-4">
+                            <label class="col-12 text-center fs-6">
+                                Foto de perfil
+                            </label>
+
+                            <div class="col-12 text-center">
+                                <img [src]="currentImage || 'assets/images/placeholders/128.png'" class="rounded-circle img-responsive mt-2"
+                                    width="128" height="128">
+                            </div>
+
+                            <div class="col-12 text-center mt-2">
+                                <label class="btn btn-primary" for="file-input"><i
+                                        class="bi bi-upload me-2"></i>Upload</label>
+                            </div>
+
+                            <div class="col-12 mt-2">
+                                <input class="form-control" type="file" id="file-input" hidden (change)="UpdateImage($event)">
+                            </div>
+
+                            <div class="col-12 mt-2 text-center">
+                                <p class="col-6 mx-auto text-muted fs-8">Para um melhor resultado , envie uma foto com
+                                    pelo menos 128px por 128px no formato .jpg</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <button class="btn btn-primary" (click)="UpdateUserInfo()">
+                            <i class="bi bi-save me-2"></i>
+                            Salvar mudanças
+                        </button>
+                    </div>
+                </div>
+            </app-card>
+
+
+            <app-card title="Endereço"  *ngIf="page==1">
+                <app-address-form></app-address-form>
+            </app-card>
+        </div>
+    </div>
+</app-window-transparent>

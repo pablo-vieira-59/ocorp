@@ -42,10 +42,10 @@ export class PermissionService {
     return data;
   }
 
-  async GetByUser(userId :string){
+  async GetByUser(userGuid :string){
     var data :Permission[] = [];
 
-    var request = this.http.get<Permission[]>(this.base_url + "user/" + userId);
+    var request = this.http.get<Permission[]>(this.base_url + "user/" + userGuid);
 
     await lastValueFrom(await request)
     .then((payload :Permission[]) => {

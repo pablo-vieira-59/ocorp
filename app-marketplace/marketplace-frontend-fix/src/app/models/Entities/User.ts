@@ -18,6 +18,7 @@ export interface User {
     createdAt :Date;
     lastLogin :Date;
     birthdayDate :Date;
+    imageGuid :string;
 
     profile :Profile;
     userAccess :UserAccess;

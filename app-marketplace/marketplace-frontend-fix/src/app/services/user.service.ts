@@ -147,6 +147,30 @@ export class UserService {
     return result;
   }
 
+  async GetByGuid(userGuid: string): Promise<User> {
+    var request = this.http.get<User>(this.base_url + 'guid/' + userGuid);
+    var result = {} as User;
+
+    await lastValueFrom(await request)
+      .then(e => {
+        result = e;
+      })
+      .catch(e => {
+        if (e.error != null) {
+          console.log(e);
+          this.serviceNotification.error(e.error);
+        }
+        else {
+          console.log(e);
+          this.serviceNotification.error("Erro ao obter usuário.");
+        }
+
+        return null;
+      });
+
+    return result;
+  }
+
   async EditUser(user: UserEditDTO): Promise<boolean> {
     var request = this.http.post<boolean>(this.base_url + "edit/" + user.id, user);
     var result = false;
@@ -154,6 +178,7 @@ export class UserService {
     await lastValueFrom(await request)
       .then(e => {
         result = true;
+        this.serviceNotification.success("Usuario editado com sucesso !");
       })
       .catch(e => {
         if (e.error != null) {

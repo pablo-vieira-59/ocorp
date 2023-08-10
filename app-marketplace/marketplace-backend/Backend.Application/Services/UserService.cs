@@ -248,13 +248,26 @@ namespace Backend.Application.Services
         {
             var query = _userRepository.GetByProperty("Id", id.ToString());
 
-            var result = await ToBasicEntity(query).FirstOrDefaultAsync();
+            var result = await User.ToBasic(query).FirstOrDefaultAsync();
 
             if (result == null) return new FailServiceResult<User>("Usuario não encontrado.");
 
             return new OkServiceResult<User>(result);
         }
-    
+
+        public async Task<ServiceResult<User>> GetByGuid(string guid)
+        {
+            var nGuid = new Guid(guid);
+
+            var query = _userRepository.Get().Where(x => x.Guid == nGuid).AsQueryable();
+
+            var result = await User.ToBasic(query).FirstOrDefaultAsync();
+
+            if (result == null) return new FailServiceResult<User>("Usuario não encontrado.");
+
+            return new OkServiceResult<User>(result);
+        }
+
         public async Task<ServiceResult<bool>> HasPermission(long userId, PermissionEnum permission)
         {
             var query = _permissionRepository.GetByUser(userId);
@@ -293,17 +306,30 @@ namespace Backend.Application.Services
 
             user.Name = request.Name;
             user.PhoneNumber = request.PhoneNumber;
-            user.Password = request.Password;
             user.ProfileId = request.ProfileId;
             user.BirthdayDate = birthDay;
+            user.ImageGuid = null;
 
-            var selectedEstablishmentsId = request.UserEstablishments!.Select(x => x.Id).ToList();
-            var currentEstablishmentsIds = _establishmentRepository.GetUserEstablishments(request.Id).Select(x => x.Id);
+            if (request.ImageGuid != null)
+            {
+                user.ImageGuid = new Guid(request.ImageGuid);
+            }
 
-            var establishmentsToAdd = selectedEstablishmentsId.Where(x => !currentEstablishmentsIds.Contains(x)).ToList();
-            var establishmentsToRemove = currentEstablishmentsIds.Where(x => !selectedEstablishmentsId.Contains(x)).ToList();
+            if(request.UserEstablishments != null)
+            {
+                var selectedEstablishmentsId = request.UserEstablishments!.Select(x => x.Id).ToList();
+                var currentEstablishmentsIds = _establishmentRepository.GetUserEstablishments(request.Id).Select(x => x.Id);
 
-            await _userRepository.EditUser(user, establishmentsToAdd, establishmentsToRemove);
+                var establishmentsToAdd = selectedEstablishmentsId.Where(x => !currentEstablishmentsIds.Contains(x)).ToList();
+                var establishmentsToRemove = currentEstablishmentsIds.Where(x => !selectedEstablishmentsId.Contains(x)).ToList();
+
+                await _userRepository.EditUser(user, establishmentsToAdd, establishmentsToRemove);
+            }
+            else
+            {
+                await _userRepository.EditUser(user, new List<long>(), new List<long>());
+            }
+            
 
             return new OkServiceResultStruct<bool>(true);
         }
@@ -376,27 +402,6 @@ namespace Backend.Application.Services
             return new FailServiceResult<User>("Usuário não encontrado");
         }
     
-        private IQueryable<User> ToBasicEntity(IQueryable<User> query) 
-        {
-            var result = query.Select(e => new User
-            {
-                Email = e.Email,
-                CreatedAt = e.CreatedAt,
-                DocumentNumber = e.DocumentNumber,
-                Guid = e.Guid,
-                Id = e.Id,
-                Name = e.Name,
-                LastLogin = e.LastLogin,
-                Password = e.Password,
-                PhoneNumber = e.PhoneNumber,
-                ProfileId = e.ProfileId,
-                Username = e.Username,
-                UserStatusId = e.UserStatusId,
-                BirthdayDate = e.BirthdayDate,
-                ClientId = e.ClientId,
-            });
-
-            return result;
-        }
+        
     }
 }

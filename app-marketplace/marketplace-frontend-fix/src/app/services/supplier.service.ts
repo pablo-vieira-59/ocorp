@@ -44,8 +44,6 @@ export class SupplierService {
   }
 
   async Create(data :any){
-    console.log(data);
-
     var request = this.http.post<boolean>(this.base_url + "new", data);
     var result = false;
 

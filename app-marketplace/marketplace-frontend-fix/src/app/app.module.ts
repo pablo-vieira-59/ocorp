@@ -60,6 +60,10 @@ import { ModalCategoryEditComponent } from './components/page-categories/modals/
 import { ModalBatchEditComponent } from './components/page-batches/modals/modal-batch-edit/modal-batch-edit.component';
 import { ModalBatchRegisterComponent } from './components/page-batches/modals/modal-batch-register/modal-batch-register.component';
 import { PageBatchesComponent } from './components/page-batches/page-batches.component';
+import { DashCardComponent } from './components/common/dash-card/dash-card.component';
+import { CardComponent } from './components/common/card/card.component';
+import { WindowTransparentComponent } from './components/common/window-transparent/window-transparent.component';
+import { PageUserEditComponent } from './components/page-users/pages/page-user-edit/page-user-edit.component';
 
 export const options: Partial<null | IConfig> | (() => Partial<IConfig>) = null;
 
@@ -108,6 +112,10 @@ registerLocaleData(localePt, 'pt');
     ModalBatchEditComponent,
     ModalBatchRegisterComponent,
     PageBatchesComponent,
+    DashCardComponent,
+    CardComponent,
+    WindowTransparentComponent,
+    PageUserEditComponent,
   ],
   imports: [
     HttpClientModule,

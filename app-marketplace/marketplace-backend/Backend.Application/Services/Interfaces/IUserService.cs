@@ -15,5 +15,6 @@ namespace Backend.Application.Services.Interfaces
         Task<ServiceResult<User>> GetById(long id);
         Task<ServiceResult<bool>> EditUser(UserEditDTO request, User? currentUser);
         Task<ServiceResult<User>> GetCurrentUser(HttpContext context);
+        Task<ServiceResult<User>> GetByGuid(string guid);
     }
 }

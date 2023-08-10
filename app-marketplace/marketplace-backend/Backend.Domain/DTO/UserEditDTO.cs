@@ -11,10 +11,10 @@ namespace Backend.Domain.DTO
     {
         public long Id { get; set; }
         public required string Name { get; set; }
-        public required string Password { get; set; }
         public required string PhoneNumber { get; set; }
         public int ProfileId { get; set; }
         public required string BirthdayDate { get; set; }
+        public string? ImageGuid { get; set; }
 
         public List<Product>? UserEstablishments { get; set; }
         

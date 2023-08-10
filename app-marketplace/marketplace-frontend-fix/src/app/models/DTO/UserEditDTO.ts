@@ -8,7 +8,8 @@ export interface UserEditDTO{
     profileId :number,
     email :string,
     documentNumber :string,
-    birthdayDate :string
+    birthdayDate :string,
+    imageGuid :string,
 
     userEstablishments :Establishment[];
 }

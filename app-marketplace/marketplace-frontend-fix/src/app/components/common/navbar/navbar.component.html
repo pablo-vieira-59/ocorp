@@ -1,12 +1,16 @@
 <div class="row m-0 p-2" style="min-height:100%;"> 
-    <div class="d-flex flex-column p-0 bg-primary-dd rounded-4 sdw"> 
+    <div class="d-flex flex-column p-0 bg-primary-dd rounded-4 shadow"> 
         <div class="col-12 text-center mt-4">
             <img src="../assets/Ocorp.svg" style="width: 128px;" class="my-auto">
         </div>
     
         <div class="col-12 text-center mt-4">
-            <div class="mx-auto bg-secondary rounded rounded-circle" style="width: 128px;height: 128px;">
+            <!-- <div *ngIf="imageUrl == null" class="mx-auto bg-secondary rounded rounded-circle" style="width: 128px;height: 128px;">
                 <i class="bi bi-person-fill text-white" style="line-height: 128px;font-size: 64px;"></i>
+            </div> -->
+            <div class="mx-auto">
+                <img id="navbarImage" [src]="imageUrl || 'assets/images/placeholders/128.png'" class="rounded-circle img-responsive"
+                                    width="128" height="128">
             </div>
         </div>
     
@@ -22,7 +26,7 @@
                 Logout
             </button>
     
-            <button class="btn btn-primary" style="font-size: 12px;">
+            <button class="btn btn-primary" style="font-size: 12px;" (click)="Button_EditProfile()">
                 <i class="bi bi-gear-fill"></i>
             </button>
         </div>

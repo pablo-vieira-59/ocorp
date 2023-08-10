@@ -13,11 +13,13 @@ import { PageBrandsComponent } from './components/page-brands/page-brands.compon
 import { PageSuppliersComponent } from './components/page-suppliers/page-suppliers.component';
 import { PageCategoriesComponent } from './components/page-categories/page-categories.component';
 import { PageBatchesComponent } from './components/page-batches/page-batches.component';
+import { PageUserEditComponent } from './components/page-users/pages/page-user-edit/page-user-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: PageLoginComponent },
   { path: 'users', component: PageUsersComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Usuarios] } },
+  { path: 'users/:guid/edit', component: PageUserEditComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Usuarios] } },
   { path: 'profiles', component: PageProfilesComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Perfis] } },
   { path: 'establishments', component: PageEstablishmentsComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Estabelecimentos] } },
   { path: 'dashboard', component: PageDashboardComponent, canActivate: [AuthGuard, RoleGuard], data: { permissions: [PermissionEnum.Tela_Dashboard] } },

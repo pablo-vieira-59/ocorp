@@ -33,6 +33,8 @@ namespace Backend.Infrastructure.Context
         public DbSet<Brand> Brand { get; set; }
         public DbSet<Brand_Product> Brand_Product { get; set; }
         public DbSet<Product_Establishment> Product_Establishment { get; set; }
+        public DbSet<AttachmentType> AttachmentType { get; set; }
+        public DbSet<Attachment> Attachment { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -57,6 +59,8 @@ namespace Backend.Infrastructure.Context
             modelBuilder.ApplyConfiguration(new Brand.Map());
             modelBuilder.ApplyConfiguration(new Product_Establishment.Map());
             modelBuilder.ApplyConfiguration(new Brand_Product.Map());
+            modelBuilder.ApplyConfiguration(new Attachment.Map());
+            modelBuilder.ApplyConfiguration(new AttachmentType.Map());
         }
 
     }

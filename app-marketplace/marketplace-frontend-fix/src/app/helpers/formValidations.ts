@@ -2,17 +2,12 @@ export class ValidatorField {
     static ValidateInputField(currentValidFields :string[], elementId: string, required: string[], email?: string[], mustMatch?: string[][], minSize?: string[][], cnpj?: string[], cpf?: string[]): any {
         var inputElement = document.getElementById(elementId) as HTMLInputElement;
         
-        console.log(inputElement);
-
         if(!inputElement){
             return currentValidFields;
         }
 
         var inputid = inputElement.id;
         var inputValue = inputElement.value as string;       
-
-        console.log(inputid);
-        console.log(inputValue);
 
         var validationElement = document.getElementById(inputid + "-validation") as HTMLElement;
         if (validationElement != null && validationElement != undefined) {
@@ -212,7 +207,6 @@ export class ValidatorField {
         this.ClearClasses(element);
         
         element.className += ' is-invalid';
-        console.log(element.className);
 
         var hasErrorElement = document.getElementById(element.id + "-validation");
 
