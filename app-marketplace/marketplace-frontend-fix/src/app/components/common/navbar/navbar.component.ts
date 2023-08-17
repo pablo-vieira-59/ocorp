@@ -47,6 +47,7 @@ export class NavbarComponent {
         if(userGuid == null){
           return;
         }
+
         this.user = await this.serviceUser.GetByGuid(userGuid);
         this.permissions = (await this.servicePermission.GetByUser(userGuid)).map(e => e.id); 
 
@@ -54,6 +55,21 @@ export class NavbarComponent {
           this.imageUrl = await this.serviceAttachment.GetAttachmentUrl(this.user.imageGuid);
         }
         
+        var name = localStorage.getItem('name');
+        var email = localStorage.getItem('email');
+        var client = localStorage.getItem('client');
+
+        if(name == null || email == null || client == null){
+          return;
+        }
+
+        var navName = document.getElementById("nav_name") as HTMLLabelElement;
+        var navEmail = document.getElementById("nav_email") as HTMLLabelElement;
+        var navClient = document.getElementById("nav_client") as HTMLLabelElement;
+
+        navName.textContent = name;
+        navEmail.textContent = email;
+        navClient.textContent = client;
       }
     });
 

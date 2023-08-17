@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { ModalUserRegisterComponent } from './modals/modal-user-register/modal-user-register.component';
 import { ValidatorField } from 'src/app/helpers/formValidations';
+import { AttachmentService } from 'src/app/services/attachment.services';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class PageLoginComponent {
     private serviceSpinner :NgxSpinnerService, 
     private serviceUser :UserService,
     private serviceNotification :ToastrService,
-    private router: Router)
+    private router: Router,
+    private serviceAttachment:AttachmentService)
   {}
 
   ngOnInit(){
@@ -54,12 +56,25 @@ export class PageLoginComponent {
     this.isLoading = false;
     this.serviceSpinner.hide();
 
-    if(!result){
+    if(result == null){
       return;
     }
 
     this.serviceNotification.success("Login efetuado com sucesso!");
-    var navbarImage = document.getElementById("navbarImage") as HTMLImageElement;
+
+    var navImage = document.getElementById("navbarImage") as HTMLImageElement;
+    var navName = document.getElementById("nav_name") as HTMLLabelElement;
+    var navEmail = document.getElementById("nav_email") as HTMLLabelElement;
+    var navClient = document.getElementById("nav_client") as HTMLLabelElement;
+
+    if(result.image != null){
+      navImage.src = this.serviceAttachment.GetAttachmentUrl(result.image);
+    }
+    
+    navName.textContent = result.name;
+    navEmail.textContent = result.email;
+    navClient.textContent = result.clientName;
+
     this.router.navigate(['/dashboard']);
   }
 

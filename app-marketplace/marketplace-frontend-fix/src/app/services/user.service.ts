@@ -52,16 +52,20 @@ export class UserService {
     return data;
   }
 
-  async Login(loginData: LoginDto): Promise<boolean> {
+  async Login(loginData: LoginDto): Promise<LoginResponseDto|null> {
     var request = this.http.post<LoginResponseDto>(this.base_url + "login/", loginData);
 
-    var result = false;
+    var result :LoginResponseDto | null = null;
 
     await lastValueFrom(await request)
       .then(e => {
         localStorage.setItem('token', e.token);
         localStorage.setItem('guid', e.guid);
-        result = true;
+        localStorage.setItem('email', e.email);
+        localStorage.setItem('name', e.name);
+        localStorage.setItem('client', e.clientName);
+        localStorage.setItem('image', e.image);
+        result = e;
       })
       .catch(e => {
         if (e.error != null) {
@@ -71,7 +75,6 @@ export class UserService {
           console.log(e);
           this.serviceNotification.error("Falha ao realizar login.");
         }
-        result = false;
       });
 
     return result;

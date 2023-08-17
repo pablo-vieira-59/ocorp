@@ -4,6 +4,10 @@ export interface LoginDto{
 }
 
 export interface LoginResponseDto{
-    token :string;
-    guid :string;
+    token :string,
+    guid :string,
+    email :string,
+    clientName :string,
+    name:string,
+    image :string,
 }

@@ -79,7 +79,7 @@ namespace Backend.Application.Services
         public async Task<ServiceResult<LoginReponseDTO>> Login(LoginDTO loginData)
         {
             var dbUser = await _userRepository.GetByProperty("Username", loginData.Username)
-                .Include(x => x.UserAccess)
+                .Include(x => x.UserAccess).Include(x => x.Client)
                 .FirstOrDefaultAsync();
 
             if (dbUser == null)
@@ -120,6 +120,10 @@ namespace Backend.Application.Services
             {
                 Token = tokenCrypt,
                 Guid = dbUser.Guid.ToString()!,
+                ClientName = dbUser.Client!.Name!,
+                Email = dbUser.Email!,
+                Name = dbUser.Name!,
+                Image = dbUser.ImageGuid?.ToString(),
             };
 
             return new OkServiceResult<LoginReponseDTO>(result);
