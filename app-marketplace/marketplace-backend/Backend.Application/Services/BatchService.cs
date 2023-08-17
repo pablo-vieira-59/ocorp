@@ -34,7 +34,17 @@ namespace Backend.Application.Services
                 });
             }
 
-            var batches = await Batch.ToBasic(_batchRepository.Get(filter)).ToListAsync();
+            var batches = await _batchRepository.Get(filter).Select(x => new Batch
+            {
+                Id = x.Id,
+                FabricatedAt = x.FabricatedAt,
+                OrderedAt = x.OrderedAt,
+                BatchStatus = x.BatchStatus,
+                Product = new Product { Name = x.Product!.Name},
+                Address = new Address { ZipCode = x.Address!.ZipCode},
+                TotalPrice = x.TotalPrice,
+                TotalUnits = x.TotalUnits,
+            }).ToListAsync();
 
             var totalCount = batches.Count();
 

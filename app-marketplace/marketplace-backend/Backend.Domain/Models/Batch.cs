@@ -15,8 +15,9 @@ namespace Backend.Domain.Models
         public string? Description { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal UnitPrice { get; set; }
+        public decimal FreightPrice { get; set; }
         public int TotalUnits { get; set; }
-        public int RemainingUnits { get; set; }
+        public Guid InvoiceImageGuid { get; set; }
 
         public DateTime? FabricatedAt { get; set; }
         public DateTime? ValidUntil { get; set; }
@@ -44,8 +45,9 @@ namespace Backend.Domain.Models
                 Description = x.Description,
                 TotalPrice = x.TotalPrice,
                 UnitPrice = x.UnitPrice,
+                FreightPrice = x.FreightPrice,
+                InvoiceImageGuid = x.InvoiceImageGuid,
                 TotalUnits = x.TotalUnits,
-                RemainingUnits = x.RemainingUnits,
                 FabricatedAt = x.FabricatedAt,
                 ValidUntil = x.ValidUntil,
                 OrderedAt = x.OrderedAt,
@@ -62,14 +64,15 @@ namespace Backend.Domain.Models
                 entityBuilder.HasKey(x => x.Id);
 
                 entityBuilder.Property(x => x.Serial).IsRequired();
-                entityBuilder.Property(x => x.Description).IsRequired();
+                entityBuilder.Property(x => x.Description);
                 entityBuilder.Property(x => x.TotalPrice).IsRequired();
                 entityBuilder.Property(x => x.UnitPrice).IsRequired();
+                entityBuilder.Property(x => x.FreightPrice).IsRequired();
                 entityBuilder.Property(x => x.TotalUnits).IsRequired();
-                entityBuilder.Property(x => x.RemainingUnits).IsRequired();
                 entityBuilder.Property(x => x.FabricatedAt).IsRequired();
                 entityBuilder.Property(x => x.OrderedAt).IsRequired();
-                entityBuilder.Property(x => x.ReceivedAt).IsRequired();
+                entityBuilder.Property(x => x.ReceivedAt);
+                entityBuilder.Property(x => x.InvoiceImageGuid).IsRequired();
 
                 entityBuilder.HasOne(x => x.BatchStatus).WithMany(x => x.Batches).HasForeignKey(x => x.BatchStatusId);
                 entityBuilder.HasOne(x => x.Product).WithMany(x => x.Batches).HasForeignKey(x => x.ProductId);

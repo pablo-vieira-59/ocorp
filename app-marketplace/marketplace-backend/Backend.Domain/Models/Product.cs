@@ -36,6 +36,7 @@ namespace Backend.Domain.Models
                 Price = x.Price,
                 ImageUrl = x.ImageUrl,
                 CreatedAt = x.CreatedAt,
+                Units = x.Units,
                 Brand_Products = x.Brand_Products!.Select(z => new Brand_Product
                 {
                     Brand = new Brand { Name = z.Brand!.Name , Color = z.Brand!.Color}

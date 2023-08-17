@@ -41,6 +41,8 @@ export class PageLoginComponent {
     {
       nav.style.display = "none";
     }
+
+    
   }
 
   async Submit(){
@@ -52,10 +54,13 @@ export class PageLoginComponent {
     this.isLoading = false;
     this.serviceSpinner.hide();
 
-    if(result){
-      this.serviceNotification.success("Login efetuado com sucesso!");
-      this.router.navigate(['/dashboard']);
+    if(!result){
+      return;
     }
+
+    this.serviceNotification.success("Login efetuado com sucesso!");
+    var navbarImage = document.getElementById("navbarImage") as HTMLImageElement;
+    this.router.navigate(['/dashboard']);
   }
 
   Modal_Register() {

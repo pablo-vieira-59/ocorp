@@ -7,6 +7,7 @@ namespace Backend.Domain.Models
     {
         public int Id { get; set; }
         public string? Name { get; set; }
+        public string? Color { get; set; }
         public virtual List<Batch>? Batches { get; set; }
 
         public class Map : IEntityTypeConfiguration<BatchStatus>
@@ -15,6 +16,7 @@ namespace Backend.Domain.Models
             {
                 entityBuilder.HasKey(x => x.Id);
                 entityBuilder.Property(x => x.Name).IsRequired();
+                entityBuilder.Property(x => x.Color).IsRequired();
 
                 entityBuilder.HasMany(x => x.Batches).WithOne(x => x.BatchStatus).HasForeignKey(x => x.BatchStatusId);
             }
