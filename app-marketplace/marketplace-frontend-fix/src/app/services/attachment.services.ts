@@ -11,8 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 export class AttachmentService {
     constructor(
         private http: HttpClient,
-        private serviceNotification : ToastrService
-        ) { }
+        private serviceNotification: ToastrService
+    ) { }
 
     base_url = environment.localUrl + "attachment";
 
@@ -25,18 +25,19 @@ export class AttachmentService {
         formData.append('file', data.file);
         formData.append('attachmentTypeId', data.attachmentTypeId.toString());
 
-        var result :string = ""
+        var result: string = ""
         var request = this.http.post<any>(`${this.base_url}/upload`, formData, { headers });
 
         await lastValueFrom(await request)
-	    .then((payload) => {
-			result = payload.guid;
-	    })
-	    .catch((error) => {
-	      this.serviceNotification.error("Erro ao carregar imagem.");
-	    });
+            .then((payload) => {
+                result = payload.guid;
+            })
+            .catch((error) => {
+                console.log(error)
+                this.serviceNotification.error("Erro ao carregar imagem.");
+            });
 
-	    return result;
+        return result;
     }
 
     GetAttachmentUrl(guid: string): string {

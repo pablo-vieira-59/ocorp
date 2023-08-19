@@ -22,6 +22,7 @@ namespace Backend.Domain.DTO
         public required string State { get; set; }
         public required string BirthdayDate { get; set; }
         public required string ClientName { get; set; }
+        public string? ImageGuid { get; set; }
         
         public int ProfileId { get; set; }
         public bool IsNewClient { get; set; }

@@ -185,6 +185,12 @@ namespace Backend.Application.Services
                 return new FailServiceResultStruct<bool>("Data inválida.");
             }
 
+            Guid? image = null;
+            if(request.ImageGuid != null)
+            {
+                image = new Guid(request.ImageGuid);
+            }
+
             var newUser = new User
             {
                 Username = request.Email,
@@ -199,6 +205,7 @@ namespace Backend.Application.Services
                 LastLogin = DateTime.Now,
                 BirthdayDate = birthDay,
                 Guid = Guid.NewGuid(),
+                ImageGuid = image
             };
 
             if(request.IsNewClient)

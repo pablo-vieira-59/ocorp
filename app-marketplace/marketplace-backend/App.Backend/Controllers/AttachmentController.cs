@@ -19,6 +19,7 @@ namespace App.Backend.Livraria.Controllers
             _attachmentService = attachmentService;
         }
 
+        [FreeAccess]
         [HttpPost("upload")]
         public async Task<IActionResult> UploadAttachment([FromForm]AttachmentCreateDTO request)
         {

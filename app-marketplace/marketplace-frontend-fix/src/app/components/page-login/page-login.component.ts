@@ -82,7 +82,7 @@ export class PageLoginComponent {
     this.modalRef = this.serviceModal.show(ModalUserRegisterComponent, {
       initialState: {
       },
-      class: "modal-md modal-dialog-centered"
+      class: "modal-lg modal-dialog-centered"
     });
 
     this.modalRef.onHidden.subscribe(() => {
