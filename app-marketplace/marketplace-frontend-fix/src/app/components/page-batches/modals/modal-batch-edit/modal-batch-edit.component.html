@@ -1,1 +1,45 @@
-<p>modal-batch-edit works!</p>
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Editar Lote</h4>
+    <button type="button" class="btn-close" aria-describedby="modal-title" (click)="Close()"></button>
+</div>
+
+<div class="modal-body" *ngIf="!isLoading">
+    <div class="row">
+        <h5 class="col-12">Status</h5>
+
+        <div class="col-12 mt-2">
+            <div class="row">
+                <div class="col">
+                    <label for="batchStatus" class="required">Status</label>
+                    <select class="form-select" id="batchStatus" [(ngModel)]="model.batchStatusId"
+                        (change)="ValidateField('batchStatus')">
+                        <option value="" selected>Selecione um status ...</option>
+                        <option *ngFor="let option of ddlBatchStatusOptions" value="{{option.id}}">{{option.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col">
+                    <label for="message" class="required">Descrição da alteração</label>
+                    <textarea class="form-control" type="text" id="message"
+                        (change)="ValidateField('message')"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-body" *ngIf="isLoading">
+    <div class="row">
+        <app-spinner-black></app-spinner-black>
+    </div>
+</div>
+
+
+<div class="modal-footer bg-white-d">
+    <button type="button" (click)="Close()" class="btn btn-outline-danger">Cancelar</button>
+    <button [disabled]="!IsFormValid()" type="button" class="btn btn-success text-light"
+        (click)="Submit()">Salvar</button>
+</div>

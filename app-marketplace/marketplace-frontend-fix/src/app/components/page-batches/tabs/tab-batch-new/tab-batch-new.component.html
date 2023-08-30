@@ -1,0 +1,92 @@
+<div class="col-12 mt-2">
+    <app-progress-bar [steps]="['Produto','Fornecedor','Informações','Destino']" [currentIdx]="currentStep"
+        [enableStepChange]="false"></app-progress-bar>
+</div>
+
+<div *ngIf="!isLoading">
+    <div class="col-12 mt-4" *ngIf="currentStep == 0">
+        <app-step-batch-product-selection [(selectedItem)]="model.productId"></app-step-batch-product-selection>
+    </div>
+
+    <div class="col-12 mt-4" *ngIf="currentStep == 1">
+        <app-step-batch-supplier-selection [(selectedItem)]="model.supplierId"></app-step-batch-supplier-selection>
+    </div>
+
+    <div class="col-12 mt-4" *ngIf="currentStep == 2">
+        <div class="row mt-2">
+            <div class="col-6 mt-2">
+                <label for="totalUnits" class="required">Quantidade de Unidades</label>
+                <input id="totalUnits" [(ngModel)]="model.totalUnits" type="text" class="form-control"
+                    placeholder="Digite o número de série ..." (change)="ValidateField('totalUnits')">
+            </div>
+
+            <div class="col-6 mt-2">
+                <label for="serial" class="required">Número de Série</label>
+                <input id="serial" [(ngModel)]="model.serial" type="text" class="form-control"
+                    placeholder="Digite o número de série ..." (change)="ValidateField('serial')">
+            </div>
+
+            <div class="col-6 mt-2">
+                <label for="unitPrice" class="required">Valor da Unidade</label>
+                <input id="unitPrice" [(ngModel)]="model.unitPrice" type="text" class="form-control" prefix="R$"
+                    mask="separator.2" thousandSeparator="." decimalMarker=","
+                    placeholder="Digite o número de série ..." (change)="ValidateField('unitPrice')">
+            </div>
+
+            <div class="col-6 mt-2">
+                <label for="validUntil" class="">Data de validade</label>
+                <input id="validUntil" [(ngModel)]="model.validUntil" type="date" class="form-control"
+                    placeholder="Digite a data de validade ..." (change)="ValidateField('validUntil')">
+            </div>
+
+            <div class="col-6 mt-2">
+                <label for="freightPrice" class="required">Valor do Frete</label>
+                <input id="freightPrice" [(ngModel)]="model.freightPrice" type="text" class="form-control" prefix="R$"
+                    mask="separator.2" thousandSeparator="." decimalMarker=","
+                    placeholder="Digite o número de série ..." (change)="ValidateField('freightPrice')">
+            </div>
+
+            <div class="col-6 mt-2">
+                <label for="fabricatedAt" class="required">Data de fabricação</label>
+                <input id="fabricatedAt" [(ngModel)]="model.fabricatedAt" type="date" class="form-control"
+                    placeholder="Digite a data de fabriação..." (change)="ValidateField('fabricatedAt')">
+            </div>
+
+            <div class="col-6 mt-2">
+                <label class="">Valor Total</label>
+                <input type="text" class="form-control input-disabled" [(ngModel)]="totalPrice" prefix="R$"
+                    mask="separator.2" thousandSeparator="." decimalMarker=","
+                    placeholder="Digite o número de série ..." readonly>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col">
+                <app-input-image inputId="imageNoteGuid" label="Nota fiscal" [(imageGuid)]="model.invoiceImageGuid" [(currentImage)]="invoiceImageUrl"
+                    (currentImageChange)="ValidateField('imageNoteGuid')"></app-input-image>
+            </div>
+            <div class="col">
+                <app-input-image inputId="imagePaymentGuid" label="Comprovante de pagamento"
+                    [(imageGuid)]="model.paymentProofImageGuid" [(currentImage)]="paymentProofImageUrl"
+                    (currentImageChange)="ValidateField('imagePaymentGuid')"></app-input-image>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-12 mt-4" *ngIf="currentStep == 3">
+        <app-step-batch-address-selection [(selectedItem)]="model.addressId"></app-step-batch-address-selection>
+    </div>
+
+    <div class="col-12 text-end mt-2">
+        <button *ngIf="currentStep > 0" class="btn btn-outline-primary me-1" (click)="PreviousStep()">Voltar</button>
+        <button *ngIf="currentStep != 3" class="btn btn-primary" [disabled]="!IsStepValid(currentStep)"
+            (click)="NextStep()">Continuar</button>
+        <button *ngIf="currentStep == 3" class="btn btn-success text-light" [disabled]="!IsStepValid(currentStep)"
+            (click)="Submit()">Adicionar</button>
+    </div>
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner-black></app-spinner-black>
+</div>

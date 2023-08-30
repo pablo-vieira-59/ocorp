@@ -1,0 +1,21 @@
+<label class="col-12 text-center fs-6">
+    {{label}}
+</label>
+
+<div class="col-12 text-center">
+    <img [src]="currentImage || 'assets/images/placeholders/512.jpg'" class="img-responsive mt-2"
+        width="256" height="256" style="object-fit: cover;">
+</div>
+
+<div class="col-12 mt-2">
+    <input class="form-control" accept="image/png, image/jpg, image/jpeg" type="file" id="{{inputId}}" hidden (change)="UpdateImage($event)">
+</div>
+
+<div class="col-12 text-center mt-2">
+    <label class="btn btn-primary" for="{{inputId}}"><i
+            class="bi bi-upload me-2"></i>Upload</label>
+</div>
+
+<div class="col-12 mt-2 text-center">
+    <p class="col-6 mx-auto text-muted fs-8">{{description}}</p>
+</div>

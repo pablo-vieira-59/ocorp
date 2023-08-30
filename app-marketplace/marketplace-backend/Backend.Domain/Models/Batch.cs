@@ -18,6 +18,7 @@ namespace Backend.Domain.Models
         public decimal FreightPrice { get; set; }
         public int TotalUnits { get; set; }
         public Guid InvoiceImageGuid { get; set; }
+        public Guid PaymentProofImageGuid { get; set; }
 
         public DateTime? FabricatedAt { get; set; }
         public DateTime? ValidUntil { get; set; }
@@ -30,6 +31,7 @@ namespace Backend.Domain.Models
         public virtual Address? Address{ get; set; }
         public virtual Client? Client{ get; set; }
 
+        public virtual List<BatchHistory>? BatchHistory { get; set; }
 
         public static IQueryable<Batch> ToBasic(IQueryable<Batch> query)
         {
@@ -52,6 +54,7 @@ namespace Backend.Domain.Models
                 ValidUntil = x.ValidUntil,
                 OrderedAt = x.OrderedAt,
                 ReceivedAt = x.ReceivedAt,
+                PaymentProofImageGuid = x.PaymentProofImageGuid
             });
 
             return result;
@@ -73,12 +76,14 @@ namespace Backend.Domain.Models
                 entityBuilder.Property(x => x.OrderedAt).IsRequired();
                 entityBuilder.Property(x => x.ReceivedAt);
                 entityBuilder.Property(x => x.InvoiceImageGuid).IsRequired();
+                entityBuilder.Property(x => x.PaymentProofImageGuid).IsRequired();
 
                 entityBuilder.HasOne(x => x.BatchStatus).WithMany(x => x.Batches).HasForeignKey(x => x.BatchStatusId);
                 entityBuilder.HasOne(x => x.Product).WithMany(x => x.Batches).HasForeignKey(x => x.ProductId);
                 entityBuilder.HasOne(x => x.Supplier).WithMany(x => x.Batches).HasForeignKey(x => x.SupplierId);
-
                 entityBuilder.HasOne(x => x.Address).WithMany(x => x.Batches).HasForeignKey(x => x.AddressId);
+
+                entityBuilder.HasMany(x => x.BatchHistory).WithOne(x => x.Batch).HasForeignKey(x => x.BatchId);
             }
         }
     }

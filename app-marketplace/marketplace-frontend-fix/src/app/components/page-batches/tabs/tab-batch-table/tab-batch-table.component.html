@@ -1,0 +1,83 @@
+<!-- SearchFields -->
+<app-searchfield (OnFilter)="LoadTableData()" (OnClear)="ClearSearch()">
+    <div class="col-4 mt-2">
+        <app-basefield [fieldType]="2" label="Nome" placeholder="Digite um nome ..."
+            [(text_value)]="searchField_name.value">
+        </app-basefield>
+    </div>
+</app-searchfield>
+
+<!-- Spinner -->
+<div class="col-12" *ngIf="isLoading">
+    <app-spinner-black></app-spinner-black>
+</div>
+
+<div class="col-12">
+    <div class="row card mt-2 p-2 ">
+        <div class="col-12">
+            <!-- Mensagem de não encontrado -->
+            <div class="row text-center py-4 mt-3" *ngIf="data.length == 0 && !isLoading">
+                <h5>Nenhum resultado encontrado.</h5>
+            </div>
+
+            <!-- Tabela -->
+            <div class="row" *ngIf="data.length > 0 && !isLoading">
+                <div class="col-12 p-2 my-1">
+                    <div class="row fs-7 text-muted">
+                        <div class="border-end col text-center" style="max-width: 80px;">#</div>
+                        <div class="border-end col text-center text-truncate">Produto</div>
+                        <div class="border-end col text-center text-truncate">Data de criação</div>
+                        <div class="border-end col text-center text-truncate">Localização</div>
+                        <div class="border-end col text-center text-truncate">Total</div>
+                        <div class="border-end col text-center text-truncate">Unidades</div>
+                        <div class="border-end col text-center" style="max-width: 180px;">Status</div>
+                        <div class="col text-center" style="max-width: 80px;">Ações</div>
+                    </div>
+                </div>
+
+                <div *ngFor="let item of data" class="col-12 p-2 my-1 bg-primary-www rounded-3">
+                    <div class="row fs-7">
+                        <div class="border-end col text-center" style="max-width: 80px;"><b>{{item.id}}</b>
+                        </div>
+                        <div class="border-end col text-truncate text-start">{{item.product.name}}</div>
+                        <div class="border-end col text-truncate text-end">{{item.orderedAt | date:'dd/MM/yyyy
+                            HH:mm'}}
+                        </div>
+                        <div class="border-end col text-truncate text-center">{{item.address.zipCode |
+                            mask:'00000-000'}}</div>
+                        <div class="border-end col text-truncate text-end">{{item.totalPrice | currency:'BRL'}}
+                        </div>
+                        <div class="border-end col text-truncate text-center">{{item.totalUnits}}</div>
+                        <div class="border-end col text-center" style="max-width: 180px;">
+                            <span class="badge" style="background-color: {{item.batchStatus.color}};">
+                                <small>{{item.batchStatus.name}}</small>
+                            </span>
+                        </div>
+
+                        <div class="col text-center" style="max-width: 80px;">
+                            <div ngbDropdown placement="bottom-right">
+                                <button class="btn-transparent" id="action" ngbDropdownToggle>
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </button>
+
+                                <div ngbDropdownMenu="action">
+                                    <button ngbDropdownItem type="button" (click)="Modal_Edit(item.id)">
+                                        <i class="bi bi-pencil-square me-2"></i>Editar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Paginação -->
+            <app-pagination [totalItems]="totalItems" (OnPageChange)="ChangePage($event)"
+                (OnMaxItensChange)="ChangePageSize($event)"></app-pagination>
+        </div>
+
+    </div>
+</div>

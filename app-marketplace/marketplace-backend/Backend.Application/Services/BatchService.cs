@@ -5,17 +5,18 @@ using Backend.Infrastructure.Repository.Interfaces;
 using Backend.Domain.DTO;
 using Microsoft.EntityFrameworkCore;
 using Backend.Domain.Helpers.ServiceResultPattern;
-using Backend.Infrastructure.Repository;
 
 namespace Backend.Application.Services
 {
     public class BatchService : IBatchService
     {
         IBatchRepository _batchRepository;
+        IProductRepository _productRepository;
 
-        public BatchService(IBatchRepository batchRepository)
+        public BatchService(IBatchRepository batchRepository, IProductRepository productRepository)
         {
             _batchRepository = batchRepository;
+            _productRepository = productRepository;
         }
 
         public async Task<ServiceResult<PaginatedResult<Batch>>> AllPaginated(FilterDTO filter, User currentUser)
@@ -87,24 +88,121 @@ namespace Backend.Application.Services
                 return new FailServiceResultStruct<bool>("Lote já cadastrado.");
             }
 
+            var totalPrice = (request.UnitPrice * request.TotalUnits) + request.FreightPrice;
+
             var batch = new Batch
             {
-                ClientId = currentUser.Id,
+                ClientId = currentUser.ClientId,
                 AddressId = request.AddressId,
-                BatchStatusId = request.BatchStatusId,
+                BatchStatusId = (int)BatchStatusEnum.EmTransito,
                 ProductId = request.ProductId,
+                SupplierId = request.SupplierId,
                 Serial = request.Serial,
-                Description = request.Description,
-                TotalPrice = request.TotalPrice,
+                Description = "",
+                TotalPrice = totalPrice,
                 UnitPrice = request.UnitPrice,
+                FreightPrice = request.FreightPrice,
                 TotalUnits = request.TotalUnits,
                 FabricatedAt = request.FabricatedAt,
                 ValidUntil = request.ValidUntil,
+                InvoiceImageGuid = request.InvoiceImageGuid,
+                PaymentProofImageGuid = request.PaymentProofImageGuid,
+                OrderedAt = DateTime.Now
+            };
+
+            batch.BatchHistory = new List<BatchHistory>
+            {
+                new BatchHistory
+                {
+                    Batch = batch,
+                    BatchStatusIdFrom = (int)BatchStatusEnum.EmTransito,
+                    BatchStatusIdTo = (int)BatchStatusEnum.EmTransito,
+                    CreatedAt = DateTime.Now,
+                    UserId = currentUser.Id,
+                    Message = "Lote criado."
+                }
             };
 
             await _batchRepository.AddAsync(batch);
 
             return new OkServiceResultStruct<bool>(true);
+        }
+
+        public async Task<ServiceResult<bool>> Edit(BatchChangeStatusDTO request, User currentUser)
+        {
+            var batch = await _batchRepository.GetByProperty("Id", request.BatchId.ToString()).FirstOrDefaultAsync();
+
+            if (batch == null)
+            {
+                return new FailServiceResultStruct<bool>("Lote não encontrado.");
+            }
+
+            var product = await _productRepository.GetByProperty("Id",batch.ProductId.ToString()).FirstOrDefaultAsync();
+            if (product == null)
+            {
+                return new FailServiceResultStruct<bool>("Produto não encontrado.");
+            }
+
+            var history = new BatchHistory
+            {
+                BatchId = request.BatchId,
+                BatchStatusIdFrom = batch.BatchStatusId,
+                BatchStatusIdTo = request.BatchStatusId,
+                CreatedAt = DateTime.UtcNow,
+                UserId = currentUser.Id,
+                Message = $"Lote alterado de Status por : {currentUser.Name}."
+            };
+
+            switch ((BatchStatusEnum)request.BatchStatusId)
+            {
+                case BatchStatusEnum.EmTransito:
+                    if (batch.BatchStatusId == (int)BatchStatusEnum.EmEstoque)
+                    {
+                        product!.Units -= batch.TotalUnits;
+                        history.Message += $"\n{batch.TotalUnits} unidades removidas do estoque.";
+                    }
+                    break;
+                case BatchStatusEnum.EmEstoque:
+                    if (batch.BatchStatusId != (int)BatchStatusEnum.EmEstoque)
+                    {
+                        product!.Units += batch.TotalUnits;
+                        history.Message += $"\n{batch.TotalUnits} unidades adicionadas ao estoque.";
+                    }
+                    break;
+                case BatchStatusEnum.Cancelado:
+                    if (batch.BatchStatusId == (int)BatchStatusEnum.EmEstoque)
+                    {
+                        product!.Units -= batch.TotalUnits;
+                        history.Message += $"\n{batch.TotalUnits} unidades removidas do estoque.";
+                    }
+                    break;
+
+                default:
+                    return new FailServiceResultStruct<bool>("Status não encontrado.");
+            }
+
+            if(request.Message != null)
+            {
+                history.Message += "\n" + request.Message; 
+            }
+
+            batch.BatchStatusId = request.BatchStatusId;
+
+            var result = _batchRepository.ChangeStatus(batch, product, history);
+
+            if (result)
+            {
+                return new OkServiceResultStruct<bool>(true);
+            }
+
+            return new FailServiceResultStruct<bool>("Falha ao alterar lote.");
+        }
+    
+        public async Task<ServiceResult<List<BatchStatus>>> GetStatusList()
+        {
+            var status = await _batchRepository.GetStatusList();
+
+            return new OkServiceResult<List<BatchStatus>>(status);
         }
     }
 }

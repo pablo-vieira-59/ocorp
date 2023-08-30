@@ -1,6 +1,5 @@
 ﻿using Backend.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 
 namespace Backend.Infrastructure.Context
 {
@@ -10,7 +9,34 @@ namespace Backend.Infrastructure.Context
             this.ChangeTracker.LazyLoadingEnabled = false;
             System.AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
-    
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new User.Map());
+            modelBuilder.ApplyConfiguration(new UserAccess.Map());
+            modelBuilder.ApplyConfiguration(new Profile.Map());
+            modelBuilder.ApplyConfiguration(new UserStatus.Map());
+            modelBuilder.ApplyConfiguration(new Permission_Profile.Map());
+            modelBuilder.ApplyConfiguration(new Permission.Map());
+            modelBuilder.ApplyConfiguration(new Establishment.Map());
+            modelBuilder.ApplyConfiguration(new Product.Map());
+            modelBuilder.ApplyConfiguration(new EstablishmentStatus.Map());
+            modelBuilder.ApplyConfiguration(new SubCategory.Map());
+            modelBuilder.ApplyConfiguration(new Category.Map());
+            modelBuilder.ApplyConfiguration(new Address.Map());
+            modelBuilder.ApplyConfiguration(new Address_Establishment.Map());
+            modelBuilder.ApplyConfiguration(new Address_User.Map());
+            modelBuilder.ApplyConfiguration(new Batch.Map());
+            modelBuilder.ApplyConfiguration(new BatchStatus.Map());
+            modelBuilder.ApplyConfiguration(new Supplier.Map());
+            modelBuilder.ApplyConfiguration(new Supplier_Establishment.Map());
+            modelBuilder.ApplyConfiguration(new Brand.Map());
+            modelBuilder.ApplyConfiguration(new Brand_Product.Map());
+            modelBuilder.ApplyConfiguration(new Attachment.Map());
+            modelBuilder.ApplyConfiguration(new AttachmentType.Map());
+            modelBuilder.ApplyConfiguration(new BatchHistory.Map());
+        }
+
         public DbSet<Profile> Profile { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<UserAccess> UserAccess { get; set; }
@@ -32,36 +58,11 @@ namespace Backend.Infrastructure.Context
         public DbSet<Supplier_Establishment> Supplier_Establishment { get; set; }
         public DbSet<Brand> Brand { get; set; }
         public DbSet<Brand_Product> Brand_Product { get; set; }
-        public DbSet<Product_Establishment> Product_Establishment { get; set; }
         public DbSet<AttachmentType> AttachmentType { get; set; }
         public DbSet<Attachment> Attachment { get; set; }
+        public DbSet<BatchHistory> BatchHistory { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfiguration(new User.Map());
-            modelBuilder.ApplyConfiguration(new UserAccess.Map());            
-            modelBuilder.ApplyConfiguration(new Profile.Map());            
-            modelBuilder.ApplyConfiguration(new UserStatus.Map());            
-            modelBuilder.ApplyConfiguration(new Permission_Profile.Map());            
-            modelBuilder.ApplyConfiguration(new Permission.Map());       
-            modelBuilder.ApplyConfiguration(new Establishment.Map());
-            modelBuilder.ApplyConfiguration(new Product.Map());
-            modelBuilder.ApplyConfiguration(new EstablishmentStatus.Map());
-            modelBuilder.ApplyConfiguration(new SubCategory.Map());
-            modelBuilder.ApplyConfiguration(new Category.Map());
-            modelBuilder.ApplyConfiguration(new Address.Map());
-            modelBuilder.ApplyConfiguration(new Address_Establishment.Map());
-            modelBuilder.ApplyConfiguration(new Address_User.Map());
-            modelBuilder.ApplyConfiguration(new Batch.Map());
-            modelBuilder.ApplyConfiguration(new BatchStatus.Map());
-            modelBuilder.ApplyConfiguration(new Supplier.Map());
-            modelBuilder.ApplyConfiguration(new Supplier_Establishment.Map());
-            modelBuilder.ApplyConfiguration(new Brand.Map());
-            modelBuilder.ApplyConfiguration(new Product_Establishment.Map());
-            modelBuilder.ApplyConfiguration(new Brand_Product.Map());
-            modelBuilder.ApplyConfiguration(new Attachment.Map());
-            modelBuilder.ApplyConfiguration(new AttachmentType.Map());
-        }
+        
 
     }
 }

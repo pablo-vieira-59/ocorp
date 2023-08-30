@@ -14,6 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddEntityFrameworkNpgsql();
+
 builder.Services.AddDbContext<Backend.Infrastructure.Context.AppContext>(options =>
 {
     var configBuilder = new ConfigurationBuilder()
@@ -22,7 +24,7 @@ builder.Services.AddDbContext<Backend.Infrastructure.Context.AppContext>(options
 
     IConfigurationRoot configuration = configBuilder.Build();
     options.UseNpgsql(configuration.GetConnectionString("DB"));
-    options.UseLazyLoadingProxies(false);
+    //options.UseLazyLoadingProxies(false);
 });
 
 builder.Services.AddControllers()
@@ -54,6 +56,7 @@ builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<IBatchRepository, BatchRepository>();
 builder.Services.AddTransient<IAttachmentRepository, AttachmentRepository>();
 builder.Services.AddTransient<IAttachmentTypeRepository, AttachmentTypeRepository>();
+builder.Services.AddTransient<IAddressRepository, AddressRepository>();
 
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IProfileService, ProfileService>();
@@ -65,6 +68,7 @@ builder.Services.AddTransient<ISupplierService, SupplierService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<IBatchService, BatchService>();
 builder.Services.AddTransient<IAttachmentService, AttachmentService>();
+builder.Services.AddTransient<IAddressService, AddressService>();
 #endregion
 
 #region Build

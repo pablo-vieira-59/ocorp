@@ -22,10 +22,6 @@ namespace Backend.Domain.Models
         public virtual List<Address_Establishment>? Address_Establishments { get; set; }
         public virtual List<User_Establishment>? User_Establishments { get; set; }
         public virtual List<Supplier_Establishment>? Supplier_Establishments { get; set; }
-        public virtual List<Product_Establishment>? Product_Establishments { get; set; }
-
-        public virtual List<Product>? Products { get; set; }
-
 
         public static IQueryable<Establishment> ToBasic(IQueryable<Establishment> query)
         {
@@ -57,12 +53,12 @@ namespace Backend.Domain.Models
                 entityBuilder.Property(x => x.Url).IsRequired();
                 entityBuilder.Property(x => x.CreatedAt).IsRequired();
 
-                entityBuilder.HasOne(x => x.Client).WithMany(x => x.Establishments).HasForeignKey(x => x.ClientId);
-                entityBuilder.HasOne(x => x.EstablishmentStatus).WithMany(x => x.Establishments).HasForeignKey(x => x.EstablishmentStatusId);
-                
-                entityBuilder.HasMany(x => x.Address_Establishments).WithOne(x => x.Establishment).HasForeignKey(x => x.EstablishmentId);
-                entityBuilder.HasMany(x => x.User_Establishments).WithOne(x => x.Establishment).HasForeignKey(x => x.EstablishmentId);
-                entityBuilder.HasMany(x => x.Supplier_Establishments).WithOne(x => x.Establishment).HasForeignKey(x => x.EstablishmentId);
+                entityBuilder.HasOne(x => x.Client).WithMany(x => x.Establishments);
+                entityBuilder.HasOne(x => x.EstablishmentStatus).WithMany(x => x.Establishments);
+
+                entityBuilder.HasMany(x => x.Address_Establishments).WithOne(x => x.Establishment);
+                entityBuilder.HasMany(x => x.User_Establishments).WithOne(x => x.Establishment);
+                entityBuilder.HasMany(x => x.Supplier_Establishments).WithOne(x => x.Establishment);
             }
         }
     }

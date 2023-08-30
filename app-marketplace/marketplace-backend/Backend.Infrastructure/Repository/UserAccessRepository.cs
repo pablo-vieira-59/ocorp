@@ -1,7 +1,5 @@
 ﻿using Backend.Domain.Models;
-using Backend.Infrastructure.Context;
 using Backend.Infrastructure.Repository.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Infrastructure.Repository
 {

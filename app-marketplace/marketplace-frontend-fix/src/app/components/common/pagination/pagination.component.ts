@@ -14,12 +14,25 @@ export class PaginationComponent {
 
   @Output()
   OnMaxItensChange = new EventEmitter<any>();
+
+  @Input()
+  itemsPerPage: number = 10;
   
   page: number = 1;
   totalPages: number = 1;
-  itemsPerPage: number = 10;
+
   itemsPerPage_ddl: string = "10";
   pageList :number[] = [];
+
+  ngOnInit(){
+    if(this.itemsPerPage != null){
+      this.itemsPerPage_ddl = String(this.itemsPerPage);
+    }
+    else{
+      this.itemsPerPage = 10;
+    }
+    
+  }
 
   ngOnChanges() {
     this.CalculateTotalPages();

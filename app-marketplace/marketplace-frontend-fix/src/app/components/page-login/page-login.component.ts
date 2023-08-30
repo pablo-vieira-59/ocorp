@@ -70,6 +70,9 @@ export class PageLoginComponent {
     if(result.image != null){
       navImage.src = this.serviceAttachment.GetAttachmentUrl(result.image);
     }
+    else{
+      navImage.src = 'assets/images/placeholders/128.png';
+    }
     
     navName.textContent = result.name;
     navEmail.textContent = result.email;

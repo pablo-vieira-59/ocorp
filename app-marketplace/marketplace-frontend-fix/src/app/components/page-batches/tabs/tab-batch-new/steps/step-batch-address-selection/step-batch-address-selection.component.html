@@ -1,0 +1,56 @@
+<div *ngIf="!isLoading">
+    <div class="row text-center py-4 mt-3" *ngIf="data.length == 0 && !isLoading">
+        <h5>Nenhum resultado encontrado.</h5>
+    </div>
+    
+    <div class="row" *ngIf="data.length > 0 && !isLoading">
+        <div class="col-12 p-2 my-1">
+            <div class="row fs-7 text-muted">
+                <div class="border-end col text-center" style="max-width: 80px;"></div>
+                <div class="border-end col text-center" style="max-width: 80px;">#</div>
+                <div class="border-end col text-center text-truncate">CEP</div>
+                <div class="border-end col text-center text-truncate">Endereço</div>
+                <div class="border-end col text-center text-truncate">Numero</div>
+                <div class="border-end col text-center text-truncate">Bairro</div>
+                <div class="border-end col text-center text-truncate">Cidade</div>
+                <div class="col text-center text-truncate">UF</div>
+            </div>
+        </div>
+    
+        <div *ngFor="let item of data" class="col-12 p-2 my-1 bg-primary-www rounded-3">
+            <div class="row fs-7">
+                <div class="border-end col text-center my-auto" style="max-width: 80px;">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" (change)="SelectItem(item.id)">
+                </div>
+                <div class="border-end col text-center my-auto" style="max-width: 80px;"><b>{{item.id}}</b>
+                </div>
+                <div class="border-end col text-truncate text-center my-auto">
+                    {{item.zipCode | mask:'00000-000'}}
+                </div>
+                <div class="border-end col text-truncate text-start my-auto">
+                    {{item.addressName}}
+                </div>
+                <div class="border-end col text-truncate text-center my-auto">
+                    {{item.number}}
+                </div>
+                <div class="border-end col text-truncate text-start my-auto">
+                    {{item.neighborhood}}
+                </div>
+                <div class="border-end col text-truncate text-start my-auto">
+                    {{item.city}}
+                </div>
+                <div class="col text-truncate text-center my-auto">
+                    {{item.state}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner-black></app-spinner-black>
+</div>
+
+<!-- Paginação -->
+<app-pagination [totalItems]="totalItems" (OnPageChange)="ChangePage($event)" [itemsPerPage]="5"
+    (OnMaxItensChange)="ChangePageSize($event)"></app-pagination>

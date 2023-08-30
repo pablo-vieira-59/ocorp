@@ -18,6 +18,22 @@ namespace Backend.Domain.Models
         public virtual List<Address_User>? Address_Users { get; set; }
         public virtual List<Batch>? Batches { get; set; }
 
+        public static IQueryable<Address> ToBasic(IQueryable<Address> source)
+        {
+            var result = source.Select(x => new Address { 
+                Id = x.Id, 
+                Number = x.Number, 
+                AddressName = x.AddressName, 
+                Neighborhood = x.Neighborhood, 
+                City = x.City, 
+                State = x.State, 
+                Country = x.Country,
+                ZipCode = x.ZipCode
+            }).AsQueryable();
+
+            return result;
+        }
+
         public class Map : IEntityTypeConfiguration<Address>
         {
             public void Configure(EntityTypeBuilder<Address> entityBuilder)

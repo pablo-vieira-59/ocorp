@@ -59,6 +59,7 @@ namespace App.Backend.Livraria.Controllers
                 }
 
                 var result = await _productService.AllPaginated(filter, currentUser.Value!);
+
                 if (!result.Success)
                 {
                     return BadRequest(result.Message);

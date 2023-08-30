@@ -14,6 +14,18 @@ $danger: #AD343E;
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @import "/src/app/helpers/font-styles.scss";
 
+.page {
+    display: block;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 16px;
+}
+
+.shadow{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 0px 8px 0px !important;
+}
+
 .btn {
     --bs-btn-padding-x: 8px;
     --bs-btn-padding-y: 4px;

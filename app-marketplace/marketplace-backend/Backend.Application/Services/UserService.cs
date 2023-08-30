@@ -5,10 +5,8 @@ using Backend.Infrastructure.Repository.Interfaces;
 using Backend.Domain.DTO;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
-using Microsoft.EntityFrameworkCore.DynamicLinq;
 using Backend.Domain.Helpers.ServiceResultPattern;
 using Microsoft.AspNetCore.Http;
-using System.Runtime.ConstrainedExecution;
 
 namespace Backend.Application.Services
 {
@@ -153,12 +151,12 @@ namespace Backend.Application.Services
 
         public async Task<ServiceResult<bool>> CreateUserAsync(UserCreateDTO request, User? currentUser)
         {
-            var hasUser = (await _userRepository.GetByProperty("Username", request.Email).FirstOrDefaultAsync()) != null;
+            var hasUser = (await _userRepository.GetByProperty("Email", request.Email).FirstOrDefaultAsync()) != null;
 
-            // Valida nome de usuário
+            // Valida usuário
             if (hasUser)
             {
-                return new FailServiceResultStruct<bool>("Usuario Existente.");
+                return new FailServiceResultStruct<bool>("Email já cadastrado.");
             }
             
             // Valida CPF

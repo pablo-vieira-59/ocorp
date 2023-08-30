@@ -6,6 +6,8 @@ import { lastValueFrom } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { PaginatedResultDTO } from '../models/DTO/PaginatedResultDTO';
 import { Batch } from '../models/Entities/Batch';
+import { BatchCreateDTO } from '../models/DTO/BatchCreateDTO';
+import { BatchStatus } from '../models/Entities/BatchStatus';
 
 @Injectable({
   providedIn: 'root'
@@ -42,17 +44,20 @@ export class BatchService {
     return data;
   }
 
-  async Create(data :any){
+  async Create(data :BatchCreateDTO){
     var request = this.http.post<boolean>(this.base_url + "new", data);
     var result = false;
+    console.log(data);
 
     await lastValueFrom(await request)
     .then((response) => {
       result = response;
+      this.serviceNotification.success("Cadastrado com sucesso !");
     })
     .catch((e) => {
       if(e.error != null){
         this.serviceNotification.error(e.error);
+        console.log(e);
       }
       else{
         this.serviceNotification.error("Erro ao cadastrar lote.");
@@ -63,7 +68,7 @@ export class BatchService {
   }
 
   async Edit(data :any){
-    var request = this.http.post<boolean>(this.base_url + "edit/" + data.id, data);
+    var request = this.http.post<boolean>(this.base_url + "edit", data);
     var result = false;
 
     await lastValueFrom(await request)
@@ -96,6 +101,26 @@ export class BatchService {
       }
       else{
         this.serviceNotification.error("Erro ao obter lote.");
+      }
+    });
+
+    return result;
+  }
+
+  async GetStatusList(){
+    var request = this.http.get<BatchStatus[]>(this.base_url + "status");
+    var result = {} as BatchStatus[];
+
+    await lastValueFrom(await request)
+    .then((response) => {
+      result = response;
+    })
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error(e.error);
+      }
+      else{
+        this.serviceNotification.error("Erro ao obter status dos lotes.");
       }
     });
 

@@ -1,0 +1,44 @@
+<div *ngIf="!isLoading">
+    <div class="row text-center py-4 mt-3" *ngIf="data.length == 0">
+        <h5>Nenhum resultado encontrado.</h5>
+    </div>
+
+    <div class="row" *ngIf="data.length > 0">
+        <div class="col-12 p-2 my-1">
+            <div class="row fs-7 text-muted">
+                <div class="border-end col text-center" style="max-width: 80px;"></div>
+                <div class="border-end col text-center" style="max-width: 80px;">#</div>
+                <div class="border-end col text-center" style="max-width: 128px;">Imagem</div>
+                <div class="border-end col text-center text-truncate">Nome</div>
+                <div class="col text-center text-truncate">Marca</div>
+            </div>
+        </div>
+
+        <div *ngFor="let item of data" class="col-12 p-2 my-1 bg-primary-www rounded-3">
+            <div class="row fs-7">
+                <div class="border-end col text-center my-auto" style="max-width: 80px;">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" (change)="SelectItem(item.id)">
+                </div>
+                <div class="border-end col text-center my-auto" style="max-width: 80px;"><b>{{item.id}}</b>
+                </div>
+                <div class="border-end col text-center" style="max-width: 128px;">
+                    <img src="{{item.imageUrl}}" style="height: 64px;" alt="">
+                </div>
+                <div class="border-end col text-truncate text-start my-auto">{{item.name}}</div>
+                <div class="col">
+                    <span *ngFor="let item of item.brand_Products" class="col-auto badge me-1"
+                        style="background-color: {{item.brand.color}};"><small>{{item.brand.name}}</small></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Paginação -->
+<app-pagination [totalItems]="totalItems" (OnPageChange)="ChangePage($event)" [itemsPerPage]="5"
+(OnMaxItensChange)="ChangePageSize($event)"></app-pagination>
+
+<div *ngIf="isLoading">
+    <app-spinner-black></app-spinner-black>
+</div>

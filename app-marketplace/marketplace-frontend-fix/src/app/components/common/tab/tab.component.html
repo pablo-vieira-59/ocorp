@@ -1,0 +1,25 @@
+<ul class="nav nav-tabs">
+    <li *ngFor="let item of tabs; index as i" class="nav-item">
+        <button class="nav-link p-0" (click)="SetIndex(i)" [ngClass]="{'active': i == index}">
+            <div *ngIf="i == index" class="bg-primary" style="height: 4px; border-radius: 4px 4px 0px 0px;">&nbsp;</div>        
+            <div *ngIf="i != index" style="height: 4px; border-radius: 4px 4px 0px 0px;">&nbsp;</div>    
+            <label class="px-2 my-1">
+                <i class="{{icons[i]}}"></i>
+                {{item}}
+            </label>
+        </button>
+    </li>
+</ul>
+
+<style>
+    .nav-link{
+        background-color: #f5f5f5;
+        color: black;
+        font-weight: 300;
+    }
+
+    .nav-link.active{
+        color: #294566;
+        font-weight: 500;
+    }
+</style>

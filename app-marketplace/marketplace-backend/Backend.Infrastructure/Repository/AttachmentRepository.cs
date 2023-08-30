@@ -16,7 +16,7 @@ namespace Backend.Infrastructure.Repository
         {
             var attachmentType = await _context.AttachmentType.Where(e => e.Id == attachmentTypeId).FirstOrDefaultAsync();
 
-            return attachmentType;
+            return attachmentType!;
         }
 
         public IQueryable<Attachment> GetByGuid(Guid guid)

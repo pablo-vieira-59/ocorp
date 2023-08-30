@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PaginatedResultDTO } from '../models/DTO/PaginatedResultDTO';
 import { Establishment } from '../models/Entities/Establishment';
 import { ApiAddressDto } from '../models/DTO/ApiAddressDTO';
+import { Address } from '../models/Entities/Address';
 
 @Injectable({
 	providedIn: 'root'
@@ -36,5 +37,29 @@ export class AddressService {
 
 	    return result;
 	}
+
+	async AllPaginated(filters :FilterDto){
+		var data = {
+		  items: [],
+		  totalCount: 0
+		} as PaginatedResultDTO<Address>;
+	
+		var request = this.http.post<PaginatedResultDTO<Address>>(this.base_url + "all-paginated", filters);
+	
+		await lastValueFrom(await request)
+		.then((payload) => {
+		  data = payload;
+		})
+		.catch((e) => {
+		  if(e.error != null){
+			this.serviceNotification.error(e.error);
+		  }
+		  else{
+			this.serviceNotification.error("Erro ao carregar Endereços.");
+		  }
+		});
+	
+		return data;
+	  }
 
 }

@@ -23,7 +23,7 @@ namespace Backend.Domain.Models
         }
     }
 
-    public enum BacthStatusEnum
+    public enum BatchStatusEnum
     {
         EmTransito = 1,
         EmEstoque = 2,

@@ -1,6 +1,5 @@
 ﻿using Backend.Domain.DTO;
 using Backend.Domain.Helpers;
-using Backend.Domain.Models;
 using Backend.Infrastructure.Repository.Interfaces;
 using System.Linq.Dynamic.Core;
 using System.Reflection;
@@ -42,10 +41,8 @@ namespace Backend.Infrastructure.Repository
             return entities;
         }
 
-        public IQueryable<T> Get(FilterDTO? filter = null)
+        private IQueryable<T> Filter(IQueryable<T> query, FilterDTO? filter = null)
         {
-            IQueryable<T> query = _context.Set<T>().AsQueryable();
-
             // Check if filters exists
             if (filter == null)
             {
@@ -173,6 +170,22 @@ namespace Backend.Infrastructure.Repository
             };
 
             return Get(filter);
+        }
+    
+        public IQueryable<T> Get(FilterDTO? filter = null)
+        {
+            IQueryable<T> query = _context.Set<T>().AsQueryable();
+
+            var result = Filter(query, filter);
+
+            return result;
+        }
+
+        public IQueryable<T> GetFromQuery(IQueryable<T> query, FilterDTO? filter = null)
+        {
+            var result = Filter(query, filter);
+
+            return result;
         }
     }
     

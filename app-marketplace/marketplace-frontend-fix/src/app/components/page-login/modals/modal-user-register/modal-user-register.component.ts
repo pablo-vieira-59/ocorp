@@ -34,10 +34,10 @@ export class ModalUserRegisterComponent {
 		city: '',
 		state: '',
 		profileId: 0,
-		birthdayDate:'',
-		isNewClient : true,
-		clientName:'',
-		imageGuid : '',
+		birthdayDate: '',
+		isNewClient: true,
+		clientName: '',
+		imageGuid: '',
 	} as UserCreateDTO;
 
 	val_required = ["name", "documentNumber", "phoneNumber", "email", "reg-password", "clientName", "birthdayDate"];
@@ -57,7 +57,7 @@ export class ModalUserRegisterComponent {
 		private serviceModal: BsModalService,
 		private serviceNotification: ToastrService,
 		private serviceUser: UserService,
-		private serviceAttachment :AttachmentService) { }
+		private serviceAttachment: AttachmentService) { }
 
 	ngOnInit() {
 
@@ -110,7 +110,7 @@ export class ModalUserRegisterComponent {
 
 	IsStepValid(stepId: number): boolean {
 		if (stepId == 0) {
-			var elements = ["name", "documentNumber", "phoneNumber","birthdayDate"]
+			var elements = ["name", "documentNumber", "phoneNumber", "birthdayDate"]
 			return elements.every(x => this.validFields.includes(x));
 		}
 		if (stepId == 1) {
@@ -133,25 +133,25 @@ export class ModalUserRegisterComponent {
 	async UpdateImage(event: Event) {
 		const target = event.target as HTMLInputElement;
 		const files = target.files as FileList;
-	
+
 		if (files && files[0]) {
-		  const file = files[0];
-	
-		  // const reader = new FileReader();
-		  // reader.onload = e => this.currentImage = (reader.result as string);
-	
-		  // reader.readAsDataURL(file);
-	
-		  var attachment = {
-			file: file,
-			attachmentTypeId: 1
-		  } as AttachmentCreateDTO;
-	
-		  var result = await this.serviceAttachment.UploadAttachment(attachment);
-		  this.data.imageGuid = result;
-		  this.currentImage = this.serviceAttachment.GetAttachmentUrl(result);
+			const file = files[0];
+
+			// const reader = new FileReader();
+			// reader.onload = e => this.currentImage = (reader.result as string);
+
+			// reader.readAsDataURL(file);
+
+			var attachment = {
+				file: file,
+				attachmentTypeId: 1
+			} as AttachmentCreateDTO;
+
+			var result = await this.serviceAttachment.UploadAttachment(attachment);
+			this.data.imageGuid = result;
+			this.currentImage = this.serviceAttachment.GetAttachmentUrl(result);
 		}
-	  }
+	}
 }
 
 

@@ -15,5 +15,6 @@ namespace Backend.Infrastructure.Repository.Interfaces
         Task<ICollection<T>> AddManyAsync(ICollection<T> entities);
         IQueryable<T> GetByProperty(string property, string value);
         IQueryable<T> Get(FilterDTO? filter = null);
+        IQueryable<T> GetFromQuery(IQueryable<T> query, FilterDTO? filter = null);
     }
 }

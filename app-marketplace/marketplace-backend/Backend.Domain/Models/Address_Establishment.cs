@@ -19,8 +19,8 @@ namespace Backend.Domain.Models
             {
                 entityBuilder.HasKey(x => x.Id);
 
-                entityBuilder.HasOne(x => x.Address).WithMany(x => x.Address_Establishments).HasForeignKey(x => x.AddressId);
-                entityBuilder.HasOne(x => x.Establishment).WithMany(x => x.Address_Establishments).HasForeignKey(x => x.EstablishmentId);
+                entityBuilder.HasOne(x => x.Address).WithMany(x => x.Address_Establishments);
+                entityBuilder.HasOne(x => x.Establishment).WithMany(x => x.Address_Establishments);
             }
         }
     }

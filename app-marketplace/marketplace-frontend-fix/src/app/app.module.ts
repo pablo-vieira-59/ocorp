@@ -64,6 +64,13 @@ import { DashCardComponent } from './components/common/dash-card/dash-card.compo
 import { CardComponent } from './components/common/card/card.component';
 import { WindowTransparentComponent } from './components/common/window-transparent/window-transparent.component';
 import { PageUserEditComponent } from './components/page-users/pages/page-user-edit/page-user-edit.component';
+import { TabComponent } from './components/common/tab/tab.component';
+import { TabBatchTableComponent } from './components/page-batches/tabs/tab-batch-table/tab-batch-table.component';
+import { TabBatchNewComponent } from './components/page-batches/tabs/tab-batch-new/tab-batch-new.component';
+import { InputImageComponent } from './components/common/forms/input-image/input-image.component';
+import { StepBatchProductSelectionComponent } from './components/page-batches/tabs/tab-batch-new/steps/step-batch-product-selection/step-batch-product-selection.component';
+import { StepBatchAddressSelectionComponent } from './components/page-batches/tabs/tab-batch-new/steps/step-batch-address-selection/step-batch-address-selection.component';
+import { StepBatchSupplierSelectionComponent } from './components/page-batches/tabs/tab-batch-new/steps/step-batch-supplier-selection/step-batch-supplier-selection.component';
 
 export const options: Partial<null | IConfig> | (() => Partial<IConfig>) = null;
 
@@ -116,6 +123,13 @@ registerLocaleData(localePt, 'pt');
     CardComponent,
     WindowTransparentComponent,
     PageUserEditComponent,
+    TabComponent,
+    TabBatchTableComponent,
+    TabBatchNewComponent,
+    InputImageComponent,
+    StepBatchProductSelectionComponent,
+    StepBatchAddressSelectionComponent,
+    StepBatchSupplierSelectionComponent,
   ],
   imports: [
     HttpClientModule,
