@@ -71,6 +71,9 @@ import { InputImageComponent } from './components/common/forms/input-image/input
 import { StepBatchProductSelectionComponent } from './components/page-batches/tabs/tab-batch-new/steps/step-batch-product-selection/step-batch-product-selection.component';
 import { StepBatchAddressSelectionComponent } from './components/page-batches/tabs/tab-batch-new/steps/step-batch-address-selection/step-batch-address-selection.component';
 import { StepBatchSupplierSelectionComponent } from './components/page-batches/tabs/tab-batch-new/steps/step-batch-supplier-selection/step-batch-supplier-selection.component';
+import { TabProductTableComponent } from './components/page-products/tabs/tab-product-table/tab-product-table.component';
+import { TabProductNewComponent } from './components/page-products/tabs/tab-product-new/tab-product-new.component';
+import { AlertDangerComponent } from './components/common/alerts/alert-danger/alert-danger.component';
 
 export const options: Partial<null | IConfig> | (() => Partial<IConfig>) = null;
 
@@ -130,6 +133,9 @@ registerLocaleData(localePt, 'pt');
     StepBatchProductSelectionComponent,
     StepBatchAddressSelectionComponent,
     StepBatchSupplierSelectionComponent,
+    TabProductTableComponent,
+    TabProductNewComponent,
+    AlertDangerComponent,
   ],
   imports: [
     HttpClientModule,

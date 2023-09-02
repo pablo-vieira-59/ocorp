@@ -11,7 +11,7 @@ namespace Backend.Domain.Models
         public string? Name { get; set; }
         public string? Description { get; set; }
         public decimal Price { get; set; }
-        public string? ImageUrl { get; set; }
+        public Guid? ImageGuid { get; set; }
         public DateTime? CreatedAt { get; set; }
         public long Units { get; set; }
 
@@ -32,7 +32,7 @@ namespace Backend.Domain.Models
                 Name = x.Name,
                 Description = x.Description,
                 Price = x.Price,
-                ImageUrl = x.ImageUrl,
+                ImageGuid = x.ImageGuid,
                 CreatedAt = x.CreatedAt,
                 Units = x.Units,
                 Brand_Products = x.Brand_Products!.Select(z => new Brand_Product
@@ -54,7 +54,7 @@ namespace Backend.Domain.Models
                 entityBuilder.Property(x => x.Name).IsRequired();
                 entityBuilder.Property(x => x.Description).IsRequired();
                 entityBuilder.Property(x => x.Price).IsRequired();
-                entityBuilder.Property(x => x.ImageUrl).IsRequired();
+                entityBuilder.Property(x => x.ImageGuid).IsRequired();
                 entityBuilder.Property(x => x.CreatedAt).IsRequired();
                 entityBuilder.Property(x => x.Units).IsRequired();
 

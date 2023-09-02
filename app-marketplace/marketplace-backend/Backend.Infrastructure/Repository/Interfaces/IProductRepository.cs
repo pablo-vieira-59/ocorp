@@ -9,6 +9,6 @@ namespace Backend.Infrastructure.Repository.Interfaces
 {
     public interface IProductRepository : IBaseRepository<Product>
     {
-
+        public bool CreateProduct(Product product, List<Brand_Product> brand_Product);
     }
 }

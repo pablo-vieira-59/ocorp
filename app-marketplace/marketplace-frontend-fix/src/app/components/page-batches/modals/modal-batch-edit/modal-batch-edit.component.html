@@ -23,7 +23,7 @@
             <div class="row mt-2">
                 <div class="col">
                     <label for="message" class="required">Descrição da alteração</label>
-                    <textarea class="form-control" type="text" id="message"
+                    <textarea class="form-control" type="text" id="message" [(ngModel)]="model.message"
                         (change)="ValidateField('message')"></textarea>
                 </div>
             </div>

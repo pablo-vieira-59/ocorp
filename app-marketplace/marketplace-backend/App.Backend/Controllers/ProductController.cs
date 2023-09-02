@@ -24,13 +24,18 @@ namespace App.Backend.Livraria.Controllers
         }
 
         [HttpPost("new")]
-        public async Task<IActionResult> CreateProduct([FromBody] UserCreateDTO user)
+        public async Task<IActionResult> CreateProduct([FromBody] ProductCreateDTO user)
         {
             try
             {
                 var currentUser = await _userService.GetCurrentUser(HttpContext);
 
-                var result = await _userService.CreateUserAsync(user, currentUser.Value);
+                if (!currentUser.Success)
+                {
+                    return BadRequest(currentUser.Message);
+                }
+
+                var result = await _productService.Create(user, currentUser!.Value!);
 
                 if (!result.Success)
                 {

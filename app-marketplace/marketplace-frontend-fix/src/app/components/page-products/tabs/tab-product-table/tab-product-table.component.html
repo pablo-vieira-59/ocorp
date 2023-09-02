@@ -1,0 +1,54 @@
+<!-- SearchFields -->
+<app-searchfield (OnFilter)="LoadTableData()" (OnClear)="ClearSearch()">
+    <div class="col-4 mt-2">
+        <app-basefield [fieldType]="2" label="Razão Social" placeholder="Digite um nome ..."
+            [(text_value)]="searchField_name.value">
+        </app-basefield>
+    </div>
+
+    <div class="col-4 mt-2">
+        <app-basefield [fieldType]="2" label="Nome Fantasia" placeholder="Digite um nome ..."
+            [(text_value)]="searchField_fantasyName.value">
+        </app-basefield>
+    </div>
+
+    <div class="col-4 mt-2">
+        <app-basefield [fieldType]="2" label="Numero de documento" placeholder="Digite o cnpj ..."
+            [(text_value)]="searchField_document.value" [mask]="'00.000.000/0000-00'">
+        </app-basefield>
+    </div>
+
+    <div class="col-4 mt-2">
+        <app-basefield [fieldType]="2" label="Email" placeholder="Digite um e-mail ..."
+            [(text_value)]="searchField_email.value">
+        </app-basefield>
+    </div>
+</app-searchfield>
+
+<!-- Spinner -->
+<div class="row" *ngIf="isLoading">
+    <app-spinner-black></app-spinner-black>
+</div>
+
+
+
+<div class="row card mt-2 p-2 ">
+    <div class="col-12">
+        <!-- Mensagem de não encontrado -->
+        <div class="row text-center py-4 mt-3" *ngIf="products.length == 0 && !isLoading">
+            <h5>Nenhum resultado encontrado.</h5>
+        </div>
+
+        <!-- Tabela -->
+        <div class="row" *ngIf="products.length > 0 && !isLoading">
+            <div *ngFor="let item of products" class="col-6">
+                <app-product-card [product]="item"></app-product-card>
+            </div>
+        </div>
+
+        <!-- Paginação -->
+        <app-pagination [totalItems]="totalItems" (OnPageChange)="ChangePage($event)"
+            (OnMaxItensChange)="ChangePageSize($event)"></app-pagination>
+    </div>
+
+</div>

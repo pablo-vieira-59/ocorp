@@ -1,0 +1,6 @@
+<div *ngIf="errors.length > 0" class="alert alert-danger mt-2 p-2" role="alert">
+    <h6 *ngIf="title != null && title != ''" class="alert-heading">{{title}}</h6>
+    <div *ngFor="let error of errors">
+        <i class="bi bi-exclamation-circle-fill fs-7 me-2"></i><label class="fs-7">{{error}}</label>
+    </div>
+</div>

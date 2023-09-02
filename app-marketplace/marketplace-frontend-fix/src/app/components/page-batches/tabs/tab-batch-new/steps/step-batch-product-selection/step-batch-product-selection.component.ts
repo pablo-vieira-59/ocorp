@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FilterDto, Paging } from 'src/app/models/DTO/FilterDto';
 import { Product } from 'src/app/models/Entities/Product';
+import { AttachmentService } from 'src/app/services/attachment.services';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -33,7 +34,8 @@ export class StepBatchProductSelectionComponent {
   } as FilterDto;
 
   constructor(
-    private serviceProduct:ProductService
+    private serviceProduct:ProductService,
+    private serviceAttachment:AttachmentService
   ){ }
 
   async ngOnInit(){
@@ -44,6 +46,9 @@ export class StepBatchProductSelectionComponent {
     this.isLoading = true;
     var result = await this.serviceProduct.AllPaginated(this.filters);
     this.data = result.items;
+    this.data.forEach(element => {
+      element.imageGuid = this.serviceAttachment.GetAttachmentUrl(element.imageGuid);
+    });
     this.totalItems = result.totalCount;
     this.isLoading = false;
   }

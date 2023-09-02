@@ -8,5 +8,6 @@ namespace Backend.Application.Services.Interfaces
     {
         Task<ServiceResult<PaginatedResult<Product>>> AllPaginated(FilterDTO filter, User currentUser);
         Task<ServiceResult<Product>> GetById(long Id);
+        Task<ServiceResult<bool>> Create(ProductCreateDTO request, User currentUser);
     }
 }
