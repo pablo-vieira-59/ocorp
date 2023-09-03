@@ -91,6 +91,8 @@ namespace Backend.Application.Services
             var fileName = $"{attachment.Guid}.{attachment.Extension}";
             var filePath = $"{StorageFolderPath}\\{attachment.AttachmentType!.Folder}\\{fileName}";
 
+            Console.WriteLine(filePath);
+
             if (!File.Exists(filePath))
             {
                 return new FailServiceResult<AttachmentGetDTO>("Arquivo não encontrado.");
