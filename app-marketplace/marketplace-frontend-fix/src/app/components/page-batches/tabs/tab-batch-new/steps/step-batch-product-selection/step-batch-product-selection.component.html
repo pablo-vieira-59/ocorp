@@ -3,7 +3,7 @@
         <h5>Nenhum resultado encontrado.</h5>
     </div>
 
-    <div class="row" *ngIf="data.length > 0">
+    <div class="row m-0 p-0" *ngIf="data.length > 0">
         <div class="col-12 p-2 my-1">
             <div class="row fs-7 text-muted">
                 <div class="border-end col text-center" style="max-width: 80px;"></div>
@@ -36,8 +36,11 @@
 </div>
 
 <!-- Paginação -->
-<app-pagination [totalItems]="totalItems" (OnPageChange)="ChangePage($event)" [itemsPerPage]="5"
+<div class="row m-0 p-0">
+    <app-pagination [totalItems]="totalItems" (OnPageChange)="ChangePage($event)" [itemsPerPage]="5"
 (OnMaxItensChange)="ChangePageSize($event)"></app-pagination>
+</div>
+
 
 <div *ngIf="isLoading">
     <app-spinner-black></app-spinner-black>

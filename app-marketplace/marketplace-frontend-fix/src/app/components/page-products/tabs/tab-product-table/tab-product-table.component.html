@@ -7,20 +7,17 @@
     </div>
 
     <div class="col-4 mt-2">
-        <app-basefield [fieldType]="2" label="Nome Fantasia" placeholder="Digite um nome ..."
-            [(text_value)]="searchField_fantasyName.value">
+        <app-basefield [fieldType]="0" [items]="ddl_categories_options" label="Categoria"
+                placeholder="Selecione uma Categoria ..." notFoundText="Nenhum Item Encontrado"
+                [(selected_item)]="categoryId"
+                (selected_itemChange)="LoadSubCategories()">
         </app-basefield>
     </div>
 
     <div class="col-4 mt-2">
-        <app-basefield [fieldType]="2" label="Numero de documento" placeholder="Digite o cnpj ..."
-            [(text_value)]="searchField_document.value" [mask]="'00.000.000/0000-00'">
-        </app-basefield>
-    </div>
-
-    <div class="col-4 mt-2">
-        <app-basefield [fieldType]="2" label="Email" placeholder="Digite um e-mail ..."
-            [(text_value)]="searchField_email.value">
+        <app-basefield [fieldType]="0" [items]="ddl_subcategories_options" label="Subcategoria"
+                placeholder="Selecione uma Subcategoria ..." notFoundText="Nenhum Item Encontrado"
+                [(selected_item)]="searchField_subCategoryId.value">
         </app-basefield>
     </div>
 </app-searchfield>

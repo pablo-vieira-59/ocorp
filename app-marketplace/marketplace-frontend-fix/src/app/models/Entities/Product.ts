@@ -1,4 +1,5 @@
 import { Brand_Product } from "./Brand_Product";
+import { Subcategory } from "./Subcategory";
 
 export interface Product{
     id :number,
@@ -11,7 +12,7 @@ export interface Product{
     createdAt :Date,
     units :number,
 
-    // subcategory :Subcategory,
+    subCategory :Subcategory,
     // client :Client,
 
     // supplier_Products :Supplier_Products[],

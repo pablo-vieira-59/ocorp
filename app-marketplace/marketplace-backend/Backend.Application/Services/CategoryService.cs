@@ -144,6 +144,14 @@ namespace Backend.Application.Services
 
                 if (existingSub == null)
                 {
+                    var newSubcategory = new SubCategory
+                    {
+                        CategoryId = category.Id,
+                        Name = subcategory.Name,
+                        Color = subcategory.Color,
+                    };
+
+                    category.SubCategories!.Add(newSubcategory);
                     continue;
                 }
 

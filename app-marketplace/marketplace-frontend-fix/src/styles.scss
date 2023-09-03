@@ -18,6 +18,8 @@ $danger: #AD343E;
     font-size: 14px;
     font-weight: 400;
     border-radius: 4px;
+    min-height: 0px;
+    max-height: 31px;
 }
 
 .ng-select.custom .ng-select-container  { 
@@ -25,6 +27,7 @@ $danger: #AD343E;
     min-height: 0px;
     border-radius: 4px;
     font-weight: 400;
+    max-height: 31px;
 }
 
 .page {

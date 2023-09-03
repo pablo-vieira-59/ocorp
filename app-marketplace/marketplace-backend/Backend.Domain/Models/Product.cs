@@ -39,6 +39,7 @@ namespace Backend.Domain.Models
                 {
                     Brand = new Brand { Name = z.Brand!.Name , Color = z.Brand!.Color}
                 }).ToList(),
+                SubCategory = x.SubCategory,
             });
 
             return result;

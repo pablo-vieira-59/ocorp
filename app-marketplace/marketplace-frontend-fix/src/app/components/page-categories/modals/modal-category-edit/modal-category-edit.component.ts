@@ -32,10 +32,22 @@ export class ModalCategoryEditComponent {
 
 	async ngOnInit() {
     	this.category = await this.serviceCategory.GetById(this.id);
+		this.UpdateValidation();
+	}
+
+	UpdateValidation(){
+		this.validFields = [];
 
 		for (let i = 0; i < this.category.subCategories.length; i++) {
-			this.validFields.push("subcategory_"+i.toString());
-			this.val_required.push("subcategory_"+i.toString());
+			var current = this.category.subCategories[i];
+			if(current.name != null && current.name != ''){
+				this.validFields.push("subcategory_"+i.toString());
+				this.val_required.push("subcategory_"+i.toString());
+			}
+		};
+
+		if(this.category.name != null && this.category.name != ''){
+			this.validFields.push("category");
 		}
 	}
 
@@ -69,5 +81,12 @@ export class ModalCategoryEditComponent {
 
 	ValidateField(inputId: string) {
 		this.validFields = ValidatorField.ValidateInputField(this.validFields, inputId, this.val_required, undefined, undefined, undefined, undefined, undefined);
+	}
+
+	AddSubcategory(){
+		var newSub = {color:'#FFFFFF'} as Subcategory;
+		this.category.subCategories.unshift(newSub);
+
+		this.UpdateValidation();
 	}
 }

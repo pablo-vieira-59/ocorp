@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FilterDto, Paging, SearchField } from 'src/app/models/DTO/FilterDto';
+import { Category } from 'src/app/models/Entities/Category';
 import { Product } from 'src/app/models/Entities/Product';
+import { Subcategory } from 'src/app/models/Entities/Subcategory';
+import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -10,16 +13,16 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./tab-product-table.component.scss']
 })
 export class TabProductTableComponent {
-  searchField_name :SearchField = {property:"CorporateName", value:null, operator:"like"};
-  searchField_fantasyName :SearchField = {property:"FantasyName", value:null, operator:"like"};
-  searchField_email :SearchField = {property:"Email", value:null, operator:"like"};
-  searchField_document :SearchField = {property:"DocumentNumber", value:null, operator:"like"};
+  searchField_name :SearchField = {property:"Name", value:null, operator:"like"};
+  categoryId :number | null = null;
+  searchField_subCategoryId :SearchField = {property:"SubCategoryId", value:null, operator:"=="};
+
+  ddl_categories_options :Category[] = [];
+  ddl_subcategories_options :Subcategory[] = [];
 
   searchFields :SearchField[] = [
     this.searchField_name,
-    this.searchField_fantasyName, 
-    this.searchField_email, 
-    this.searchField_document
+    this.searchField_subCategoryId
   ];
 
   totalItems :number = 0;
@@ -44,12 +47,15 @@ export class TabProductTableComponent {
 
   constructor(
     private serviceModal :BsModalService, 
-    private serviceProduct :ProductService
+    private serviceProduct :ProductService,
+    private serviceCategory :CategoryService
   ) { }
 
   async ngOnInit(){
     this.isLoading = true;
     await this.LoadTableData();
+    this.ddl_categories_options = (await this.serviceCategory.AllPaginated({} as  FilterDto)).items;
+    console.log(this.ddl_categories_options);
     this.isLoading = false;
   }
 
@@ -72,6 +78,21 @@ export class TabProductTableComponent {
     await this.LoadTableData();
   }
 
+  LoadSubCategories(){
+    if(this.categoryId == null){
+      return;
+    }
+
+    var category = this.ddl_categories_options.find(x => x.id == this.categoryId);
+
+    if(category != null){
+      this.ddl_subcategories_options = category.subCategories;
+    }
+    else{
+      this.ddl_subcategories_options = [];
+    }
+  }
+
   Modal_Register() {
     // this.modalRef = this.serviceModal.show(ModalEstablishmentRegisterComponent, {
     //   initialState: {
@@ -89,9 +110,10 @@ export class TabProductTableComponent {
   }
 
   ClearSearch(){
-    this.searchField_document.value = null,
-    this.searchField_email.value = null
-    this.searchField_fantasyName.value = null,
-    this.searchField_name.value = null;
+    this.filters.searchFields.forEach(element => {
+      element.value = null;
+    });
+
+    this.categoryId = null;
   }
 }

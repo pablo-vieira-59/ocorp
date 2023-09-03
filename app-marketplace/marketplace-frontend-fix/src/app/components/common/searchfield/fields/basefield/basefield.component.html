@@ -4,12 +4,12 @@
     </label>
 </div>
 
-<ng-select *ngIf="fieldType == fieldTypeNames.Dropdown" i class=""
+<ng-select class="custom" *ngIf="fieldType == fieldTypeNames.Dropdown" 
     id="{{label}}_field" placeholder="{{placeholder}}" 
     notFoundText="{{notFoundText}}"
     [(ngModel)]="selected_item"
     (change)="updateSelected_item()">
-    <ng-option *ngFor="let option of items" value="{{option.id}}">{{option.value}}</ng-option>
+    <ng-option *ngFor="let option of items" value="{{option.id}}">{{option.name}}</ng-option>
 </ng-select>
 
 <input *ngIf="fieldType == fieldTypeNames.Text && mask != ''" 

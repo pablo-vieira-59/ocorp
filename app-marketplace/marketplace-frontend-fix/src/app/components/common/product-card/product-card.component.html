@@ -54,6 +54,8 @@
             <div class="row mt-1">
                 <div class="col bg-light border rounded-1 p-1">
                     <div class="row my-auto m-0 p-0">
+                        <span class="col-auto badge me-1"
+                            style="background-color: {{product.subCategory.color}};"><small>{{product.subCategory.name}}</small></span>
                         <span *ngFor="let item of product.brand_Products" class="col-auto badge me-1"
                             style="background-color: {{item.brand.color}};"><small>{{item.brand.name}}</small></span>
                     </div>

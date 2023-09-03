@@ -12,7 +12,7 @@ namespace Backend.Application.Services
     public class AttachmentService : IAttachmentService
     {
         IAttachmentRepository _attachmentRepository;
-        private const string StorageFolderPath = "/app/Attachments";
+        private const string StorageFolderPath = "Attachments";
 
         public AttachmentService(IAttachmentRepository attachmentRepository)
         {
@@ -55,6 +55,8 @@ namespace Backend.Application.Services
             var directory = $"{StorageFolderPath}/{folderName}";
             var filePath = $"{directory}/{fileName}";
 
+            filePath = Path.GetFullPath(filePath);
+
             Console.WriteLine(filePath);
 
             Directory.CreateDirectory(directory);
@@ -93,6 +95,7 @@ namespace Backend.Application.Services
             var fileName = $"{attachment.Guid}.{attachment.Extension}";
             var filePath = $"{StorageFolderPath}/{attachment.AttachmentType!.Folder}/{fileName}";
 
+            filePath = Path.GetFullPath(filePath);
             Console.WriteLine(filePath);
 
             if (!File.Exists(filePath))
