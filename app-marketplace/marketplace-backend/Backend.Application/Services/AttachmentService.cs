@@ -52,8 +52,10 @@ namespace Backend.Application.Services
 
             var folderName = attachmentType.Folder;
             var fileName = $"{attachment.Guid.ToString()}.{extension}";
-            var directory = $"{StorageFolderPath}\\{folderName}";
-            var filePath = $"{directory}\\{fileName}";
+            var directory = $"{StorageFolderPath}/{folderName}";
+            var filePath = $"{directory}/{fileName}";
+
+            Console.WriteLine(filePath);
 
             Directory.CreateDirectory(directory);
 
@@ -89,7 +91,7 @@ namespace Backend.Application.Services
             }
 
             var fileName = $"{attachment.Guid}.{attachment.Extension}";
-            var filePath = $"{StorageFolderPath}\\{attachment.AttachmentType!.Folder}\\{fileName}";
+            var filePath = $"{StorageFolderPath}/{attachment.AttachmentType!.Folder}/{fileName}";
 
             Console.WriteLine(filePath);
 
