@@ -12,7 +12,7 @@ namespace Backend.Application.Services
     public class AttachmentService : IAttachmentService
     {
         IAttachmentRepository _attachmentRepository;
-        private const string StorageFolderPath = "Attachments";
+        private const string StorageFolderPath = "/app/Attachments";
 
         public AttachmentService(IAttachmentRepository attachmentRepository)
         {
