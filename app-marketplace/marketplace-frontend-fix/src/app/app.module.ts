@@ -74,6 +74,8 @@ import { StepBatchSupplierSelectionComponent } from './components/page-batches/t
 import { TabProductTableComponent } from './components/page-products/tabs/tab-product-table/tab-product-table.component';
 import { TabProductNewComponent } from './components/page-products/tabs/tab-product-new/tab-product-new.component';
 import { AlertDangerComponent } from './components/common/alerts/alert-danger/alert-danger.component';
+import { FormBodyComponent } from './components/common/forms/form-body/form-body.component';
+import { FormBottomComponent } from './components/common/forms/form-bottom/form-bottom.component';
 
 export const options: Partial<null | IConfig> | (() => Partial<IConfig>) = null;
 
@@ -136,6 +138,8 @@ registerLocaleData(localePt, 'pt');
     TabProductTableComponent,
     TabProductNewComponent,
     AlertDangerComponent,
+    FormBodyComponent,
+    FormBottomComponent,
   ],
   imports: [
     HttpClientModule,

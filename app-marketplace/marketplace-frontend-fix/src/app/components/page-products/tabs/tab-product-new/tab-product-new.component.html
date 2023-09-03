@@ -1,4 +1,4 @@
-<div *ngIf="!isLoading" class="border rounded p-2 mt-2 mx-0">
+<app-form-body *ngIf="!isLoading" [errors]="errors">
     <div class="row">
         <div class="col-12">
             <label class="fs-5">Dados</label>
@@ -69,17 +69,11 @@
                 [(currentImage)]="productImageUrl" (currentImageChange)="ValidateField('imageGuid')"></app-input-image>
         </div>
     </div>
+</app-form-body>
 
-    <app-alert-danger [errors]="errors"></app-alert-danger>
-
-    <div class="row">
-        <div class="col-12 text-end">
-            <hr>
-            <button class="btn btn-success text-light mt-2" [disabled]="!IsFormValid()" (click)="Submit()">Adicionar</button>
-        </div>
-    </div>
-</div>
-
+<app-form-bottom>
+    <button class="btn btn-success text-light" [disabled]="!IsFormValid()" (click)="Submit()">Adicionar</button>
+</app-form-bottom>
 
 
 <div *ngIf="isLoading">

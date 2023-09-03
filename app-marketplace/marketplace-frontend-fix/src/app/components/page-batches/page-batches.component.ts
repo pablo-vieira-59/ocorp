@@ -12,8 +12,5 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./page-batches.component.scss']
 })
 export class PageBatchesComponent {
-
   tabIndex = 0;
-
-  
 }
