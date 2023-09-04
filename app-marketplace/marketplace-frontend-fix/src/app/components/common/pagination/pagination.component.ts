@@ -17,84 +17,63 @@ export class PaginationComponent {
 
   @Input()
   itemsPerPage: number = 10;
-  
+
   page: number = 1;
   totalPages: number = 1;
 
   itemsPerPage_ddl: string = "10";
-  pageList :number[] = [];
+  pageList: number[] = [];
 
-  ngOnInit(){
-    if(this.itemsPerPage != null){
+  ngOnInit() {
+    if (this.itemsPerPage != null) {
       this.itemsPerPage_ddl = String(this.itemsPerPage);
     }
-    else{
+    else {
       this.itemsPerPage = 10;
     }
-    
   }
 
   ngOnChanges() {
-    this.CalculateTotalPages();
+    this.UpdateTotalPages();
+    this.UpdatePagination();
   }
 
-  CalculateTotalPages() :string{
-    try{
-      this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-      var start = this.page - 2;
-      var end = this.page + 2;
-      
-      if(start < 1){
-        end += 1 - start;
-        start = 1;
+  UpdateTotalPages() {
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+  }
+
+  UpdatePagination() {
+    this.pageList = [];
+    
+    var start = this.page;
+    var end = this.page;
+
+    for (let i = 0; i < 2; i++) {
+      if(start - 1 > 0){
+        start -= 1;
       }
 
-      if(end > this.totalPages){
-        start -= end - this.totalPages;
-        end = this.totalPages;
+      if(end + 1 <= this.totalPages){
+        end += 1;
       }
-
-      this.pageList = Array(this.totalPages).fill(0).map((x,i)=>i+1).filter(x=>x>=start && x<=end);
-      return this.totalPages.toString();
     }
-    catch (e){
-      return "0";
+
+    for (let i = start; i <= end; i++) {
+      this.pageList.push(i);
     }
   }
 
   DDL_ChangeMaxItens() {
     this.page = 1;
     this.itemsPerPage = Number(this.itemsPerPage_ddl);
-    this.CalculateTotalPages();
+    this.UpdateTotalPages();
+    this.UpdatePagination();
     this.OnMaxItensChange.emit(this.itemsPerPage);
   }
 
   Button_Page(page: number) {
     this.page = page;
-    this.OnPageChange.emit(this.page);
-  }
-
-  Button_First() {
-    this.page = 1;
-    this.OnPageChange.emit(this.page);
-  }
-
-  Button_Next() {
-    if(this.page < this.totalPages){
-      this.page += 1;
-      this.OnPageChange.emit(this.page);
-    }
-  }
-
-  Button_Previous() {
-    if(this.page > 1){
-      this.page -= 1;
-      this.OnPageChange.emit(this.page);
-    }
-  }
-
-  Button_Last() {
-    this.page = this.totalPages;
+    this.UpdatePagination();
     this.OnPageChange.emit(this.page);
   }
 }

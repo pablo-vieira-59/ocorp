@@ -1,6 +1,6 @@
 <style>
     .btn-pgn{
-        width: 40px;
+        min-width: 40px;
         height: 40px;
         font-size: 12px;
         font-weight: bolder;
@@ -28,10 +28,10 @@
     <div class="col-6 text-center" *ngIf="itemsPerPage!=0">
         <div>
             <ng-container *ngIf="page > 1">
-                <button class="btn btn-outline-secondary me-1 btn-pgn" (click)="Button_First()" type="button">
+                <button class="btn btn-outline-secondary me-1 btn-pgn" (click)="Button_Page(1)" type="button">
                     <i class="bi bi-chevron-bar-left"></i>
                 </button>
-                <button class="btn btn-outline-secondary me-1 btn-pgn" (click)="Button_Previous()" type="button">
+                <button class="btn btn-outline-secondary me-1 btn-pgn" (click)="Button_Page(page-1)" type="button">
                     <i class="bi bi-chevron-left"></i>
                 </button>
             </ng-container>
@@ -46,10 +46,10 @@
             </ng-container>
             
             <ng-container *ngIf="(page != totalPages) && (totalItems != 0)">
-                <button class="btn btn-outline-secondary me-1 btn-pgn" (click)="Button_Next()" type="button">
+                <button class="btn btn-outline-secondary me-1 btn-pgn" (click)="Button_Page(page+1)" type="button">
                     <i class="bi bi-chevron-right"></i>
                 </button>
-                <button class="btn btn-outline-secondary me-1 btn-pgn" (click)="Button_Last()">
+                <button class="btn btn-outline-secondary me-1 btn-pgn" (click)="Button_Page(totalPages)">
                     <i class="bi bi-chevron-bar-right"></i>
                 </button>
             </ng-container>
