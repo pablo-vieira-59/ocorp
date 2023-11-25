@@ -13,7 +13,7 @@ import { ProductCreateDTO } from '../models/DTO/ProductCreateDTO';
   providedIn: 'root'
 })
 export class ProductService {
-  base_url = environment.localUrl + "products/";
+  base_url = environment.backendUrl + "products/";
 
   constructor(
     private http: HttpClient,

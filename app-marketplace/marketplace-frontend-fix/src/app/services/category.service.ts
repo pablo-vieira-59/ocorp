@@ -14,7 +14,7 @@ import { Category } from '../models/Entities/Category';
   providedIn: 'root'
 })
 export class CategoryService {
-  base_url = environment.localUrl + "categories/";
+  base_url = environment.backendUrl + "categories/";
 
   constructor(
     private http: HttpClient,

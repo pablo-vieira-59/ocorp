@@ -11,7 +11,7 @@ import { Establishment } from '../models/Entities/Establishment';
   providedIn: 'root'
 })
 export class EstablishmentService {
-  base_url = environment.localUrl + "establishments/";
+  base_url = environment.backendUrl + "establishments/";
 
   constructor(
     private http: HttpClient,

@@ -13,7 +13,7 @@ import { BatchStatus } from '../models/Entities/BatchStatus';
   providedIn: 'root'
 })
 export class BatchService {
-  base_url = environment.localUrl + "batches/";
+  base_url = environment.backendUrl + "batches/";
 
   constructor(
     private http: HttpClient,

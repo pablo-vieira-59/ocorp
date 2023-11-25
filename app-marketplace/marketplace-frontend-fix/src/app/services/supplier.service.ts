@@ -12,7 +12,7 @@ import { Supplier } from '../models/Entities/Supplier';
   providedIn: 'root'
 })
 export class SupplierService {
-  base_url = environment.localUrl + "suppliers/";
+  base_url = environment.backendUrl + "suppliers/";
 
   constructor(
     private http: HttpClient,

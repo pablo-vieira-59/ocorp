@@ -13,7 +13,7 @@ import { Address } from '../models/Entities/Address';
 	providedIn: 'root'
 })
 export class AddressService {
-	base_url = environment.localUrl + "address/";
+	base_url = environment.backendUrl + "address/";
 
 	constructor(
 		private http: HttpClient,

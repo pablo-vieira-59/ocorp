@@ -14,7 +14,7 @@ export class AttachmentService {
         private serviceNotification: ToastrService
     ) { }
 
-    base_url = environment.localUrl + "attachment";
+    base_url = environment.cdnUrl + "attachment";
 
     async UploadAttachment(data: AttachmentCreateDTO): Promise<string> {
         const headers = new HttpHeaders({

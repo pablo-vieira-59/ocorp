@@ -17,7 +17,7 @@ import { UserEditDTO } from '../models/DTO/UserEditDTO';
   providedIn: 'root'
 })
 export class UserService {
-  base_url = environment.localUrl + "users/";
+  base_url = environment.backendUrl + "users/";
 
   constructor(
     private http: HttpClient,

@@ -10,7 +10,7 @@ import { Permission } from '../models/Entities/Permission';
   providedIn: 'root'
 })
 export class PermissionService {
-  base_url = environment.localUrl + "permissions/";
+  base_url = environment.backendUrl + "permissions/";
 
   constructor(
     private http: HttpClient,

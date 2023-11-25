@@ -11,7 +11,7 @@ import { PaginatedResultDTO } from '../models/DTO/PaginatedResultDTO';
   providedIn: 'root'
 })
 export class ProfileService {
-  base_url = environment.localUrl + "profiles/";
+  base_url = environment.backendUrl + "profiles/";
 
   constructor(
     private http: HttpClient,

@@ -13,7 +13,7 @@ import { Brand } from '../models/Entities/Brand';
   providedIn: 'root'
 })
 export class BrandService {
-  base_url = environment.localUrl + "brands/";
+  base_url = environment.backendUrl + "brands/";
 
   constructor(
     private http: HttpClient,
