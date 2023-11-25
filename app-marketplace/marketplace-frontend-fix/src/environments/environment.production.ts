@@ -1,5 +1,6 @@
 export const environment = {
     production: true,
-    localUrl: 'http://181.223.203.23:4200/',
+    backendUrl: 'http://191.190.214.126:4200/',
+    cdnUrl: 'http://191.190.214.126:4201/',
     ambient: "Production"
 };
