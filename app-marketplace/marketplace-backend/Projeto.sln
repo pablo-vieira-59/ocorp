@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Application", "Back
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Backend", "App.Backend\App.Backend.csproj", "{60D8E7F8-4144-4AC7-8F10-19373CB4A6C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.CDN", "App.CDN\App.CDN.csproj", "{11B1575E-173F-4D95-BE7F-D8774CBC8664}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{60D8E7F8-4144-4AC7-8F10-19373CB4A6C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60D8E7F8-4144-4AC7-8F10-19373CB4A6C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60D8E7F8-4144-4AC7-8F10-19373CB4A6C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11B1575E-173F-4D95-BE7F-D8774CBC8664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11B1575E-173F-4D95-BE7F-D8774CBC8664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11B1575E-173F-4D95-BE7F-D8774CBC8664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11B1575E-173F-4D95-BE7F-D8774CBC8664}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
