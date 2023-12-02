@@ -6,8 +6,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./searchfield.component.scss']
 })
 export class SearchfieldComponent {
-  collapse :boolean = false;
-
   @Output()
   OnFilter: EventEmitter<any> = new EventEmitter<any>();
 
@@ -26,8 +24,8 @@ export class SearchfieldComponent {
     maxHeight:200
   }
 
-  SetCollapse() {
-    this.collapse = !this.collapse;
+  ngOnInit(){
+
   }
 
   Filter() {

@@ -1,11 +1,11 @@
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs fs-5">
     <li *ngFor="let item of tabs; index as i" class="nav-item">
-        <button class="nav-link p-0" (click)="SetIndex(i)" [ngClass]="{'active': i == index}">
+        <button class="nav-link p-0" (click)="SetIndex(i)" [ngClass]="{'active': i == index}" *ngIf="item.isVisible">
             <div *ngIf="i == index" class="bg-primary" style="height: 4px; border-radius: 4px 4px 0px 0px;">&nbsp;</div>        
             <div *ngIf="i != index" style="height: 4px; border-radius: 4px 4px 0px 0px;">&nbsp;</div>    
-            <label class="px-2 my-1">
-                <i class="{{icons[i]}}"></i>
-                {{item}}
+            <label class="px-3 py-1 my-1">
+                <i class="{{item.icon}}"></i>
+                {{item.name}}
             </label>
         </button>
     </li>

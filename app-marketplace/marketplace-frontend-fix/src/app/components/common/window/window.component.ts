@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-window',
@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./window.component.scss']
 })
 export class WindowComponent {
+  @Input()
+  title :string = "";
 
+  @Input()
+  icon :string = "";
 }

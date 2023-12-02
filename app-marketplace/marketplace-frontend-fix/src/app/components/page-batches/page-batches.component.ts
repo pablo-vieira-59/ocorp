@@ -5,6 +5,7 @@ import { Batch } from 'src/app/models/Entities/Batch';
 import { Category } from 'src/app/models/Entities/Category';
 import { BatchService } from 'src/app/services/batch.service';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { TabItem } from 'src/app/models/Components/TabItem';
 
 @Component({
   selector: 'app-page-batches',
@@ -13,4 +14,10 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class PageBatchesComponent {
   tabIndex = 0;
+
+  tabs :TabItem[] = [
+    {name:"Consulta", icon:"bi bi-search", isVisible:true, permissions:[]},
+    {name:"Adicionar", icon:"bi bi-plus-lg", isVisible:true, permissions:[]},
+    {name:"Edtar", icon:"bi bi-pencil", isVisible:false, permissions:[]},
+  ];
 }

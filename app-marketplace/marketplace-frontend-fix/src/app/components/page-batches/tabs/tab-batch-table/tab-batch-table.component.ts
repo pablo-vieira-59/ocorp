@@ -4,6 +4,8 @@ import { FilterDto, Paging, SearchField } from 'src/app/models/DTO/FilterDto';
 import { Batch } from 'src/app/models/Entities/Batch';
 import { BatchService } from 'src/app/services/batch.service';
 import { ModalBatchEditComponent } from '../../modals/modal-batch-edit/modal-batch-edit.component';
+import { Product } from 'src/app/models/Entities/Product';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-tab-batch-table',
@@ -12,9 +14,12 @@ import { ModalBatchEditComponent } from '../../modals/modal-batch-edit/modal-bat
 })
 export class TabBatchTableComponent {
   searchField_name :SearchField = {property:"Name", value:null, operator:"like"};
+  searchField_productId :SearchField = {property:"ProductId", value:null, operator:"=="};
+
+  ddl_product_options :Product[] = [];
 
   searchFields :SearchField[] = [
-    this.searchField_name,
+    this.searchField_productId
   ];
 
   totalItems :number = 0;
@@ -40,16 +45,23 @@ export class TabBatchTableComponent {
   constructor(
     private serviceBatch :BatchService,
     private serviceModal :BsModalService, 
+    private serviceProduct :ProductService
   ) { }
 
   async ngOnInit(){
     this.isLoading = true;
     await this.LoadTableData();
+    await this.DDL_LoadProducts();
     this.isLoading = false;
+  }
+
+  async DDL_LoadProducts(){
+    this.ddl_product_options = (await this.serviceProduct.AllPaginated({} as FilterDto)).items;
   }
 
   async LoadTableData() :Promise<void>{
     this.isLoading = true;
+    console.log(this.filters);
     var result = await this.serviceBatch.AllPaginated(this.filters);
 
     this.data = result.items;

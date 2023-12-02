@@ -16,7 +16,7 @@
         <div class="col ms-1">
             <div class="row">
                 <div class="col">
-                    <label>{{product.name}}</label>
+                    <label class="text-truncate" style="max-width: 160px;">{{product.name}}</label>
                 </div>
                 <div class="col text-end p-0" style="max-width: 60px;">
                     <div ngbDropdown placement="bottom-right">
@@ -39,15 +39,11 @@
                 </div>
             </div>
 
-            <div class="row flex-row-reverse mt-1">
-                <div class="col-auto fs-7">
-                    <i class="bi bi-filter-square-fill me-1"></i>#{{product.id}}
-                </div>
-                <div class="col-auto fs-7">
-                    <i class="bi bi-box-seam-fill me-1"></i>{{product.units | number:'.0':'pt-pt'}}
-                </div>
-                <div class="col-auto fs-7">
-                    <i class="bi bi-calendar-fill me-1"></i>{{product.createdAt | date:'dd/MM/yyyy'}}
+            <div class="row mt-1 fs-8">
+                <div class="col m-0 p-0 text-end">
+                    <i class="bi bi-filter-square-fill mx-2"></i>#{{product.id}}
+                    <i class="bi bi-box-seam-fill mx-2"></i>{{product.units | number:'.0':'pt-pt'}}
+                    <i class="bi bi-calendar-fill mx-2"></i>{{product.createdAt | date:'dd/MM/yyyy'}}
                 </div>
             </div>
 

@@ -76,6 +76,16 @@ import { TabProductNewComponent } from './components/page-products/tabs/tab-prod
 import { AlertDangerComponent } from './components/common/alerts/alert-danger/alert-danger.component';
 import { FormBodyComponent } from './components/common/forms/form-body/form-body.component';
 import { FormBottomComponent } from './components/common/forms/form-bottom/form-bottom.component';
+import { TabUserTableComponent } from './components/page-users/tabs/tab-user-table/tab-user-table.component';
+import { TabUserNewComponent } from './components/page-users/tabs/tab-user-new/tab-user-new.component';
+import { TabEstablishmentTableComponent } from './components/page-establishments/tabs/tab-establishment-table/tab-establishment-table.component';
+import { TabEstablishmentNewComponent } from './components/page-establishments/tabs/tab-establishment-new/tab-establishment-new.component';
+import { TabBrandNewComponent } from './components/page-brands/tabs/tab-brand-new/tab-brand-new.component';
+import { TabBrandTableComponent } from './components/page-brands/tabs/tab-brand-table/tab-brand-table.component';
+import { TabSupplierNewComponent } from './components/page-suppliers/tabs/tab-supplier-new/tab-supplier-new.component';
+import { TabSupplierTableComponent } from './components/page-suppliers/tabs/tab-supplier-table/tab-supplier-table.component';
+import { TabCategoryTableComponent } from './components/page-categories/tabs/tab-category-table/tab-category-table.component';
+import { TabCategoryNewComponent } from './components/page-categories/tabs/tab-category-new/tab-category-new.component';
 
 export const options: Partial<null | IConfig> | (() => Partial<IConfig>) = null;
 
@@ -140,6 +150,16 @@ registerLocaleData(localePt, 'pt');
     AlertDangerComponent,
     FormBodyComponent,
     FormBottomComponent,
+    TabUserTableComponent,
+    TabUserNewComponent,
+    TabEstablishmentTableComponent,
+    TabEstablishmentNewComponent,
+    TabBrandNewComponent,
+    TabBrandTableComponent,
+    TabSupplierNewComponent,
+    TabSupplierTableComponent,
+    TabCategoryTableComponent,
+    TabCategoryNewComponent,
   ],
   imports: [
     HttpClientModule,

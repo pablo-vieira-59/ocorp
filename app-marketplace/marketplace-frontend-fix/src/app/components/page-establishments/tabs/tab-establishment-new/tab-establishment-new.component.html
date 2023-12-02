@@ -1,0 +1,81 @@
+<div *ngIf="isLoading">
+    <app-spinner-black></app-spinner-black>
+</div>
+
+<div *ngIf="!isLoading">
+    <app-form-body>
+        <div class="row">
+            <div class="col-12">
+                <label class="fs-5">Dados</label>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="row">
+                <div class="col-6">
+                    <label for="corporateName" class="required">Razão Social</label>
+                    <input id="corporateName" [(ngModel)]="data.corporateName"
+                        type="text" class="form-control"
+                        placeholder="Digite a razão social..." (keyup)="ValidateField('corporateName')">
+                </div>
+    
+                <div class="col-6">
+                    <label for="fantasyName" class="required">Nome Fantasia</label>
+                    <input id="fantasyName" [(ngModel)]="data.fantasyName"
+                        type="text" class="form-control"
+                        placeholder="Digite o nome fantasia..." (change)="ValidateField('fantasyName')">
+                </div>
+            </div>
+    
+            <div class="row mt-2">
+                <div class="col-6">
+                    <label for="documentNumber" class="required">CNPJ</label>
+                    <input id="documentNumber" [(ngModel)]="data.documentNumber"
+                        type="text" class="form-control"
+                        placeholder="Digite o CNPJ ..." 
+                        (change)="ValidateField('documentNumber')"
+                        [mask]="'00.000.000/0000-00'">
+                </div>
+    
+                <div class="col-6">
+                    <label for="phoneNumber" class="required">Numero de Telefone</label>
+                    <input id="phoneNumber" [(ngModel)]="data.phoneNumber" [mask]="'(00) 0000-0000'"
+                        type="text" class="form-control"
+                        placeholder="Digite o numero de telefone..." (change)="ValidateField('phoneNumber')">
+                </div>
+            </div>
+    
+            <div class="row mt-2">
+                <div class="col-6">
+                    <label for="url" class="">URL</label>
+                    <input id="url" [(ngModel)]="data.url"
+                        type="text" class="form-control"
+                        placeholder="Digite o site da empresa..." (change)="ValidateField('url')">
+                </div>
+    
+                <div class="col-6">
+                    <label for="email" class="required">E-Mail</label>
+                    <input id="email" [(ngModel)]="data.email"
+                        type="text" class="form-control"
+                        placeholder="Digite o email..." (change)="ValidateField('email')">
+                </div>
+            </div>
+        </div>
+    
+        <div class="row mt-4">
+            <div class="col-12">
+                <label class="fs-5">Endereço</label>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row mt-2">   
+            <app-address-form [(data)]="address" [(isFormValid)]="isAddressValid"></app-address-form>
+        </div>
+    </app-form-body>
+    
+    <app-form-bottom>
+        <button class="btn btn-success text-light" [disabled]="!IsFormValid()" (click)="Submit()">Adicionar</button>
+    </app-form-bottom>
+</div>

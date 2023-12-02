@@ -1,107 +1,12 @@
-<app-window>
-
+<app-window title="Marcas" icon="bi bi-patch-check-fill">
     <div class="row">
-        <div class="col fs-5">
-            <i class="bi bi-patch-check-fill"></i>
-            Marcas
-        </div>
-        <div class="col p-0 text-end">
-            <button type="button" class="btn btn-outline-primary" (click)="Modal_Register()">
-                Adicionar <i class="bi bi-plus-lg"></i>
-            </button>
-        </div>
+        <app-tab [tabs]="tabs" [(index)]="tabIndex"></app-tab>
     </div>
 
-    <!-- SearchFields -->
-    <app-searchfield (OnFilter)="LoadTableData()" (OnClear)="ClearSearch()">
-        <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Razão Social" placeholder="Digite um nome ..."
-                [(text_value)]="searchField_name.value">
-            </app-basefield>
-        </div>
-
-        <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Nome Fantasia" placeholder="Digite um nome ..."
-                [(text_value)]="searchField_fantasyName.value">
-            </app-basefield>
-        </div>
-
-        <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Numero de documento" placeholder="Digite o cnpj ..."
-                [(text_value)]="searchField_document.value" [mask]="'00.000.000/0000-00'">
-            </app-basefield>
-        </div>
-
-        <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Email" placeholder="Digite um e-mail ..."
-                [(text_value)]="searchField_email.value">
-            </app-basefield>
-        </div>
-    </app-searchfield>
-
-    <!-- Spinner -->
-    <div class="row" *ngIf="isLoading">
-        <app-spinner-black></app-spinner-black>
+    <div *ngIf="tabIndex == 0" class="row">
+        <app-tab-brand-table></app-tab-brand-table>
     </div>
-
-
-
-    <div class="row card mt-2 p-2 ">
-        <div class="col-12">
-            <!-- Mensagem de não encontrado -->
-            <div class="row text-center py-4 mt-3" *ngIf="data.length == 0 && !isLoading">
-                <h5>Nenhum resultado encontrado.</h5>
-            </div>
-
-            <!-- Tabela -->
-            <div class="row" *ngIf="data.length > 0 && !isLoading">
-                <div class="col-12 p-2 my-1">
-                    <div class="row fs-7 text-muted">
-                        <div class="border-end col text-center" style="max-width: 80px;">#</div>
-                        <div class="border-end col text-start text-truncate">Nome</div>
-                        <div class="border-end col text-start text-truncate">Descrição</div>
-                        <div class="border-end col text-center" style="max-width: 80px;">Tag</div>
-                        <div class="col text-center" style="max-width: 80px;">Ações</div>
-                    </div>
-                </div>
-
-                <div *ngFor="let item of data" class="col-12 p-2 my-1 bg-primary-www rounded-3" >
-                    <div class="row fs-7">
-                        <div class="border-end col text-center" style="max-width: 80px;"><b>{{item.id}}</b></div>
-                        <div class="border-end col text-truncate text-start">{{item.name}}</div>
-                        <div class="border-end col text-truncate text-start">{{item.description}}</div>
-
-                        <div class="border-end col text-center" style="max-width: 80px;">
-                            <span class="badge" style="background-color: {{item.color}};">
-                                <small>{{item.name}}</small>
-                            </span>
-                        </div>
-
-                        <div class="col text-center" style="max-width: 80px;">
-                            <div ngbDropdown placement="bottom-right">
-                                <button class="btn-transparent" id="action" ngbDropdownToggle>
-                                    <i class="bi bi-three-dots-vertical"></i>
-                                </button>
-
-                                <div ngbDropdownMenu="action">
-                                    <button ngbDropdownItem type="button" (click)="Modal_Edit(item.id)">
-                                        <i class="bi bi-pencil-square me-2"></i>Editar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-         
-            </div>
-
-            <!-- Paginação -->
-            <app-pagination [totalItems]="totalItems" (OnPageChange)="ChangePage($event)"
-                (OnMaxItensChange)="ChangePageSize($event)"></app-pagination>
-        </div>
-
+    <div *ngIf="tabIndex == 1" class="row">
+        <app-tab-brand-new></app-tab-brand-new>
     </div>
-
 </app-window>

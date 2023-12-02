@@ -55,7 +55,6 @@ export class TabProductTableComponent {
     this.isLoading = true;
     await this.LoadTableData();
     this.ddl_categories_options = (await this.serviceCategory.AllPaginated({} as  FilterDto)).items;
-    console.log(this.ddl_categories_options);
     this.isLoading = false;
   }
 

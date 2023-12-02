@@ -25,7 +25,10 @@ export class UserService {
   ) { }
 
   async AllDetails(filters: FilterDto) {
-    var data: PaginatedResultDTO<User> = {} as PaginatedResultDTO<User>;
+    var data = {
+      items: [],
+      totalCount: 0
+    } as PaginatedResultDTO<User>;
 
     var request = this.http.post<PaginatedResultDTO<User>>(this.base_url + "all-details", filters);
 
@@ -41,12 +44,6 @@ export class UserService {
           console.log(e);
           this.serviceNotification.error("Erro ao carregar dados.");
         }
-
-        data = {
-          items: [],
-          totalCount: 0
-        } as PaginatedResultDTO<User>;
-
       });
 
     return data;
@@ -148,6 +145,20 @@ export class UserService {
       });
 
     return result;
+  }
+
+  async GetCurrentUser(): Promise<User|null> {
+    var result = {} as User;
+
+    var userGuid = localStorage.getItem('guid');
+
+    if (userGuid == null) 
+    {
+      this.serviceNotification.error("Erro ao obter usuário atual.");
+      return null;
+    }
+
+    return await this.GetByGuid(userGuid);
   }
 
   async GetByGuid(userGuid: string): Promise<User> {

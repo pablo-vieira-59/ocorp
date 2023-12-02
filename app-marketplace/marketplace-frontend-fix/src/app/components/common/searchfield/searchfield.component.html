@@ -1,20 +1,13 @@
-<div class="row card mt-2 pt-2 pb-2">
+<div class="row card mt-2 pt-2 pb-2 bg-white-d" style="width: 256px" id="searchfield_container">
     <div class="col-12">
         <div class="row fs-7">
-            <div class="col-6">
-                <i class="bi bi-funnel-fill"></i> 
-                Filtros
-            </div>
-            <div class="col-6" style="text-align: end;">
-                <div class="btn-group dropleft">
-                    <i class="bi bi-chevron-down" (click)="SetCollapse()"></i>
-                </div>
-                
-            </div>
+            <i class="bi bi-funnel-fill col ms-2 p-0"></i>
+            <label class="col m-0 p-0 text-center">Filtros</label>
+            <label class="col m-0 p-0 text-center">&nbsp;</label>
         </div>
     </div>
     
-    <div *ngIf="collapse" class="mt-1">
+    <div class="mt-1">
 
         <div class="col-12">
             <div class="row">
@@ -25,14 +18,14 @@
         <div class="col-12 mt-2">
             <div class="row justify-content-end">
                 
-                <div class="col-2">
+                <div class="col-6">
                     <h6 class="col-12">&nbsp;</h6>
                     <button class="col-12 btn btn-danger btn-sm" type="button" (click)="Clear()">
                         <i class="bi bi-x-lg"></i> Limpar
                     </button>
                 </div>
         
-                <div class="col-2">
+                <div class="col-6">
                     <h6 class="col-12">&nbsp;</h6>
                     <button class="col-12 btn btn-success btn-sm text-white" (click)="Filter()">
                         <i class="bi bi-funnel-fill"></i> Filtrar

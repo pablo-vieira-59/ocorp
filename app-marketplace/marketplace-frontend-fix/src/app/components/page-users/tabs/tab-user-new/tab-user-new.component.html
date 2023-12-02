@@ -1,0 +1,84 @@
+<div *ngIf="isLoading">
+    <app-spinner-black></app-spinner-black>
+</div>
+
+<div *ngIf="!isLoading">
+    <app-form-body>
+        <div class="row">
+            <div class="col-12">
+                <label class="fs-5">Dados</label>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-6 mt-2">
+                <label for="name" class="required">Nome</label>
+                <input id="name" [(ngModel)]="data.name" type="text" class="form-control"
+                    placeholder="Digite seu nome ..." (change)="ValidateField('name')">
+            </div>
+
+            <div class="col-6 mt-2">
+                <label for="documentNumber" class="required">CPF</label>
+                <input id="documentNumber" [(ngModel)]="data.documentNumber" [mask]="'000.000.000-00'" type="text"
+                    class="form-control" placeholder="Digite seu cpf ..." (change)="ValidateField('documentNumber')">
+            </div>
+
+            <div class="col-6 mt-2">
+                <label for="phoneNumber" class="required">Numero de Celular</label>
+                <input id="phoneNumber" [(ngModel)]="data.phoneNumber" [mask]="'(00) 00000-0000'" type="text"
+                    class="form-control" placeholder="Digite seu numero..." (change)="ValidateField('phoneNumber')">
+            </div>
+
+            <div class="col-6 mt-2">
+                <label for="email" class="required">E-Mail</label>
+                <input id="email" [(ngModel)]="data.email" type="text" class="form-control"
+                    placeholder="Digite seu e-mail ..." (change)="ValidateField('email')">
+            </div>
+
+            <div class="col-6 mt-2">
+                <label for="reg-password" class="required">Senha</label>
+                <input id="reg-password" [(ngModel)]="data.password" type="password" class="form-control"
+                    placeholder="Digite sua senha ..." (change)="ValidateField('reg-password')">
+            </div>
+
+            <div class="col-6 mt-2">
+                <label for="confirmPassword" class="required">Confirmar Senha</label>
+                <input id="confirmPassword" [(ngModel)]="data.confirmPassword" type="password" class="form-control"
+                    placeholder="Digite sua senha ..." (change)="ValidateField('confirmPassword')">
+            </div>
+
+            <div class="col-6 mt-2">
+                <label for="profile" class="required">Perfil</label>
+                <select class="form-select" id="profile"
+                    [(ngModel)]="data.profileId" (change)="ValidateField('profile')">
+                    <option value="" selected>Selecione um perfil ...</option>
+                    <option *ngFor="let option of ddl_profile_options"
+                        value="{{option.id}}">{{option.name}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-6 mt-2">
+                <label for="birthdayDate" class="required">Data de nascimento</label>
+                <input id="birthdayDate" [(ngModel)]="data.birthdayDate" type="date"
+                    class="form-control" placeholder="Digite sua data de nascimento ..." (change)="ValidateField('birthdayDate')">
+            </div>
+        </div>
+    
+        <div class="row mt-4">
+            <div class="col-12">
+                <label class="fs-5">Endereço</label>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row mt-2">   
+            <app-address-form [(data)]="address" [(isFormValid)]="isAddressValid"></app-address-form>
+        </div>
+    </app-form-body>
+    
+    <app-form-bottom>
+        <button class="btn btn-success text-light" [disabled]="!IsFormValid()" (click)="Submit()">Adicionar</button>
+    </app-form-bottom>
+</div>

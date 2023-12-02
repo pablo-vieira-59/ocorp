@@ -1,0 +1,43 @@
+<div *ngIf="isLoading">
+    <app-spinner-black></app-spinner-black>
+</div>
+
+<div *ngIf="!isLoading">
+    <app-form-body>
+        <div class="row">
+            <div class="col-12">
+                <label class="fs-5">Dados</label>
+                <hr>
+            </div>
+
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-4">
+                        <label for="brand" class="required">Nome</label>
+                        <input id="brand" [(ngModel)]="data.name" type="text" class="form-control"
+                            placeholder="Digite o nome da marca ..." (change)="ValidateField('brand')">
+                    </div>
+    
+                    <div class="col-7">
+                        <label for="description" class="required">Descrição</label>
+                        <input id="description" [(ngModel)]="data.description" type="text" class="form-control"
+                            placeholder="Digite uma descrição..." (change)="ValidateField('description')">
+                    </div>
+    
+                    <div class="col-1">
+                        <label for="color" class="required">Cor</label>
+                        <input type="color" class="form-control form-control-color" id="color" [(ngModel)]="data.color"
+                            title="Choose your color">
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+        
+
+    </app-form-body>
+    
+    <app-form-bottom>
+        <button class="btn btn-success text-light" [disabled]="!IsFormValid()" (click)="Submit()">Adicionar</button>
+    </app-form-bottom>
+</div>

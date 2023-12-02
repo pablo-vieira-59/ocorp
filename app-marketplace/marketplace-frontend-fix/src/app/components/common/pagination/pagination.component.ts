@@ -48,7 +48,7 @@ export class PaginationComponent {
     var start = this.page;
     var end = this.page;
 
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 1; i++) {
       if(start - 1 > 0){
         start -= 1;
       }

@@ -1,117 +1,12 @@
-<app-window>
+<app-window title="Usuários" icon="bi bi-person-fill">
     <div class="row">
-        <div class="col fs-5">
-            <i class="bi bi-person-fill"></i>
-            Usuários
-        </div>
-        <div class="col p-0 text-end">
-            <button type="button" class="btn btn-outline-primary" (click)="Modal_Register()">
-                Adicionar <i class="bi bi-plus-lg"></i>
-            </button>
-        </div>
+        <app-tab [tabs]="tabs" [(index)]="tabIndex"></app-tab>
     </div>
 
-    <!-- SearchFields -->
-    <app-searchfield (OnFilter)="LoadTableData()">
-        <div class="col-4 mt-2">
-            <app-basefield [fieldType]="0" [items]="ddl_profile_options" label="Perfil"
-                placeholder="Selecione um Perfil ..." notFoundText="Nenhum Item Encontrado"
-                [(selected_item)]="searchField_profile_id.value">
-            </app-basefield>
-        </div>
-        <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Nome" placeholder="Digite um nome ..."
-                [(text_value)]="searchField_name.value">
-            </app-basefield>
-        </div>
-        <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Numero de documento" placeholder="Digite um numero ..."
-                [(text_value)]="searchField_document.value" [mask]="'000.000.000-00'">
-            </app-basefield>
-        </div>
-        <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Email" placeholder="Digite um e-mail ..."
-                [(text_value)]="searchField_email.value">
-            </app-basefield>
-        </div>
-        <div class="col-4 mt-2">
-            <app-basefield [fieldType]="2" label="Telefone" placeholder="Digite um telefone ..."
-                [(text_value)]="searchField_phoneNumber.value" mask="(00) 00000-0000">
-            </app-basefield>
-        </div>
-    </app-searchfield>
-
-    <!-- Spinner -->
-    <div class="row" *ngIf="isLoading">
-        <app-spinner-black></app-spinner-black>
+    <div *ngIf="tabIndex == 0" class="row">
+        <app-tab-user-table></app-tab-user-table>
     </div>
-
-    <!-- Tabela -->
-    <div class="row card mt-2 p-2 ">
-        <div class="col-12">
-            <!-- Mensagem de não encontrado -->
-            <div class="row text-center py-4 mt-3" *ngIf="users.length == 0 && !isLoading">
-                <h5>Nenhum resultado encontrado.</h5>
-            </div>
-
-            <!-- Tabela -->
-            <div class="row" *ngIf="users.length > 0 && !isLoading">
-                <div class="col-12 p-2 my-1">
-                    <div class="row fs-7 text-muted">
-                        <div class="border-end col text-center" style="max-width: 80px;">#</div>
-                        <div class="border-end col text-center text-truncate">Nome</div>
-                        <div class="border-end col text-center text-truncate">Email</div>
-                        <div class="border-end col text-center text-truncate">Telefone</div>
-                        <div class="border-end col text-center text-truncate">CPF</div>
-                        <div class="border-end col text-center" style="max-width: 120px;">Perfil</div>
-                        <div class="border-end col text-center" style="max-width: 80px;">Status</div>
-                        <div class="col text-center" style="max-width: 80px;">Ações</div>
-                    </div>
-                </div>
-
-                <div *ngFor="let item of users" class="col-12 p-2 my-1 bg-primary-www rounded-3">
-                    <div class="row fs-7">
-                        <div class="border-end col text-center" style="max-width: 80px;"><b>{{item.id}}</b></div>
-                        <div class="border-end col text-truncate">{{item.name}}</div>
-                        <div class="border-end col text-truncate">{{item.email}}</div>
-                        <div class="border-end col text-center text-truncate">{{item.phoneNumber | mask : '(00)
-                            00000-0000'}}</div>
-                        <div class="border-end col text-center text-truncate">{{item.documentNumber | mask
-                            :'000.000.000-00'}}</div>
-
-                        <div class="border-end col text-center" style="max-width: 120px;">
-                            <span [ngClass]="GetSpanClass(item.profileId)"
-                                class="badge"><small>{{item.profile.name}}</small></span>
-                        </div>
-
-                        <div class="border-end col text-center" style="max-width: 80px;">
-                            <span class="badge bg-primary-w">
-                                <small>Ativo</small>
-                            </span>
-                        </div>
-
-                        <div class="col text-center" style="max-width: 80px;">
-                            <div ngbDropdown placement="bottom-right">
-                                <button class="btn-transparent" id="action" ngbDropdownToggle>
-                                    <i class="bi bi-three-dots-vertical"></i>
-                                </button>
-
-                                <div ngbDropdownMenu="action">
-                                    <button ngbDropdownItem type="button" (click)="Modal_Edit(item.id)">
-                                        <i class="bi bi-pencil-square me-2"></i>Editar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- Paginação -->
-            <app-pagination [totalItems]="totalItems" (OnPageChange)="ChangePage($event)"
-                (OnMaxItensChange)="ChangePageSize($event)"></app-pagination>
-        </div>
-
+    <div *ngIf="tabIndex == 1" class="row">
+        <app-tab-user-new (OnSuccess)="tabIndex=0"></app-tab-user-new >
     </div>
 </app-window>

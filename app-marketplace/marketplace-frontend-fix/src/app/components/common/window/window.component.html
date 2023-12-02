@@ -1,10 +1,12 @@
-<style>
-    
-</style>
-
 <div class="row m-0 p-2" style="min-height: 100%;">
     <div class="col m-0 bg-white rounded shadow page">
         <div class="p-2">
+            <div *ngIf="title != null && title != ''" class="row mb-2">
+                <div class="col fs-5">
+                    <i class="{{icon}}"></i>
+                    {{title}}
+                </div>
+            </div>
             <ng-content></ng-content>
         </div>
     </div>

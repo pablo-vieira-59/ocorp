@@ -1,14 +1,6 @@
-<app-window>
-    <div class="row mb-2">
-        <div class="col fs-5">
-            <i class="bi bi-box-seam-fill"></i>
-            Produtos
-        </div>
-    </div>
-
+<app-window title="Produtos" icon="bi bi-box-seam-fill">
     <div class="row">
-        <app-tab [tabs]="['Consulta', 'Adicionar']" [icons]="['bi bi-search','bi bi-plus-lg']"
-            [(index)]="tabIndex"></app-tab>
+        <app-tab [tabs]="tabs" [(index)]="tabIndex"></app-tab>
     </div>
 
     <div *ngIf="tabIndex == 0" class="row">

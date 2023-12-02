@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { FilterDto, Paging, SearchField } from 'src/app/models/DTO/FilterDto';
-import { Product } from 'src/app/models/Entities/Product';
-import { ProductService } from 'src/app/services/product.service';
+import { TabItem } from 'src/app/models/Components/TabItem';
 
 @Component({
   selector: 'app-page-products',
@@ -11,4 +8,10 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class PageProductsComponent {
   tabIndex = 0;
+
+  tabs :TabItem[] = [
+    {name:"Consulta", icon:"bi bi-search", isVisible:true, permissions:[]},
+    {name:"Adicionar", icon:"bi bi-plus-lg", isVisible:true, permissions:[]},
+    {name:"Editar", icon:"bi bi-pencil", isVisible:false, permissions:[]},
+  ];
 }
