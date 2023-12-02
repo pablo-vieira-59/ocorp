@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
-    localUrl: 'https://10.0.0.50:4200/',
-    ambient: "Development"
+    backendUrl: 'https://localhost:7261/',
+    cdnUrl: 'http://ocorp.viewdns.net:4201/',
+    ambient: "Dev"
 };
