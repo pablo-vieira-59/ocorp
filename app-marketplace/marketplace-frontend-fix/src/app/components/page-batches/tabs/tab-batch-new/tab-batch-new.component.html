@@ -3,6 +3,10 @@
         [enableStepChange]="false"></app-progress-bar>
 </div>
 
+<div *ngIf="isLoading">
+    <app-spinner-black></app-spinner-black>
+</div>
+
 <div *ngIf="!isLoading">
     <div class="col-12 mt-4">
         <app-form-body>
@@ -82,8 +86,4 @@
                 (click)="Submit()">Adicionar</button>
         </app-form-bottom>
     </div>
-</div>
-
-<div *ngIf="isLoading">
-    <app-spinner-black></app-spinner-black>
 </div>

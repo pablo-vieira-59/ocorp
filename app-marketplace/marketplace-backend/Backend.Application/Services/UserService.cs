@@ -133,20 +133,20 @@ namespace Backend.Application.Services
 
             if (userAccess == null) 
             {
-                return new FailServiceResultStruct<bool>("Usuário não encontrado.");
+                return new FailServiceResult<bool>("Usuário não encontrado.");
             }
 
             if (userAccess.Token != userToken)
             {
-                return new FailServiceResultStruct<bool>("Token inválido.");
+                return new FailServiceResult<bool>("Token inválido.");
             }
 
             if(userAccess.TokenValidUntil < DateTime.UtcNow)
             {
-                return new FailServiceResultStruct<bool>("Token expirado.");
+                return new FailServiceResult<bool>("Token expirado.");
             }
 
-            return new OkServiceResultStruct<bool>(true);
+            return new OkServiceResult<bool>(true);
         }
 
         public async Task<ServiceResult<bool>> CreateUserAsync(UserCreateDTO request, User? currentUser)
@@ -156,14 +156,14 @@ namespace Backend.Application.Services
             // Valida usuário
             if (hasUser)
             {
-                return new FailServiceResultStruct<bool>("Email já cadastrado.");
+                return new FailServiceResult<bool>("Email já cadastrado.");
             }
             
             // Valida CPF
             hasUser = (await _userRepository.GetByProperty("DocumentNumber", request.DocumentNumber).FirstOrDefaultAsync()) != null;
             if (hasUser)
             {
-                return new FailServiceResultStruct<bool>("CPF já cadastrado.");
+                return new FailServiceResult<bool>("CPF já cadastrado.");
             }
 
             // Valida permissão de Perfil
@@ -172,7 +172,7 @@ namespace Backend.Application.Services
                 var hasPermission = await this.CheckProfilePermission(request.ProfileId, currentUser);
                 if (!hasPermission)
                 {
-                    return new FailServiceResultStruct<bool>("Sem permissão para realizar essa ação.");
+                    return new FailServiceResult<bool>("Sem permissão para realizar essa ação.");
                 }
             }
             
@@ -180,7 +180,7 @@ namespace Backend.Application.Services
             var isDateValid = DateTime.TryParseExact(request.BirthdayDate, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AdjustToUniversal, out birthDay);
             if (!isDateValid)
             {
-                return new FailServiceResultStruct<bool>("Data inválida.");
+                return new FailServiceResult<bool>("Data inválida.");
             }
 
             Guid? image = null;
@@ -244,7 +244,7 @@ namespace Backend.Application.Services
 
             await _userRepository.AddAsync(newUser);
 
-            return new OkServiceResultStruct<bool>(true);
+            return new OkServiceResult<bool>(true);
         }
 
         public async Task<ServiceResult<User>> GetDetails(long id)
@@ -284,10 +284,10 @@ namespace Backend.Application.Services
 
             if(permissions.Contains((int)permission))
             {
-                return new OkServiceResultStruct<bool>(true);
+                return new OkServiceResult<bool>(true);
             }
 
-            return new OkServiceResultStruct<bool>(false);
+            return new OkServiceResult<bool>(false);
         }
     
         public async Task<ServiceResult<bool>> EditUser(UserEditDTO request, User? currentUser)
@@ -296,21 +296,21 @@ namespace Backend.Application.Services
 
             if(!hasPermission)
             {
-                return new FailServiceResultStruct<bool>("Sem permissão para realizar essa ação.");
+                return new FailServiceResult<bool>("Sem permissão para realizar essa ação.");
             }
 
             var user = await _userRepository.GetByProperty("Id", request.Id.ToString()).FirstOrDefaultAsync();
 
             if(user == null)
             {
-                return new FailServiceResultStruct<bool>("Usuário não encontrado.");
+                return new FailServiceResult<bool>("Usuário não encontrado.");
             }
 
             DateTime birthDay;
             var isDateValid = DateTime.TryParseExact(request.BirthdayDate, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AdjustToUniversal, out birthDay);
             if (!isDateValid)
             {
-                return new FailServiceResultStruct<bool>("Data inválida.");
+                return new FailServiceResult<bool>("Data inválida.");
             }
 
             user.Name = request.Name;
@@ -340,7 +340,7 @@ namespace Backend.Application.Services
             }
             
 
-            return new OkServiceResultStruct<bool>(true);
+            return new OkServiceResult<bool>(true);
         }
 
         private async Task<bool> CheckProfilePermission(int profileId, User? currentUser)

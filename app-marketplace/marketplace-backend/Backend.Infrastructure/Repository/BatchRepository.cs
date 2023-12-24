@@ -39,5 +39,11 @@ namespace Backend.Infrastructure.Repository
             var result = await _context.BatchStatus.ToListAsync();
             return result;
         }
+
+        public async Task<List<BatchHistory>> GetBatchHistory(long batchId)
+        {
+            var result = await BatchHistory.ToBasic(_context.BatchHistory.Where(x => x.BatchId == batchId)).ToListAsync();
+            return result;
+        }
     }
 }

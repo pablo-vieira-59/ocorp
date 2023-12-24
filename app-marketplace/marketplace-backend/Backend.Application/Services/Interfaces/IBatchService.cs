@@ -10,6 +10,7 @@ namespace Backend.Application.Services.Interfaces
         Task<ServiceResult<Batch>> GetById(long id);
         Task<ServiceResult<bool>> Create(BatchCreateDTO request, User currentUser);
         Task<ServiceResult<List<BatchStatus>>> GetStatusList();
+        Task<ServiceResult<List<BatchHistory>>> GetBatchHistory(long id);
         Task<ServiceResult<bool>> Edit(BatchChangeStatusDTO request, User currentUser);
     }
 }

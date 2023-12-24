@@ -12,9 +12,15 @@
     </div>
 
     <div *ngIf="tabIndex == 0" class="row">
-        <app-tab-batch-table></app-tab-batch-table>
+        <app-tab-batch-table (OnAction)="LoadAction($event)"></app-tab-batch-table>
     </div>
     <div *ngIf="tabIndex == 1" class="row">
         <app-tab-batch-new (OnSuccess)="tabIndex=0"></app-tab-batch-new>
+    </div>
+    <div *ngIf="tabIndex == 2" class="row">
+        <app-tab-batch-edit [batchId]="selectedId" (OnSuccess)="tabIndex=0"></app-tab-batch-edit>
+    </div>
+    <div *ngIf="tabIndex == 3" class="row">
+        <app-tab-batch-history [batchId]="selectedId" (OnSuccess)="tabIndex=0"></app-tab-batch-history>
     </div>
 </app-window>

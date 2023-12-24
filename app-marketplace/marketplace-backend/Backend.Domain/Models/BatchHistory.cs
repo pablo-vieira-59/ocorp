@@ -12,7 +12,10 @@ namespace Backend.Domain.Models
         public int BatchStatusIdTo { get; set; }
         public string? Message { get; set; }
         public DateTime? CreatedAt { get; set; }
+
         public virtual Batch? Batch { get; set; }
+        public virtual User? User { get; set; }
+        public virtual BatchStatus? ToStatus { get; set; }
 
         public class Map : IEntityTypeConfiguration<BatchHistory>
         {
@@ -27,7 +30,27 @@ namespace Backend.Domain.Models
                 entityBuilder.Property(x => x.CreatedAt).IsRequired();
 
                 entityBuilder.HasOne(x => x.Batch).WithMany(x => x.BatchHistory).HasForeignKey(x => x.BatchId);
+                entityBuilder.HasOne(x => x.User).WithMany(x => x.BatchHistories).HasForeignKey(x => x.UserId);
+                entityBuilder.HasOne(x => x.ToStatus).WithMany(x => x.BatchHistories).HasForeignKey(x => x.BatchStatusIdTo);
             }
+        }
+
+        public static IQueryable<BatchHistory> ToBasic(IQueryable<BatchHistory> query)
+        {
+            var result = query.Select(e => new BatchHistory
+            {
+                Id = e.Id,
+                BatchId = e.BatchId,
+                UserId = e.UserId,
+                Message = e.Message,
+                CreatedAt = e.CreatedAt,
+                ToStatus = e.ToStatus,
+                BatchStatusIdTo = e.BatchStatusIdTo,
+                BatchStatusIdFrom = e.BatchStatusIdFrom,
+                User = e.User
+            });
+
+            return result;
         }
     }
 }

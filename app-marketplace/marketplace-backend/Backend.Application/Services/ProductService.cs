@@ -60,7 +60,7 @@ namespace Backend.Application.Services
 
             if (existing != null)
             {
-                return new FailServiceResultStruct<bool>("Produto com mesmo nome já cadastrado.");
+                return new FailServiceResult<bool>("Produto com mesmo nome já cadastrado.");
             }
 
             
@@ -89,7 +89,7 @@ namespace Backend.Application.Services
 
             _productRepository.CreateProduct(product, brands);
 
-            return new OkServiceResultStruct<bool>(true);
+            return new OkServiceResult<bool>(true);
         }
 
         public async Task<ServiceResult<Product>> GetById(long profileId)

@@ -74,7 +74,7 @@ namespace Backend.Application.Services
 
             if(existing != null)
             {
-                return new FailServiceResultStruct<bool>("CNPJ do Fornecedor já está cadastrado.");
+                return new FailServiceResult<bool>("CNPJ do Fornecedor já está cadastrado.");
             }
 
             var supplier = new Supplier
@@ -88,7 +88,7 @@ namespace Backend.Application.Services
 
             await _supplierRepository.AddAsync(supplier);
 
-            return new OkServiceResultStruct<bool>(true);
+            return new OkServiceResult<bool>(true);
         }
 
         public async Task<ServiceResult<bool>> Edit(SupplierEditDTO request, User currentUser)
@@ -97,7 +97,7 @@ namespace Backend.Application.Services
 
             if (existing == null)
             {
-                return new FailServiceResultStruct<bool>("Fornecedor não encontrado.");
+                return new FailServiceResult<bool>("Fornecedor não encontrado.");
             }
 
             existing.FantasyName = request.FantasyName;
@@ -106,7 +106,7 @@ namespace Backend.Application.Services
 
             await _supplierRepository.UpdateAsync(existing);
 
-            return new OkServiceResultStruct<bool>(true);
+            return new OkServiceResult<bool>(true);
         }
     }
 }

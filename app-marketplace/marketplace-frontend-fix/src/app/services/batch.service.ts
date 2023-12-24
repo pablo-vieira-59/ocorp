@@ -8,6 +8,7 @@ import { PaginatedResultDTO } from '../models/DTO/PaginatedResultDTO';
 import { Batch } from '../models/Entities/Batch';
 import { BatchCreateDTO } from '../models/DTO/BatchCreateDTO';
 import { BatchStatus } from '../models/Entities/BatchStatus';
+import { BatchHistory } from '../models/Entities/BatchHistory';
 
 @Injectable({
   providedIn: 'root'
@@ -121,6 +122,26 @@ export class BatchService {
       }
       else{
         this.serviceNotification.error("Erro ao obter status dos lotes.");
+      }
+    });
+
+    return result;
+  }
+
+  async GetHistory(id :number){
+    var request = this.http.get<BatchHistory[]>(this.base_url + "history/" + id);
+    var result = {} as BatchHistory[];
+
+    await lastValueFrom(await request)
+    .then((response) => {
+      result = response;
+    })
+    .catch((e) => {
+      if(e.error != null){
+        this.serviceNotification.error(e.error);
+      }
+      else{
+        this.serviceNotification.error("Erro ao obter historico do Lote.");
       }
     });
 

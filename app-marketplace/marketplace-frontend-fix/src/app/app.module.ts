@@ -86,6 +86,9 @@ import { TabSupplierNewComponent } from './components/page-suppliers/tabs/tab-su
 import { TabSupplierTableComponent } from './components/page-suppliers/tabs/tab-supplier-table/tab-supplier-table.component';
 import { TabCategoryTableComponent } from './components/page-categories/tabs/tab-category-table/tab-category-table.component';
 import { TabCategoryNewComponent } from './components/page-categories/tabs/tab-category-new/tab-category-new.component';
+import { TabBatchHistoryComponent } from './components/page-batches/tabs/tab-batch-history/tab-batch-history.component';
+import { HistoryCardComponent } from './components/common/history-card/history-card.component';
+import { TabBatchEditComponent } from './components/page-batches/tabs/tab-batch-edit/tab-batch-edit.component';
 
 export const options: Partial<null | IConfig> | (() => Partial<IConfig>) = null;
 
@@ -160,6 +163,9 @@ registerLocaleData(localePt, 'pt');
     TabSupplierTableComponent,
     TabCategoryTableComponent,
     TabCategoryNewComponent,
+    TabBatchHistoryComponent,
+    HistoryCardComponent,
+    TabBatchEditComponent,
   ],
   imports: [
     HttpClientModule,

@@ -41,8 +41,8 @@ namespace Backend.Application.Services
                 FabricatedAt = x.FabricatedAt,
                 OrderedAt = x.OrderedAt,
                 BatchStatus = x.BatchStatus,
-                Product = new Product { Name = x.Product!.Name},
-                Address = new Address { ZipCode = x.Address!.ZipCode},
+                Product = new Product { Name = x.Product!.Name },
+                Address = new Address { ZipCode = x.Address!.ZipCode },
                 TotalPrice = x.TotalPrice,
                 TotalUnits = x.TotalUnits,
             }).ToListAsync();
@@ -69,7 +69,7 @@ namespace Backend.Application.Services
         {
             var product = await Batch.ToBasic(_batchRepository.GetByProperty("Id", id.ToString())).FirstOrDefaultAsync();
 
-            if(product == null)
+            if (product == null)
             {
                 return new FailServiceResult<Batch>("Produto não encontrado.");
             }
@@ -78,14 +78,14 @@ namespace Backend.Application.Services
 
             return result;
         }
-    
+
         public async Task<ServiceResult<bool>> Create(BatchCreateDTO request, User currentUser)
         {
             var existing = await _batchRepository.GetByProperty("Serial", request.Serial).FirstOrDefaultAsync();
 
             if (existing != null)
             {
-                return new FailServiceResultStruct<bool>("Lote já cadastrado.");
+                return new FailServiceResult<bool>("Lote já cadastrado.");
             }
 
             var totalPrice = (request.UnitPrice * request.TotalUnits) + request.FreightPrice;
@@ -125,7 +125,7 @@ namespace Backend.Application.Services
 
             await _batchRepository.AddAsync(batch);
 
-            return new OkServiceResultStruct<bool>(true);
+            return new OkServiceResult<bool>(true);
         }
 
         public async Task<ServiceResult<bool>> Edit(BatchChangeStatusDTO request, User currentUser)
@@ -134,13 +134,13 @@ namespace Backend.Application.Services
 
             if (batch == null)
             {
-                return new FailServiceResultStruct<bool>("Lote não encontrado.");
+                return new FailServiceResult<bool>("Lote não encontrado.");
             }
 
             var product = await _productRepository.GetByProperty("Id",batch.ProductId.ToString()).FirstOrDefaultAsync();
             if (product == null)
             {
-                return new FailServiceResultStruct<bool>("Produto não encontrado.");
+                return new FailServiceResult<bool>("Produto não encontrado.");
             }
 
             var history = new BatchHistory
@@ -178,7 +178,7 @@ namespace Backend.Application.Services
                     break;
 
                 default:
-                    return new FailServiceResultStruct<bool>("Status não encontrado.");
+                    return new FailServiceResult<bool>("Status não encontrado.");
             }
 
             if(request.Message != null)
@@ -192,10 +192,10 @@ namespace Backend.Application.Services
 
             if (result)
             {
-                return new OkServiceResultStruct<bool>(true);
+                return new OkServiceResult<bool>(true);
             }
 
-            return new FailServiceResultStruct<bool>("Falha ao alterar lote.");
+            return new FailServiceResult<bool>("Falha ao alterar lote.");
         }
     
         public async Task<ServiceResult<List<BatchStatus>>> GetStatusList()
@@ -203,6 +203,15 @@ namespace Backend.Application.Services
             var status = await _batchRepository.GetStatusList();
 
             return new OkServiceResult<List<BatchStatus>>(status);
+        }
+
+        public async Task<ServiceResult<List<BatchHistory>>> GetBatchHistory(long id)
+        {
+            var history = await _batchRepository.GetBatchHistory(id);
+
+            var result = new OkServiceResult<List<BatchHistory>>(history);
+
+            return result;
         }
     }
 }

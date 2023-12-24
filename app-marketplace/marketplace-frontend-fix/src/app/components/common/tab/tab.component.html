@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs fs-5">
+<ul class="nav nav-tabs fs-6">
     <li *ngFor="let item of tabs; index as i" class="nav-item">
         <button class="nav-link p-0" (click)="SetIndex(i)" [ngClass]="{'active': i == index}" *ngIf="item.isVisible">
             <div *ngIf="i == index" class="bg-primary" style="height: 4px; border-radius: 4px 4px 0px 0px;">&nbsp;</div>        

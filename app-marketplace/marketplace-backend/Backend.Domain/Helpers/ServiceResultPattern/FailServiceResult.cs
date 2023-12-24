@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Domain.Helpers.ServiceResultPattern
 {
-    public class FailServiceResult<T> : ServiceResult<T> where T : class
+    public class FailServiceResult<T> : ServiceResult<T>
     {
         public FailServiceResult(string message, List<string> errors)
         {
@@ -16,15 +16,6 @@ namespace Backend.Domain.Helpers.ServiceResultPattern
         }
 
         public FailServiceResult(string message)
-        {
-            Success = false;
-            Message = message;
-        }
-    }
-
-    public class FailServiceResultStruct<T> : ServiceResult<T> where T : struct
-    {
-        public FailServiceResultStruct(string message)
         {
             Success = false;
             Message = message;

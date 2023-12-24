@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FilterDto, Paging, SearchField } from 'src/app/models/DTO/FilterDto';
 import { Batch } from 'src/app/models/Entities/Batch';
@@ -6,6 +6,7 @@ import { BatchService } from 'src/app/services/batch.service';
 import { ModalBatchEditComponent } from '../../modals/modal-batch-edit/modal-batch-edit.component';
 import { Product } from 'src/app/models/Entities/Product';
 import { ProductService } from 'src/app/services/product.service';
+import { TableActionEvent } from 'src/app/models/Components/TableActionEvent';
 
 @Component({
   selector: 'app-tab-batch-table',
@@ -13,6 +14,9 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./tab-batch-table.component.scss']
 })
 export class TabBatchTableComponent {
+  @Output()
+  OnAction = new EventEmitter<TableActionEvent>();
+
   searchField_name :SearchField = {property:"Name", value:null, operator:"like"};
   searchField_productId :SearchField = {property:"ProductId", value:null, operator:"=="};
 
@@ -103,6 +107,11 @@ export class TabBatchTableComponent {
     this.modalRef.onHidden.subscribe(() => {
       this.LoadTableData();
     });
+  }
+
+  SelectAction(actionId:number, batchId :number){
+    var event = {actionId:actionId, entityId:batchId} as  TableActionEvent;
+    this.OnAction.emit(event);
   }
 
   ClearSearch(){

@@ -74,16 +74,16 @@ namespace Backend.Application.Services
 
             if (existing != null)
             {
-                return new FailServiceResultStruct<bool>("Categoria já cadastrada.");
+                return new FailServiceResult<bool>("Categoria já cadastrada.");
             }
 
             if(request.SubCategories.Select(x => x.Name!.ToLower()).Distinct().Count() != request.SubCategories.Count)
             {
-                return new FailServiceResultStruct<bool>("Subcategorias duplicadas.");
+                return new FailServiceResult<bool>("Subcategorias duplicadas.");
             }
 
             var category = new Category
-            {
+            {   
                 Name = request.Name,
                 Color = request.Color,
                 ClientId = currentUser.ClientId,
@@ -104,7 +104,7 @@ namespace Backend.Application.Services
 
             await _categoryRepository.AddAsync(category);
 
-            return new OkServiceResultStruct<bool>(true);
+            return new OkServiceResult<bool>(true);
         }
 
         public async Task<ServiceResult<bool>> Edit(CategoryEditDTO request, User currentUser)
@@ -113,19 +113,19 @@ namespace Backend.Application.Services
 
             if (category == null)
             {
-                return new FailServiceResultStruct<bool>("Categoria não encontrada.");
+                return new FailServiceResult<bool>("Categoria não encontrada.");
             }
 
             var existing = await _categoryRepository.GetByProperty("Name", request.Name).FirstOrDefaultAsync();
 
             if (existing != null && existing.Id != category.Id)
             {
-                return new FailServiceResultStruct<bool>("Categoria já cadastrada.");
+                return new FailServiceResult<bool>("Categoria já cadastrada.");
             }
 
             if (request.SubCategories.Select(x => x.Name!.ToLower()).Distinct().Count() != request.SubCategories.Count)
             {
-                return new FailServiceResultStruct<bool>("Subcategorias duplicadas.");
+                return new FailServiceResult<bool>("Subcategorias duplicadas.");
             }
 
             category.Color = request.Color;
@@ -137,7 +137,7 @@ namespace Backend.Application.Services
 
                 if(existingName != null && existingName.Id != subcategory.Id)
                 {
-                    return new FailServiceResultStruct<bool>("Subcategoria duplicada.");
+                    return new FailServiceResult<bool>("Subcategoria duplicada.");
                 }
 
                 var existingSub = category.SubCategories!.Where(x => x.Id == subcategory.Id).FirstOrDefault();
@@ -161,7 +161,7 @@ namespace Backend.Application.Services
 
             await _categoryRepository.UpdateAsync(category);
 
-            return new OkServiceResultStruct<bool>(true);
+            return new OkServiceResult<bool>(true);
         }
 
     }

@@ -1,8 +1,8 @@
-<div class="p-2 bg-white shadow rounded">
+<div class="p-0 bg-white shadow rounded-1">
     <div *ngIf="title != ''" class="col-12">
-        <h6>{{title}}</h6>
-        <hr>
+        <h6 class="my-auto p-2">{{title}}</h6>
     </div>
+    <hr *ngIf="title != ''" class="m-0">
     <div class="col-12">
         <ng-content></ng-content>
     </div>

@@ -75,7 +75,7 @@ namespace Backend.Application.Services
 
             if(!userPermissions.Select(x => x.Id).Contains((int)PermissionEnum.Cadastro_Estabelecimento))
             {
-                return new FailServiceResultStruct<bool>("Sem permissão para realizar ação.");
+                return new FailServiceResult<bool>("Sem permissão para realizar ação.");
             }
 
             var query = _establishmentRepository.GetByProperty("DocumentNumber", establishmentDTO.DocumentNumber);
@@ -84,7 +84,7 @@ namespace Backend.Application.Services
 
             if(establishment != null)
             {
-                return new FailServiceResultStruct<bool>("CNPJ já cadastrado.");
+                return new FailServiceResult<bool>("CNPJ já cadastrado.");
             }
 
             var newEstablishment = new Establishment
@@ -110,7 +110,7 @@ namespace Backend.Application.Services
 
             await this._establishmentRepository.AddAsync(newEstablishment);
 
-            return new OkServiceResultStruct<bool>(true);
+            return new OkServiceResult<bool>(true);
         }
     
         public async Task<ServiceResult<List<Establishment>>> GetClientEstablishments(long clientId)

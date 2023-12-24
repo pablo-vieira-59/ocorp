@@ -30,6 +30,7 @@ namespace Backend.Domain.Models
 
         public virtual List<Address_User>? Address_Users { get; set; }
         public virtual List<User_Establishment>? User_Establishments { get; set; }
+        public virtual List<BatchHistory>? BatchHistories { get; set; }
 
         public static IQueryable<User> ToBasic(IQueryable<User> query)
         {

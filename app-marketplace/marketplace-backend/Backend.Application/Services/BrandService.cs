@@ -80,7 +80,7 @@ namespace Backend.Application.Services
 
             await _brandRepository.AddAsync(brand);
 
-            return new OkServiceResultStruct<bool>(true);
+            return new OkServiceResult<bool>(true);
         }
 
         public async Task<ServiceResult<bool>> Edit(BrandEditDTO request, User currentUser)
@@ -89,7 +89,7 @@ namespace Backend.Application.Services
 
             if(brand == null)
             {
-                return new FailServiceResultStruct<bool>("Marca não encontrada.");
+                return new FailServiceResult<bool>("Marca não encontrada.");
             }
 
             brand.Color = request.Color;
@@ -98,7 +98,7 @@ namespace Backend.Application.Services
 
             await _brandRepository.UpdateAsync(brand);
 
-            return new OkServiceResultStruct<bool>(true);
+            return new OkServiceResult<bool>(true);
         }
 
     }

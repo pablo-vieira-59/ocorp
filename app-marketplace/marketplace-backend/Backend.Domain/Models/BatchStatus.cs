@@ -9,6 +9,7 @@ namespace Backend.Domain.Models
         public string? Name { get; set; }
         public string? Color { get; set; }
         public virtual List<Batch>? Batches { get; set; }
+        public virtual List<BatchHistory>? BatchHistories { get; set; }
 
         public class Map : IEntityTypeConfiguration<BatchStatus>
         {

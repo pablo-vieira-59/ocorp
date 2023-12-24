@@ -144,5 +144,28 @@ namespace App.Backend.Livraria.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("history/{id}")]
+        public async Task<IActionResult> GetHistory(long id)
+        {
+            try
+            {
+                var result = await _batchService.GetBatchHistory(id);
+
+                if (result.Success)
+                {
+                    return Ok(result.Value);
+                }
+
+                return BadRequest(result.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"BatchController - GetStatusList - {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+
+        }
+
     }
 }

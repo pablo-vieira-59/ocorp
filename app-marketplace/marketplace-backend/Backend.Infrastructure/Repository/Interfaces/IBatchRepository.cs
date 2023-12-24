@@ -11,5 +11,6 @@ namespace Backend.Infrastructure.Repository.Interfaces
     {
         public bool ChangeStatus(Batch batch, Product product, BatchHistory batchHistory);
         public Task<List<BatchStatus>> GetStatusList();
+        public Task<List<BatchHistory>> GetBatchHistory(long batchId);
     }
 }

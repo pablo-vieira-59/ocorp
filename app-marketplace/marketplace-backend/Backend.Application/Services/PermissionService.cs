@@ -58,7 +58,7 @@ namespace Backend.Application.Services
         {
             var profilePermissions = (await this.GetByProfile(profileId)).Value;
 
-            if (profilePermissions == null) return new FailServiceResultStruct<bool>("Permissões não encontradas");
+            if (profilePermissions == null) return new FailServiceResult<bool>("Permissões não encontradas");
 
             var currentPermissionsIds = profilePermissions.Select(x => x.Id).ToList();
             var newPermissionsIds = newPermissions.Select(x => x.Id).ToList();
@@ -70,10 +70,10 @@ namespace Backend.Application.Services
 
             if (result)
             {
-                return new OkServiceResultStruct<bool>(true);
+                return new OkServiceResult<bool>(true);
             }
 
-            return new FailServiceResultStruct<bool>("Falha ao editar permissões");
+            return new FailServiceResult<bool>("Falha ao editar permissões");
         }
     }
 }
